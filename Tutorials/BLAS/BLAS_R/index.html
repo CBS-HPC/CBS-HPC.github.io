@@ -496,7 +496,9 @@ Press &lt;enter&gt; to keep the current choice[*], or type selection number:
 </code></pre>
 <h2 id="install-other-libraries">Install other libraries.<a class="headerlink" href="#install-other-libraries" title="Permanent link"></a></h2>
 <p>Changing the BLAS/LAPACK libraries is <strong>not</strong> possible for the "MKL" versions of the RStudio applications on UCloud. </p>
-<pre><code class="language-python"># install OpenBLAS
+<pre><code class="language-python"># Update
+sudo apt-get update
+# install OpenBLAS
 sudo apt-get install libopenblas-base
 # install ATLAS
 sudo apt-get install libatlas3-base liblapack3
