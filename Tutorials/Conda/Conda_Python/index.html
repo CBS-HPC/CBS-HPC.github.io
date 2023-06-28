@@ -419,76 +419,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="/HPC_Facilities/UCloud/" class="md-nav__link">
-        Type 1 – Interactive HPC (UCloud)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="/HPC_Facilities/DeiC/" class="md-nav__link">
-        National HPC Facilities (DeiC)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="/HPC_Facilities/WRDS/" class="md-nav__link">
-        WRDS - Wharton Research Data Services
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="/HPC_Facilities/NGC/" class="md-nav__link">
-        Nationalt Genom Center HPC (Danish Statistics Data)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="/HPC_Facilities/status/" class="md-nav__link">
-        HPC Operational Status
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -558,13 +488,13 @@
   
 
 
-<h1 id="ucloud-tutorial-using-conda-for-easy-management-of-python-environments">UCloud Tutorial: Using Conda for easy management of Python environments<a class="headerlink" href="#ucloud-tutorial-using-conda-for-easy-management-of-python-environments" title="Permanent link"></a></h1>
+<h1 id="ucloud-tutorial-using-conda-for-easy-management-of-python-environments">UCloud Tutorial: Using Conda for easy management of Python environments<a class="headerlink" href="#ucloud-tutorial-using-conda-for-easy-management-of-python-environments" title="Permanent link">&para;</a></h1>
 <p>Introduction text</p>
 <p>https://docs.cloud.sdu.dk/hands-on/conda-setup.html?highlight=conda</p>
 <p>The Conda package and environment management system is already included in few applications available on UCloud (see, e.g., JupyerLab and PyTorch). For more general uses of Conda and its powerful package manager it is convenient to create a local installation and save it in a UCloud project.
 Conda is included in all versions of Anaconda and Miniconda. For example, to install the latest version of Miniconda, just start any interactive app on UCloud, such as Terminal, and run the following shell commands:</p>
-<h1 id="installing-conda-on-ucloud">Installing Conda on UCloud<a class="headerlink" href="#installing-conda-on-ucloud" title="Permanent link"></a></h1>
-<h3 id="launch-a-terminal-app-ucloud-job">Launch a "Terminal App" UCloud Job<a class="headerlink" href="#launch-a-terminal-app-ucloud-job" title="Permanent link"></a></h3>
+<h1 id="installing-conda-on-ucloud">Installing Conda on UCloud<a class="headerlink" href="#installing-conda-on-ucloud" title="Permanent link">&para;</a></h1>
+<h3 id="launch-a-terminal-app-ucloud-job">Launch a "Terminal App" UCloud Job<a class="headerlink" href="#launch-a-terminal-app-ucloud-job" title="Permanent link">&para;</a></h3>
 <p>Run following commands in the terminal: </p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Download miniconda </span>
 <span class="n">curl</span><span class="w"> </span><span class="o">-</span><span class="n">s</span><span class="w"> </span><span class="o">-</span><span class="n">L</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">miniconda_installer.sh</span><span class="w"> </span><span class="n">https</span><span class="o">://</span><span class="n">repo.anaconda.com</span><span class="o">/</span><span class="n">miniconda</span><span class="o">/</span><span class="n">Miniconda3</span><span class="o">-</span><span class="n">latest</span><span class="o">-</span><span class="n">Linux</span><span class="o">-</span><span class="n">x86_64.sh</span>
@@ -572,9 +502,9 @@ Conda is included in all versions of Anaconda and Miniconda. For example, to ins
 <span class="c1"># Install miniconda</span>
 <span class="n">bash</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">miniconda_installer.sh</span><span class="w"> </span><span class="o">-</span><span class="n">b</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">miniconda3</span>
 </code></pre></div>
-<h3 id="when-the-job-is-finished-copy-the-miniconda3-folder-from-ucloud-job-folder-to-a-folder-you-want-within-your-ucloud-project">When the job is finished copy the “miniconda3” folder from UCloud “Job” folder to a folder you want within your UCloud project.<a class="headerlink" href="#when-the-job-is-finished-copy-the-miniconda3-folder-from-ucloud-job-folder-to-a-folder-you-want-within-your-ucloud-project" title="Permanent link"></a></h3>
+<h3 id="when-the-job-is-finished-copy-the-miniconda3-folder-from-ucloud-job-folder-to-a-folder-you-want-within-your-ucloud-project">When the job is finished copy the “miniconda3” folder from UCloud “Job” folder to a folder you want within your UCloud project.<a class="headerlink" href="#when-the-job-is-finished-copy-the-miniconda3-folder-from-ucloud-job-folder-to-a-folder-you-want-within-your-ucloud-project" title="Permanent link">&para;</a></h3>
 <p><img alt="" src="../folder1.PNG" title="folder1" /></p>
-<h2 id="activating-conda-in-a-new-ucloud-job">Activating Conda in a new UCloud Job<a class="headerlink" href="#activating-conda-in-a-new-ucloud-job" title="Permanent link"></a></h2>
+<h2 id="activating-conda-in-a-new-ucloud-job">Activating Conda in a new UCloud Job<a class="headerlink" href="#activating-conda-in-a-new-ucloud-job" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="c1">#Running a new UCloud run the following lines in the terminal to activate Conda:</span>
 <span class="n">sudo</span><span class="w"> </span><span class="n">ln</span><span class="w"> </span><span class="o">-</span><span class="n">s</span><span class="w"> </span><span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">conda</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">conda</span>
 
@@ -584,7 +514,7 @@ Conda is included in all versions of Anaconda and Miniconda. For example, to ins
 <div class="highlight"><pre><span></span><code><span class="c1">#Shows already installed environments:</span>
 <span class="n">conda</span><span class="w"> </span><span class="n">env</span><span class="w"> </span><span class="n">list</span>
 </code></pre></div>
-<h3 id="installing-and-activate-python-environments">Installing and activate Python environments<a class="headerlink" href="#installing-and-activate-python-environments" title="Permanent link"></a></h3>
+<h3 id="installing-and-activate-python-environments">Installing and activate Python environments<a class="headerlink" href="#installing-and-activate-python-environments" title="Permanent link">&para;</a></h3>
 <p>https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-python.html </p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Showing available python versions</span>
 <span class="n">conda</span><span class="w"> </span><span class="n">search</span><span class="w"> </span><span class="n">python</span>
@@ -607,7 +537,7 @@ Conda is included in all versions of Anaconda and Miniconda. For example, to ins
 <span class="c1">#Output should be: </span>
 <span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">myenv</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">python</span>
 </code></pre></div>
-<h3 id="install-libraries-and-run-python">Install libraries and run python:<a class="headerlink" href="#install-libraries-and-run-python" title="Permanent link"></a></h3>
+<h3 id="install-libraries-and-run-python">Install libraries and run python:<a class="headerlink" href="#install-libraries-and-run-python" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Install conda libraries:</span>
 <span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">scikit</span><span class="o">-</span><span class="n">learn</span>
 
@@ -618,8 +548,8 @@ Conda is included in all versions of Anaconda and Miniconda. For example, to ins
 <span class="c1"># Start Python:</span>
 <span class="n">python</span>
 </code></pre></div>
-<h1 id="vscode-on-ucloud">VScode on UCloud<a class="headerlink" href="#vscode-on-ucloud" title="Permanent link"></a></h1>
-<h3 id="add-the-miniconda3-folder-when-starting-the-new-coder-python-ucloud-job">Add the “miniconda3” folder when starting the new Coder python UCloud job.<a class="headerlink" href="#add-the-miniconda3-folder-when-starting-the-new-coder-python-ucloud-job" title="Permanent link"></a></h3>
+<h1 id="vscode-on-ucloud">VScode on UCloud<a class="headerlink" href="#vscode-on-ucloud" title="Permanent link">&para;</a></h1>
+<h3 id="add-the-miniconda3-folder-when-starting-the-new-coder-python-ucloud-job">Add the “miniconda3” folder when starting the new Coder python UCloud job.<a class="headerlink" href="#add-the-miniconda3-folder-when-starting-the-new-coder-python-ucloud-job" title="Permanent link">&para;</a></h3>
 <p>https://docs.cloud.sdu.dk/hands-on/conda-coder.html?highlight=coder</p>
 <p>In terminal add conda environment:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Running a new UCloud run the following lines in the terminal to activate Conda:</span>
@@ -640,13 +570,13 @@ Conda is included in all versions of Anaconda and Miniconda. For example, to ins
 <span class="c1"># Output should be: </span>
 <span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">myenv</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">python</span>
 </code></pre></div>
-<h3 id="now-you-can-launch-vscode-interface-and-open-file-and-activate-myenv-as-python-interpreter">Now you can launch VSCode interface and open file and activate “myenv” as python interpreter:<a class="headerlink" href="#now-you-can-launch-vscode-interface-and-open-file-and-activate-myenv-as-python-interpreter" title="Permanent link"></a></h3>
+<h3 id="now-you-can-launch-vscode-interface-and-open-file-and-activate-myenv-as-python-interpreter">Now you can launch VSCode interface and open file and activate “myenv” as python interpreter:<a class="headerlink" href="#now-you-can-launch-vscode-interface-and-open-file-and-activate-myenv-as-python-interpreter" title="Permanent link">&para;</a></h3>
 <p>Select the menu View -&gt; Command Palette:</p>
 <p><img alt="" src="../vscode1.png" title="vscod1" /></p>
 <p>Execute the command &gt; Python: Select Intepreter:</p>
 <p><img alt="" src="../vscode2.png" title="vscode2" /></p>
-<h1 id="jupyterlab-on-ucloud">JupyterLab on UCloud<a class="headerlink" href="#jupyterlab-on-ucloud" title="Permanent link"></a></h1>
-<h3 id="add-the-miniconda3-folder-when-starting-the-new-jupyterlab-ucloud-job">Add the “miniconda3” folder when starting the new JupyterLab UCloud job.<a class="headerlink" href="#add-the-miniconda3-folder-when-starting-the-new-jupyterlab-ucloud-job" title="Permanent link"></a></h3>
+<h1 id="jupyterlab-on-ucloud">JupyterLab on UCloud<a class="headerlink" href="#jupyterlab-on-ucloud" title="Permanent link">&para;</a></h1>
+<h3 id="add-the-miniconda3-folder-when-starting-the-new-jupyterlab-ucloud-job">Add the “miniconda3” folder when starting the new JupyterLab UCloud job.<a class="headerlink" href="#add-the-miniconda3-folder-when-starting-the-new-jupyterlab-ucloud-job" title="Permanent link">&para;</a></h3>
 <p>In terminal add conda environment:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Init conda:</span>
 <span class="n">conda</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">bash</span><span class="w"> </span><span class="o">-</span><span class="n">i</span>
@@ -676,10 +606,10 @@ Conda is included in all versions of Anaconda and Miniconda. For example, to ins
 <span class="c1"># De-activate environment:</span>
 <span class="n">conda</span><span class="w"> </span><span class="n">deactivate</span>
 </code></pre></div>
-<h3 id="now-you-can-launch-jupyterlab-interface-and-the-myenv-environment-should-be-available-on-the-frontpage">Now you can launch JupyterLab interface and the “myenv” environment should be available on the frontpage.<a class="headerlink" href="#now-you-can-launch-jupyterlab-interface-and-the-myenv-environment-should-be-available-on-the-frontpage" title="Permanent link"></a></h3>
+<h3 id="now-you-can-launch-jupyterlab-interface-and-the-myenv-environment-should-be-available-on-the-frontpage">Now you can launch JupyterLab interface and the “myenv” environment should be available on the frontpage.<a class="headerlink" href="#now-you-can-launch-jupyterlab-interface-and-the-myenv-environment-should-be-available-on-the-frontpage" title="Permanent link">&para;</a></h3>
 <p><img alt="" src="../jupyterP.PNG" title="jupyterP" /></p>
-<h1 id="terminal-app-on-ucloud">Terminal app on UCloud<a class="headerlink" href="#terminal-app-on-ucloud" title="Permanent link"></a></h1>
-<h3 id="add-the-miniconda3-folder-when-starting-the-new-terminal-app-ucloud-job">Add the “miniconda3” folder when starting the new Terminal App UCloud job.<a class="headerlink" href="#add-the-miniconda3-folder-when-starting-the-new-terminal-app-ucloud-job" title="Permanent link"></a></h3>
+<h1 id="terminal-app-on-ucloud">Terminal app on UCloud<a class="headerlink" href="#terminal-app-on-ucloud" title="Permanent link">&para;</a></h1>
+<h3 id="add-the-miniconda3-folder-when-starting-the-new-terminal-app-ucloud-job">Add the “miniconda3” folder when starting the new Terminal App UCloud job.<a class="headerlink" href="#add-the-miniconda3-folder-when-starting-the-new-terminal-app-ucloud-job" title="Permanent link">&para;</a></h3>
 <p>In terminal add conda environment:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Running a new UCloud run the following lines in the terminal to activate Conda:</span>
 <span class="n">sudo</span><span class="w"> </span><span class="n">ln</span><span class="w"> </span><span class="o">-</span><span class="n">s</span><span class="w"> </span><span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">conda</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">conda</span>
@@ -699,7 +629,7 @@ Conda is included in all versions of Anaconda and Miniconda. For example, to ins
 <span class="c1"># Output should be: </span>
 <span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">myenv</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">python</span>
 </code></pre></div>
-<h3 id="install-libraries-and-run-python_1">Install libraries and run python:<a class="headerlink" href="#install-libraries-and-run-python_1" title="Permanent link"></a></h3>
+<h3 id="install-libraries-and-run-python_1">Install libraries and run python:<a class="headerlink" href="#install-libraries-and-run-python_1" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Install conda libraries:</span>
 <span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">scikit</span><span class="o">-</span><span class="n">learn</span>
 

@@ -419,76 +419,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="/HPC_Facilities/UCloud/" class="md-nav__link">
-        Type 1 – Interactive HPC (UCloud)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="/HPC_Facilities/DeiC/" class="md-nav__link">
-        National HPC Facilities (DeiC)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="/HPC_Facilities/WRDS/" class="md-nav__link">
-        WRDS - Wharton Research Data Services
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="/HPC_Facilities/NGC/" class="md-nav__link">
-        Nationalt Genom Center HPC (Danish Statistics Data)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="/HPC_Facilities/status/" class="md-nav__link">
-        HPC Operational Status
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -558,16 +488,16 @@
   
 
 
-<h1 id="ucloud-tutorial-transfer-large-data-to-ucloud-using-rsync">UCloud Tutorial: Transfer large data to UCloud using Rsync<a class="headerlink" href="#ucloud-tutorial-transfer-large-data-to-ucloud-using-rsync" title="Permanent link"></a></h1>
+<h1 id="ucloud-tutorial-transfer-large-data-to-ucloud-using-rsync">UCloud Tutorial: Transfer large data to UCloud using Rsync<a class="headerlink" href="#ucloud-tutorial-transfer-large-data-to-ucloud-using-rsync" title="Permanent link">&para;</a></h1>
 <p>Rsync, short for "remote synchronization," is a powerful and widely used file synchronization and transfer utility. It enables efficient copying and updating of files between different locations, whether they are on the same system or across a network. Rsync is particularly valuable for managing large data sets or performing incremental backups.</p>
 <p>What sets Rsync apart is its ability to synchronize files by transferring only the differences between the source and destination files. This delta transfer mechanism greatly reduces the amount of data that needs to be transmitted, making Rsync highly efficient, even for large files or slow network connections.</p>
 <p>Rsync also offers several advanced features, such as compression, encryption, and the ability to preserve various file attributes, such as permissions, timestamps, and symbolic links. It supports both local file copying and remote transfers via SSH, allowing secure synchronization between different systems.</p>
 <p>With its flexibility, speed, and efficient use of network resources, Rsync has become a go-to tool for tasks like backup and mirroring, remote file distribution, and content deployment. It has a command-line interface, making it scriptable and suitable for both one-time transfers and automated, scheduled tasks.</p>
 <p><a href="https://docs.cloud.sdu.dk/Apps/rsync.html">UCloud documentation on Rsync</a></p>
-<h1 id="installing-ubuntu-on-local-machine-for-windows">Installing Ubuntu on local machine (For Windows)<a class="headerlink" href="#installing-ubuntu-on-local-machine-for-windows" title="Permanent link"></a></h1>
+<h1 id="installing-ubuntu-on-local-machine-for-windows">Installing Ubuntu on local machine (For Windows)<a class="headerlink" href="#installing-ubuntu-on-local-machine-for-windows" title="Permanent link">&para;</a></h1>
 <p>Rsync is not natively available for Windows. However, you can install Rsync on Windows using a third-party implementation such as Cygwin or DeltaCopy. Alternatively, you can install Ubuntu on Windows which then comes whic includes Rsync.</p>
 <p>In this guide we will use Rsync through Ubuntu. For more infomation and video tutorials can be found <a href="https://www.google.com/search?client=firefox-b-d&amp;q=install+rsync+on+windows#fpstate=ive&amp;vld=cid:da30000b,vid:qJN9mb8fjDM">here</a>.</p>
-<h2 id="create-a-ssh-key-within-your-ubuntu-environment">Create a SSH-key within your Ubuntu environment<a class="headerlink" href="#create-a-ssh-key-within-your-ubuntu-environment" title="Permanent link"></a></h2>
+<h2 id="create-a-ssh-key-within-your-ubuntu-environment">Create a SSH-key within your Ubuntu environment<a class="headerlink" href="#create-a-ssh-key-within-your-ubuntu-environment" title="Permanent link">&para;</a></h2>
 <p>Despite already having a shh-key (in your windows environment) the easiest will be to create a new SSH-key within your Ubuntu environment. Open a terminal and follow the few steps below.</p>
 <p>More information on how to generate a SSH key can be found <a href="/Tutorials/VMs/shh/">here</a></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Activate Ubuntu </span>
@@ -601,26 +531,26 @@
 <span class="o">|</span><span class="w">         </span><span class="n">..</span><span class="w"> </span><span class="n">o</span><span class="w">    </span><span class="o">|</span>
 <span class="o">+----</span><span class="p">[</span><span class="n">SHA256</span><span class="p">]</span><span class="o">-----+</span>
 </code></pre></div>
-<h2 id="copy-public-ssh-key">Copy public SSH-key<a class="headerlink" href="#copy-public-ssh-key" title="Permanent link"></a></h2>
+<h2 id="copy-public-ssh-key">Copy public SSH-key<a class="headerlink" href="#copy-public-ssh-key" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># Open Public Key</span>
 <span class="n">vim</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">user</span><span class="o">/</span><span class="n">.ssh</span><span class="o">/</span><span class="n">id_rsa.pub</span>
 
 <span class="c1"># highlight public key with mouse and copy using &quot;ctrl+c&quot;</span>
 </code></pre></div>
 <p><img alt="" src="../Image1.PNG" /></p>
-<h2 id="add-public-ssh-key-to-ucloud">Add public SSH key to UCloud<a class="headerlink" href="#add-public-ssh-key-to-ucloud" title="Permanent link"></a></h2>
-<h3 id="step-1-on-ucloud-go-to-resources-shh-keys-create-ssh-key">Step 1: On UCloud go to "Resources -&gt; SHH-Keys -&gt; Create SSH key"<a class="headerlink" href="#step-1-on-ucloud-go-to-resources-shh-keys-create-ssh-key" title="Permanent link"></a></h3>
+<h2 id="add-public-ssh-key-to-ucloud">Add public SSH key to UCloud<a class="headerlink" href="#add-public-ssh-key-to-ucloud" title="Permanent link">&para;</a></h2>
+<h3 id="step-1-on-ucloud-go-to-resources-shh-keys-create-ssh-key">Step 1: On UCloud go to "Resources -&gt; SHH-Keys -&gt; Create SSH key"<a class="headerlink" href="#step-1-on-ucloud-go-to-resources-shh-keys-create-ssh-key" title="Permanent link">&para;</a></h3>
 <p><img alt="" src="../Image2.PNG" /></p>
-<h3 id="step-2-paste-pulic-key-give-a-meaningful-name-and-press-add-ssh-key">Step 2: Paste pulic key, give a meaningful name and press "Add SSH key".<a class="headerlink" href="#step-2-paste-pulic-key-give-a-meaningful-name-and-press-add-ssh-key" title="Permanent link"></a></h3>
+<h3 id="step-2-paste-pulic-key-give-a-meaningful-name-and-press-add-ssh-key">Step 2: Paste pulic key, give a meaningful name and press "Add SSH key".<a class="headerlink" href="#step-2-paste-pulic-key-give-a-meaningful-name-and-press-add-ssh-key" title="Permanent link">&para;</a></h3>
 <p><img alt="" src="../Image3.PNG" /></p>
 <p><img alt="" src="../Image4.PNG" /></p>
 <p>More information can be found in the UCloud <a href="https://docs.cloud.sdu.dk/Apps/general_settings.html#configure-ssh-access">documentation</a>.</p>
-<h2 id="start-rsync-job">Start Rsync Job<a class="headerlink" href="#start-rsync-job" title="Permanent link"></a></h2>
-<h3 id="step-1-start-rsync-job-by-filling-out-the-necessary-fields">Step 1: Start Rsync Job by filling out the necessary fields<a class="headerlink" href="#step-1-start-rsync-job-by-filling-out-the-necessary-fields" title="Permanent link"></a></h3>
+<h2 id="start-rsync-job">Start Rsync Job<a class="headerlink" href="#start-rsync-job" title="Permanent link">&para;</a></h2>
+<h3 id="step-1-start-rsync-job-by-filling-out-the-necessary-fields">Step 1: Start Rsync Job by filling out the necessary fields<a class="headerlink" href="#step-1-start-rsync-job-by-filling-out-the-necessary-fields" title="Permanent link">&para;</a></h3>
 <p><img alt="" src="../Image5.PNG" /></p>
-<h3 id="step-2-when-job-ready-please-locate-the-ssh-port-which-is-randomly-generated-in-the-cas-below-the-shh-port-is-2167">Step 2: When job ready please locate the SSH port which is randomly generated. In the cas below the SHH port is 2167.<a class="headerlink" href="#step-2-when-job-ready-please-locate-the-ssh-port-which-is-randomly-generated-in-the-cas-below-the-shh-port-is-2167" title="Permanent link"></a></h3>
+<h3 id="step-2-when-job-ready-please-locate-the-ssh-port-which-is-randomly-generated-in-the-cas-below-the-shh-port-is-2167">Step 2: When job ready please locate the SSH port which is randomly generated. In the cas below the SHH port is 2167.<a class="headerlink" href="#step-2-when-job-ready-please-locate-the-ssh-port-which-is-randomly-generated-in-the-cas-below-the-shh-port-is-2167" title="Permanent link">&para;</a></h3>
 <p><img alt="" src="../Image6.PNG" /></p>
-<h2 id="connect-from-local-machine-using-ssh">Connect from local machine using SSH.<a class="headerlink" href="#connect-from-local-machine-using-ssh" title="Permanent link"></a></h2>
+<h2 id="connect-from-local-machine-using-ssh">Connect from local machine using SSH.<a class="headerlink" href="#connect-from-local-machine-using-ssh" title="Permanent link">&para;</a></h2>
 <p>Open Terminal and follow steps below.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Activate Ubuntu (for Windows)</span>
 <span class="n">wsl</span>
@@ -630,7 +560,7 @@
 </code></pre></div>
 <p>If sucessfull you should get the output shown in the figure below.</p>
 <p><img alt="" src="../Image7.PNG" /></p>
-<h2 id="transfer-data-using-rsync">Transfer data using Rsync<a class="headerlink" href="#transfer-data-using-rsync" title="Permanent link"></a></h2>
+<h2 id="transfer-data-using-rsync">Transfer data using Rsync<a class="headerlink" href="#transfer-data-using-rsync" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># Navigate to path contain the folder of files to transfer - Alternatively you can open terminal directly in the right directory to skip step below.</span>
 <span class="n">cd</span><span class="w"> </span><span class="s">&quot;path/of/folders-or-files&quot;</span><span class="w"> </span>
 

@@ -419,76 +419,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="/HPC_Facilities/UCloud/" class="md-nav__link">
-        Type 1 – Interactive HPC (UCloud)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="/HPC_Facilities/DeiC/" class="md-nav__link">
-        National HPC Facilities (DeiC)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="/HPC_Facilities/WRDS/" class="md-nav__link">
-        WRDS - Wharton Research Data Services
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="/HPC_Facilities/NGC/" class="md-nav__link">
-        Nationalt Genom Center HPC (Danish Statistics Data)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="/HPC_Facilities/status/" class="md-nav__link">
-        HPC Operational Status
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -558,12 +488,12 @@
   
 
 
-<h1 id="ucloud-tutorial-run-multi-node-slurm-cluster-on-ucloud">UCloud Tutorial: Run Multi-node SLURM Cluster on UCloud<a class="headerlink" href="#ucloud-tutorial-run-multi-node-slurm-cluster-on-ucloud" title="Permanent link"></a></h1>
+<h1 id="ucloud-tutorial-run-multi-node-slurm-cluster-on-ucloud">UCloud Tutorial: Run Multi-node SLURM Cluster on UCloud<a class="headerlink" href="#ucloud-tutorial-run-multi-node-slurm-cluster-on-ucloud" title="Permanent link">&para;</a></h1>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:5"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Tutorial</label><label for="__tabbed_1_2">Launch File (slurm-launch.py)</label><label for="__tabbed_1_3">Ray (Python)</label><label for="__tabbed_1_4">Dask (Python)</label><label for="__tabbed_1_5">doParallel (R)</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><br /></p>
-<h2 id="launch-a-terminal-app-ucloud-job">Launch a "Terminal App" UCloud Job<a class="headerlink" href="#launch-a-terminal-app-ucloud-job" title="Permanent link"></a></h2>
+<h2 id="launch-a-terminal-app-ucloud-job">Launch a "Terminal App" UCloud Job<a class="headerlink" href="#launch-a-terminal-app-ucloud-job" title="Permanent link">&para;</a></h2>
 <p>In addition to the normal setting fill out the following options (See figure below).</p>
 <p>In this example launched as cluster consisting of 3 nodes with three folder added to the launch:</p>
 <ul>
@@ -573,7 +503,7 @@
 </ul>
 <p>In this example Conda is used for package and evironment management. Check here for more information on <a href="">Conda on UCloud</a>.</p>
 <p><img alt="" src="../images/SLURM1.PNG" /></p>
-<h3 id="when-the-job-has-started-open-terminal-for-node-1">When the job has started open Terminal for Node 1<a class="headerlink" href="#when-the-job-has-started-open-terminal-for-node-1" title="Permanent link"></a></h3>
+<h3 id="when-the-job-has-started-open-terminal-for-node-1">When the job has started open Terminal for Node 1<a class="headerlink" href="#when-the-job-has-started-open-terminal-for-node-1" title="Permanent link">&para;</a></h3>
 <p><img alt="" src="../images/SLURM2.PNG" /></p>
 <p>Run following commands in the terminal: </p>
 <div class="highlight"><pre><span></span><code><span class="c1"># activate SLURM Cluster if not activated in the step above</span>
@@ -589,7 +519,7 @@
 <span class="n">node2</span><span class="w">         </span><span class="m">1</span><span class="w">     </span><span class="n">CLOUD</span><span class="o">*</span><span class="w">     </span><span class="n">idle</span><span class="w">   </span><span class="m">64</span><span class="w">   </span><span class="m">1</span><span class="o">:</span><span class="m">64</span><span class="o">:</span><span class="m">1</span><span class="w"> </span><span class="m">385024</span>
 </code></pre></div>
 <p>But called Node 1, Node 2 and Node 3 in the UCloud interface.</p>
-<h2 id="acitvate-conda-environment">Acitvate Conda Environment<a class="headerlink" href="#acitvate-conda-environment" title="Permanent link"></a></h2>
+<h2 id="acitvate-conda-environment">Acitvate Conda Environment<a class="headerlink" href="#acitvate-conda-environment" title="Permanent link">&para;</a></h2>
 <p>In terminal add conda environment:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Running a new UCloud run the following lines in the terminal to activate Conda:</span>
 <span class="n">sudo</span><span class="w"> </span><span class="n">ln</span><span class="w"> </span><span class="o">-</span><span class="n">s</span><span class="w"> </span><span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">conda</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">conda</span>
@@ -609,9 +539,9 @@
 <span class="c1"># Output should be: </span>
 <span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">myenv</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">X</span><span class="w"> </span><span class="c1"># (e.g. X = python,R..)</span>
 </code></pre></div>
-<h2 id="slurm-deployment-scripts">SLURM deployment scripts<a class="headerlink" href="#slurm-deployment-scripts" title="Permanent link"></a></h2>
+<h2 id="slurm-deployment-scripts">SLURM deployment scripts<a class="headerlink" href="#slurm-deployment-scripts" title="Permanent link">&para;</a></h2>
 <p>The SLURM deployment script ("slurm-launch.py") have been adopted from  <a href="https://docs.ray.io/en/latest/cluster/vms/user-guides/community/slurm.html#python-interface-slurm-scripts">Ray documentation</a> to support the addition of other python libraries (Dask, ipyparallel) and other languages (e.g. R).</p>
-<h3 id="slurm-launchpy">slurm-launch.py<a class="headerlink" href="#slurm-launchpy" title="Permanent link"></a></h3>
+<h3 id="slurm-launchpy">slurm-launch.py<a class="headerlink" href="#slurm-launchpy" title="Permanent link">&para;</a></h3>
 <p>"slurm-launch.py" auto-generates SLURM scripts and launch. slurm-launch.py uses an underlying template (e.g. "slurm-template_ray.sh" or "slurm-template_dask.sh") and fills out placeholders given user input.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Change path:</span>
 <span class="n">cd</span><span class="w"> </span><span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">SLURM_deployment</span>
@@ -631,7 +561,7 @@
 <span class="n">Job</span><span class="w"> </span><span class="n">submitted</span><span class="o">!</span><span class="w"> </span><span class="n">Script</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">at</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SlurmTest_0425</span><span class="m">-1208</span><span class="n">.sh</span><span class="o">&gt;</span><span class="n">.</span><span class="w"> </span><span class="n">Log</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">at</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SlurmTest_0425</span><span class="m">-1208</span><span class="n">.log</span><span class="o">&gt;</span>
 <span class="n">Submitted</span><span class="w"> </span><span class="n">batch</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="m">2</span>
 </code></pre></div>
-<h3 id="addditionel-options">Addditionel options<a class="headerlink" href="#addditionel-options" title="Permanent link"></a></h3>
+<h3 id="addditionel-options">Addditionel options<a class="headerlink" href="#addditionel-options" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="o">--</span><span class="n">exp</span><span class="o">-</span><span class="n">name</span><span class="w">          </span><span class="c1"># The experiment name. Will generate {exp-name}_{date}-{time}.sh and {exp-name}_{date}-{time}.log.</span>
 <span class="o">--</span><span class="n">command</span><span class="w">           </span><span class="c1"># The command you wish to run. For example: rllib train XXX or python XXX.py.</span>
 <span class="o">--</span><span class="nf">node </span><span class="p">(</span><span class="o">-</span><span class="n">w</span><span class="p">)</span><span class="w">         </span><span class="c1"># The specific nodes you wish to use, in the same form as the output of sinfo. Nodes are automatically assigned if not specified.</span>
@@ -641,11 +571,11 @@
 <span class="o">--</span><span class="n">nprocs</span><span class="o">:</span><span class="w"> </span>
 <span class="o">--</span><span class="n">nthreads</span><span class="o">:</span>
 </code></pre></div>
-<h3 id="open-extra-terminal-for-the-three-nodes">Open extra terminal for the three nodes<a class="headerlink" href="#open-extra-terminal-for-the-three-nodes" title="Permanent link"></a></h3>
+<h3 id="open-extra-terminal-for-the-three-nodes">Open extra terminal for the three nodes<a class="headerlink" href="#open-extra-terminal-for-the-three-nodes" title="Permanent link">&para;</a></h3>
 <p><img alt="" src="../images/SLURM3.PNG" /></p>
-<h3 id="run-top-command-is-used-to-show-the-linux-processes">Run "top" command is used to show the Linux processes.<a class="headerlink" href="#run-top-command-is-used-to-show-the-linux-processes" title="Permanent link"></a></h3>
+<h3 id="run-top-command-is-used-to-show-the-linux-processes">Run "top" command is used to show the Linux processes.<a class="headerlink" href="#run-top-command-is-used-to-show-the-linux-processes" title="Permanent link">&para;</a></h3>
 <p><img alt="" src="../images/SLURM4.PNG" /></p>
-<h3 id="observed-that-the-work-is-distibuted-across-all-three-nodes">Observed that the work is distibuted across all three nodes.<a class="headerlink" href="#observed-that-the-work-is-distibuted-across-all-three-nodes" title="Permanent link"></a></h3>
+<h3 id="observed-that-the-work-is-distibuted-across-all-three-nodes">Observed that the work is distibuted across all three nodes.<a class="headerlink" href="#observed-that-the-work-is-distibuted-across-all-three-nodes" title="Permanent link">&para;</a></h3>
 <p>This may look different for different frameworks (e.g. Ray, Dask, R). It should be noted that in this example on 8 core nodes were used. Full nodes (64 cores) will generate alot more processes.</p>
 <p><img alt="" src="../images/SLURM5.PNG" /></p>
 </div>
