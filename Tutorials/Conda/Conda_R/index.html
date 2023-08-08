@@ -204,7 +204,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../../../home/" class="md-tabs__link">
+    <a href="../../.." class="md-tabs__link">
       Home
     </a>
   </li>
@@ -333,7 +333,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../home/" class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         Home
       </a>
     </li>
@@ -492,22 +492,10 @@ Conda is included in all versions of Anaconda and Miniconda. For example, to ins
 <div class="highlight"><pre><span></span><code><span class="c1">#Shows already installed environments:</span>
 <span class="n">conda</span><span class="w"> </span><span class="n">env</span><span class="w"> </span><span class="n">list</span>
 </code></pre></div>
-<h2 id="installing-r-environment-using-conda">Installing R environment using Conda<a class="headerlink" href="#installing-r-environment-using-conda" title="Permanent link">&para;</a></h2>
-<h3 id="installing-mamba-add-in">Installing Mamba add-in<a class="headerlink" href="#installing-mamba-add-in" title="Permanent link">&para;</a></h3>
-<p>Managing R environment using Conda is facilitated by a add-in library “mamba” (https://astrobiomike.github.io/unix/conda-intro#bonus-mamba-no-5).</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Installing mamba add-in:</span>
-<span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">base</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">mamba</span>
-</code></pre></div>
-<h3 id="installing-and-activate-r-environment-with-mamba">Installing and activate R environment with mamba<a class="headerlink" href="#installing-and-activate-r-environment-with-mamba" title="Permanent link">&para;</a></h3>
-<p>https://astrobiomike.github.io/R/managing-r-and-rstudio-with-conda</p>
-<div class="highlight"><pre><span></span><code><span class="c1">#Showing available R versions</span>
-<span class="n">mamba</span><span class="w"> </span><span class="n">search</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">base</span>
-
-<span class="c1">#Installing a R environment (R-4.2.3 in this example) </span>
-<span class="n">mamba</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">myenv</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">base</span><span class="o">=</span><span class="m">4.2</span><span class="n">.</span><span class="m">3</span>
-
-<span class="c1">#Or install packages during installation.</span>
-<span class="n">mamba</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">myenv</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">base</span><span class="o">=</span><span class="m">4.2</span><span class="n">.</span><span class="m">3</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">tidyverse</span>
+<h2 id="installing-and-activate-r-environments">Installing and activate R environments<a class="headerlink" href="#installing-and-activate-r-environments" title="Permanent link">&para;</a></h2>
+<p>https://docs.anaconda.com/free/anaconda/packages/using-r-language/</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Installing a R environment</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w">  </span><span class="n">myenv</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">essentials</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">base</span>
 
 <span class="c1">#Shows already installed environments (&quot;myenv&quot; should be displayed)</span>
 <span class="n">conda</span><span class="w"> </span><span class="n">env</span><span class="w"> </span><span class="n">list</span>
@@ -520,6 +508,18 @@ Conda is included in all versions of Anaconda and Miniconda. For example, to ins
 
 <span class="c1">#Output should be: </span>
 <span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">myenv</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">R</span>
+</code></pre></div>
+<h3 id="install-packages-through-conda">install packages through Conda<a class="headerlink" href="#install-packages-through-conda" title="Permanent link">&para;</a></h3>
+<p>When using conda to install R packages, you will need to add r- before the regular package name:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># For instance, if you want to install rbokeh:</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">rbokeh</span>
+
+<span class="c1"># or for rJava:</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">rjava</span>
+
+<span class="c1"># Update packages:</span>
+
+<span class="n">conda</span><span class="w"> </span><span class="n">update</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">caret</span>
 </code></pre></div>
 <h3 id="start-r-and-run-code-or-install-packages">Start R and run code or install packages:<a class="headerlink" href="#start-r-and-run-code-or-install-packages" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Install packages:</span>

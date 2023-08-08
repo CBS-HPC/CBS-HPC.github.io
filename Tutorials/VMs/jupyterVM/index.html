@@ -15,7 +15,7 @@
     
     
       
-        <title>SSH to Server through local Terminal - HPC & Data Science Support</title>
+        <title>UCloud Tutorial: Setting up an interactive jupyter notebook session on AAU VMs - HPC & Data Science Support</title>
       
     
     
@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ssh-to-server-through-local-terminal" class="md-skip">
+        <a href="#ucloud-tutorial-setting-up-an-interactive-jupyter-notebook-session-on-aau-vms" class="md-skip">
           Skip to content
         </a>
       
@@ -101,7 +101,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              SSH to Server through local Terminal
+              UCloud Tutorial: Setting up an interactive jupyter notebook session on AAU VMs
             
           </span>
         </div>
@@ -457,8 +457,43 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#from-local-terminal-connect-to-vm-by" class="md-nav__link">
-    From Local Terminal connect to VM by:
+  <a href="#connect-to-vm-using-ssh" class="md-nav__link">
+    Connect to VM using SSH
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-jupyter-if-needed" class="md-nav__link">
+    Install jupyter if needed:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#make-sure-jupyter-is-installed" class="md-nav__link">
+    Make sure jupyter is installed
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start-jupyter-notebook-from-remote-server" class="md-nav__link">
+    Start Jupyter Notebook from remote server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssh-connect-to-vm-using-a-new-terminal-app-on-local-machine" class="md-nav__link">
+    SSH connect to VM using a new terminal app on local machine
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#now-press-the-links-in-the-output-above-and-it-should-open-a-jupyter-notebook" class="md-nav__link">
+    Now press the links in the output above and it should open a jupyter notebook
   </a>
   
 </li>
@@ -481,23 +516,48 @@
   
 
 
-<h1 id="ssh-to-server-through-local-terminal">SSH to Server through local Terminal<a class="headerlink" href="#ssh-to-server-through-local-terminal" title="Permanent link">&para;</a></h1>
-<p>Add public SSH key while starting a VM job</p>
-<p><img alt="" src="../startjob.png" title="startjob" /></p>
-<p>Identify VM IP when UCloud job is ready.</p>
-<p><img alt="" src="../jobready.png" title="jobready" /></p>
-<h2 id="from-local-terminal-connect-to-vm-by">From Local Terminal connect to VM by:<a class="headerlink" href="#from-local-terminal-connect-to-vm-by" title="Permanent link">&para;</a></h2>
+<h1 id="ucloud-tutorial-setting-up-an-interactive-jupyter-notebook-session-on-aau-vms">UCloud Tutorial: Setting up an interactive jupyter notebook session on AAU VMs<a class="headerlink" href="#ucloud-tutorial-setting-up-an-interactive-jupyter-notebook-session-on-aau-vms" title="Permanent link">&para;</a></h1>
+<h3 id="connect-to-vm-using-ssh">Connect to VM using SSH<a class="headerlink" href="#connect-to-vm-using-ssh" title="Permanent link">&para;</a></h3>
+<p>Open a terminal app on local machine and SSH onto the VM:</p>
 <div class="highlight"><pre><span></span><code><span class="n">ssh</span><span class="w"> </span><span class="n">ucloud</span><span class="o">@</span><span class="n">IP_address_from_the_red_mark</span>
 </code></pre></div>
-<h1 id="transfer-files-and-folders-ssh-copy">Transfer Files and Folders (SSH-Copy)<a class="headerlink" href="#transfer-files-and-folders-ssh-copy" title="Permanent link">&para;</a></h1>
-<h2 id="to-vm">To VM<a class="headerlink" href="#to-vm" title="Permanent link">&para;</a></h2>
-<p>Open a second terminal (1st terminal is connected to the VM):</p>
-<div class="highlight"><pre><span></span><code><span class="n">scp</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;C:\path-to-folder-or-files&quot;</span><span class="w"> </span><span class="n">ucloud</span><span class="o">@</span><span class="n">IP_address_from_the_red_mark</span><span class="o">:</span>
+<h3 id="install-jupyter-if-needed">Install jupyter if needed:<a class="headerlink" href="#install-jupyter-if-needed" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Using pip</span>
+<span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">jupyterlab</span>
+
+<span class="c1"># Using conda if conda environment are utilised </span>
+<span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">jupyter</span>
 </code></pre></div>
-<h2 id="from-vm">From VM<a class="headerlink" href="#from-vm" title="Permanent link">&para;</a></h2>
-<p>Open a second terminal (1st terminal is connected to the VM)</p>
-<div class="highlight"><pre><span></span><code><span class="n">scp</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="n">ucloud</span><span class="o">@</span><span class="n">IP_address_from_the_red_mark</span><span class="o">:/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">folder</span><span class="w"> </span><span class="s">&quot;C:\path-to-folder&quot;</span>
+<h3 id="make-sure-jupyter-is-installed">Make sure jupyter is installed<a class="headerlink" href="#make-sure-jupyter-is-installed" title="Permanent link">&para;</a></h3>
+<p>In this case jupyter is installed and activated through a conda environment. Please see </p>
+<div class="highlight"><pre><span></span><code><span class="n">which</span><span class="w"> </span><span class="n">jupyter</span>
+
+<span class="c1"># Example Output:</span>
+<span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">my_env</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jupyter</span>
 </code></pre></div>
+<h3 id="start-jupyter-notebook-from-remote-server">Start Jupyter Notebook from remote server<a class="headerlink" href="#start-jupyter-notebook-from-remote-server" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">jupyter</span><span class="w"> </span><span class="n">notebook</span><span class="w"> </span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">browser</span><span class="w"> </span><span class="o">--</span><span class="n">port</span><span class="o">=</span><span class="m">8080</span>
+
+<span class="c1"># Output</span>
+
+<span class="p">[</span><span class="n">I</span><span class="w"> </span><span class="m">10</span><span class="o">:</span><span class="m">26</span><span class="o">:</span><span class="m">32.873</span><span class="w"> </span><span class="n">NotebookApp</span><span class="p">]</span><span class="w"> </span><span class="n">Serving</span><span class="w"> </span><span class="n">notebooks</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">local</span><span class="w"> </span><span class="n">directory</span><span class="o">:</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span>
+<span class="p">[</span><span class="n">I</span><span class="w"> </span><span class="m">10</span><span class="o">:</span><span class="m">26</span><span class="o">:</span><span class="m">32.873</span><span class="w"> </span><span class="n">NotebookApp</span><span class="p">]</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">Jupyter</span><span class="w"> </span><span class="n">Notebook</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">running</span><span class="w"> </span><span class="n">at</span><span class="o">:</span>
+<span class="p">[</span><span class="n">I</span><span class="w"> </span><span class="m">10</span><span class="o">:</span><span class="m">26</span><span class="o">:</span><span class="m">32.873</span><span class="w"> </span><span class="n">NotebookApp</span><span class="p">]</span><span class="w"> </span><span class="n">http</span><span class="o">://</span><span class="n">localhost</span><span class="o">:</span><span class="m">8080</span><span class="o">/?</span><span class="n">token</span><span class="o">=</span><span class="n">b754cbea9f5a6640e647f21c7d2e7112a6954eb26f032d73</span>
+<span class="p">[</span><span class="n">I</span><span class="w"> </span><span class="m">10</span><span class="o">:</span><span class="m">26</span><span class="o">:</span><span class="m">32.873</span><span class="w"> </span><span class="n">NotebookApp</span><span class="p">]</span><span class="w">  </span><span class="n">or</span><span class="w"> </span><span class="n">http</span><span class="o">://</span><span class="m">127.0</span><span class="n">.</span><span class="m">0.1</span><span class="o">:</span><span class="m">8080</span><span class="o">/?</span><span class="n">token</span><span class="o">=</span><span class="n">b754cbea9f5a6640e647f21c7d2e7112a6954eb26f032d73</span>
+<span class="p">[</span><span class="n">I</span><span class="w"> </span><span class="m">10</span><span class="o">:</span><span class="m">26</span><span class="o">:</span><span class="m">32.873</span><span class="w"> </span><span class="n">NotebookApp</span><span class="p">]</span><span class="w"> </span><span class="n">Use</span><span class="w"> </span><span class="n">Control</span><span class="o">-</span><span class="n">C</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">stop</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">shut</span><span class="w"> </span><span class="n">down</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="nf">kernels </span><span class="p">(</span><span class="n">twice</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">skip</span><span class="w"> </span><span class="n">confirmation</span><span class="p">)</span><span class="n">.</span>
+<span class="p">[</span><span class="n">C</span><span class="w"> </span><span class="m">10</span><span class="o">:</span><span class="m">26</span><span class="o">:</span><span class="m">32.899</span><span class="w"> </span><span class="n">NotebookApp</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">To</span><span class="w"> </span><span class="n">access</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">notebook</span><span class="p">,</span><span class="w"> </span><span class="n">open</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">browser</span><span class="o">:</span>
+<span class="w">        </span><span class="n">file</span><span class="o">:///</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">.local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">runtime</span><span class="o">/</span><span class="n">nbserver</span><span class="m">-3074</span><span class="o">-</span><span class="n">open.html</span>
+<span class="w">    </span><span class="n">Or</span><span class="w"> </span><span class="n">copy</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">paste</span><span class="w"> </span><span class="n">one</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="n">URLs</span><span class="o">:</span>
+<span class="w">        </span><span class="n">http</span><span class="o">://</span><span class="n">localhost</span><span class="o">:</span><span class="m">8080</span><span class="o">/?</span><span class="n">token</span><span class="o">=</span><span class="n">b754cbea9f5a6640e647f21c7d2e7112a6954eb26f032d73</span>
+<span class="w">     </span><span class="n">or</span><span class="w"> </span><span class="n">http</span><span class="o">://</span><span class="m">127.0</span><span class="n">.</span><span class="m">0.1</span><span class="o">:</span><span class="m">8080</span><span class="o">/?</span><span class="n">token</span><span class="o">=</span><span class="n">b754cbea9f5a6640e647f21c7d2e7112a6954eb26f032d73</span>
+</code></pre></div>
+<h3 id="ssh-connect-to-vm-using-a-new-terminal-app-on-local-machine">SSH connect to VM using a new terminal app on local machine<a class="headerlink" href="#ssh-connect-to-vm-using-a-new-terminal-app-on-local-machine" title="Permanent link">&para;</a></h3>
+<p>Open a 2nd instance of Terminal on Local machine</p>
+<div class="highlight"><pre><span></span><code><span class="n">ssh</span><span class="w"> </span><span class="o">-</span><span class="n">L</span><span class="w"> </span><span class="m">8080</span><span class="o">:</span><span class="n">localhost</span><span class="o">:</span><span class="m">8080</span><span class="w"> </span><span class="n">ucloud</span><span class="o">@</span><span class="n">IP_address_from_the_red_mark</span>
+</code></pre></div>
+<h3 id="now-press-the-links-in-the-output-above-and-it-should-open-a-jupyter-notebook">Now press the links in the output above and it should open a jupyter notebook<a class="headerlink" href="#now-press-the-links-in-the-output-above-and-it-should-open-a-jupyter-notebook" title="Permanent link">&para;</a></h3>
 
 
 
