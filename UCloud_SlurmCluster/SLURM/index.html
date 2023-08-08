@@ -526,6 +526,47 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#files" class="md-nav__link">
+    Files
+  </a>
+  
+    <nav class="md-nav" aria-label="Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#launch-file" class="md-nav__link">
+    Launch File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ray-python" class="md-nav__link">
+    Ray (Python)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dask-python" class="md-nav__link">
+    Dask (Python)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#doparallel-r" class="md-nav__link">
+    doParallel (R)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -550,10 +591,9 @@
 
 
 <h1 id="ucloud-tutorial-run-multi-node-slurm-cluster-on-ucloud">UCloud Tutorial: Run Multi-node SLURM Cluster on UCloud<a class="headerlink" href="#ucloud-tutorial-run-multi-node-slurm-cluster-on-ucloud" title="Permanent link">&para;</a></h1>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:5"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Tutorial</label><label for="__tabbed_1_2">Launch File (slurm-launch.py)</label><label for="__tabbed_1_3">Ray (Python)</label><label for="__tabbed_1_4">Dask (Python)</label><label for="__tabbed_1_5">doParallel (R)</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Tutorial</label><label for="__tabbed_1_2">Files</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><br /></p>
 <h2 id="launch-a-terminal-app-ucloud-job">Launch a "Terminal App" UCloud Job<a class="headerlink" href="#launch-a-terminal-app-ucloud-job" title="Permanent link">&para;</a></h2>
 <p>In addition to the normal setting fill out the following options (See figure below).</p>
 <p>In this example launched as cluster consisting of 3 nodes with three folder added to the launch:</p>
@@ -641,65 +681,28 @@
 <p><img alt="" src="../images/SLURM5.PNG" /></p>
 </div>
 <div class="tabbed-block">
-<p><br />
-<div class="highlight"><pre><span></span><code>
-</code></pre></div></p>
-</div>
-<div class="tabbed-block">
-<p><br /></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">slurm-template_ray.sh</label><label for="__tabbed_2_2">SklearnRay.py</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<p><br />
-<div class="highlight"><pre><span></span><code>
-</code></pre></div></p>
-</div>
-<div class="tabbed-block">
-<p><br />
-<div class="highlight"><pre><span></span><code>
-</code></pre></div></p>
-</div>
-</div>
-</div>
-</div>
-<div class="tabbed-block">
-<p><br /></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">slurm-template_dask.sh</label><label for="__tabbed_3_2">SklearnDask.py</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<p><br />
-<div class="highlight"><pre><span></span><code>
-</code></pre></div></p>
-</div>
-<div class="tabbed-block">
-<p><br />
-<div class="highlight"><pre><span></span><code>
-</code></pre></div></p>
-</div>
-</div>
-</div>
-</div>
-<div class="tabbed-block">
-<p><br /></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:3"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">slurm-template_R.sh</label><label for="__tabbed_4_2">doParallel.r</label><label for="__tabbed_4_3">tidyModel_RF.r</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<p><br />
-<div class="highlight"><pre><span></span><code>
-</code></pre></div></p>
-</div>
-<div class="tabbed-block">
-<p><br />
-<div class="highlight"><pre><span></span><code>
-</code></pre></div></p>
-</div>
-<div class="tabbed-block">
-<p><br />
-<div class="highlight"><pre><span></span><code>
-</code></pre></div></p>
-</div>
-</div>
-</div>
+<h3 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h3>
+<h4 id="launch-file">Launch File<a class="headerlink" href="#launch-file" title="Permanent link">&para;</a></h4>
+<ul>
+<li><a href="https://github.com/CBS-HPC/UCloud_SlurmCluster/blob/main/SLURM_deployment/slurm-launch.py">slurm-launch.py</a></li>
+</ul>
+<h4 id="ray-python">Ray (Python)<a class="headerlink" href="#ray-python" title="Permanent link">&para;</a></h4>
+<ul>
+<li><a href="https://github.com/CBS-HPC/UCloud_SlurmCluster/blob/main/SLURM_deployment/slurm-template_ray.sh">slurm-template_ray.sh</a></li>
+<li><a href="https://github.com/CBS-HPC/UCloud_SlurmCluster/blob/main/SLURM_scripts/SklearnRay.py">SklearnRay.py</a></li>
+</ul>
+<h4 id="dask-python">Dask (Python)<a class="headerlink" href="#dask-python" title="Permanent link">&para;</a></h4>
+<ul>
+<li><a href="https://github.com/CBS-HPC/UCloud_SlurmCluster/blob/main/SLURM_deployment/slurm-template_dask.sh">slurm-template_dask.sh</a></li>
+<li><a href="https://github.com/CBS-HPC/UCloud_SlurmCluster/blob/main/SLURM_scripts/SklearnDask.py">SklearnDask.py</a></li>
+</ul>
+<h4 id="doparallel-r">doParallel (R)<a class="headerlink" href="#doparallel-r" title="Permanent link">&para;</a></h4>
+<ul>
+<li><a href="https://github.com/CBS-HPC/UCloud_SlurmCluster/blob/main/SLURM_deployment/slurm-template_R.sh">slurm-template_R.sh</a></li>
+<li><a href="https://github.com/CBS-HPC/UCloud_SlurmCluster/blob/main/SLURM_scripts/doParallel.r">doParallel.r</a></li>
+<li><a href="https://github.com/CBS-HPC/UCloud_SlurmCluster/blob/main/SLURM_scripts/tidyModel_RF.r">tidyModel_RF.r</a></li>
+<li><a href="https://github.com/CBS-HPC/UCloud_SlurmCluster/blob/main/SLURM_scripts/tidyModel_NN.r">tidyModel_NN.r</a></li>
+</ul>
 </div>
 </div>
 </div>
