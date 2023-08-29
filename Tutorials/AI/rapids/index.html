@@ -15,7 +15,7 @@
     
     
       
-        <title>Tensorflow: Train your deep-learning models on AAU GPUs - HPC & Data Science Support</title>
+        <title>RAPIDS-cuML: Train your Scikit-learn models on AAU GPUs - HPC & Data Science Support</title>
       
     
     
@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#tensorflow-train-your-deep-learning-models-on-aau-gpus" class="md-skip">
+        <a href="#rapids-cuml-train-your-scikit-learn-models-on-aau-gpus" class="md-skip">
           Skip to content
         </a>
       
@@ -101,7 +101,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Tensorflow: Train your deep-learning models on AAU GPUs
+              RAPIDS-cuML: Train your Scikit-learn models on AAU GPUs
             
           </span>
         </div>
@@ -485,8 +485,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#create-or-re-load-a-tensorflowkeras-conda-environment" class="md-nav__link">
-    Create or re-load a Tensorflow/Keras Conda environment
+  <a href="#create-or-re-load-a-rapids-conda-environment" class="md-nav__link">
+    Create or re-load a RAPIDS Conda environment
   </a>
   
 </li>
@@ -499,8 +499,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#run-tensorflow-training-in-ddp-mode" class="md-nav__link">
-    Run Tensorflow training in DDP mode:
+  <a href="#run-a-random-forrest-training-on-multiple-gpus" class="md-nav__link">
+    Run a Random Forrest training on multiple GPUs:
   </a>
   
 </li>
@@ -537,13 +537,15 @@
   
 
 
-<h1 id="tensorflow-train-your-deep-learning-models-on-aau-gpus">Tensorflow: Train your deep-learning models on AAU GPUs<a class="headerlink" href="#tensorflow-train-your-deep-learning-models-on-aau-gpus" title="Permanent link">&para;</a></h1>
-<p>This tutorial show how to deploy "Distributed Data Parallel (DDP) using Tensorflow/Keras" to efficiently train your deep-learning models on the AAU GPUs avalaible through UCloud.</p>
-<p>See <a href="https://www.tensorflow.org/guide/keras/distributed_training">here</a> for a more detailed tutorial on DDP using Tensorflow.</p>
-<p>This tutorial specifically focuses on <a href="https://www.tensorflow.org/guide/keras/distributed_training#using_callbacks_to_ensure_fault_tolerance">Multi-GPU DDP Training with fault tolerance</a></p>
+<h1 id="rapids-cuml-train-your-scikit-learn-models-on-aau-gpus">RAPIDS-cuML: Train your Scikit-learn models on AAU GPUs<a class="headerlink" href="#rapids-cuml-train-your-scikit-learn-models-on-aau-gpus" title="Permanent link">&para;</a></h1>
+<p>This tutorial show how to deploy <a href="https://github.com/rapidsai/cuml">RAPIDS-cuML-GPU Machine Learning Algorithms</a> to efficiently train your scikit-learn models on the AAU GPUs avalaible through UCloud. </p>
+<p>"cuML is a suite of libraries that implement machine learning algorithms and mathematical primitives functions. cuML enables data scientists, researchers, and software engineers to run traditional tabular ML tasks on GPUs without going into the details of CUDA programming. For large datasets, these GPU-based implementations can complete 10-50x faster than their CPU equivalents. For details on performance, see the <a href="https://github.com/rapidsai/cuml/tree/branch-23.04/notebooks/tools">cuML Benchmarks Notebook</a>."</p>
+<p><strong>In most cases, cuML's Python API matches the API from scikit-learn. which will make it easy to navigate from scikit-learn to RAPIDS-cuML</strong></p>
+<p>A table of the supported algoritmns can be found <a href="https://github.com/rapidsai/cuml#supported-algorithms">here</a>. </p>
+<p>This tutorial will use a random forrest which can be found on the <a href="https://github.com/rapidsai/cuml/tree/branch-23.04/notebooks">cuML notebook examples</a></p>
 <p>The following python script is needed to replicate this tutorial: </p>
 <ul>
-<li><a href="https://github.com/CBS-HPC/Tutorials/tree/main/AI/multigpu_tensorflow.py">multigpu_torchrun.py</a> (Can be used as template)</li>
+<li><a href="https://github.com/CBS-HPC/Tutorials/tree/main/AI/multigpu_rapids.py">multigpu_rapids.py</a> (Can be used as template)</li>
 </ul>
 <p>Prerequisite reading:</p>
 <ul>
@@ -605,12 +607,13 @@
 <span class="o">|</span><span class="w">  </span><span class="n">No</span><span class="w"> </span><span class="n">running</span><span class="w"> </span><span class="n">processes</span><span class="w"> </span><span class="n">found</span><span class="w">                                                 </span><span class="o">|</span>
 <span class="o">+-----------------------------------------------------------------------------+</span>
 </code></pre></div>
-<h3 id="create-or-re-load-a-tensorflowkeras-conda-environment">Create or re-load a Tensorflow/Keras Conda environment<a class="headerlink" href="#create-or-re-load-a-tensorflowkeras-conda-environment" title="Permanent link">&para;</a></h3>
+<h3 id="create-or-re-load-a-rapids-conda-environment">Create or re-load a RAPIDS Conda environment<a class="headerlink" href="#create-or-re-load-a-rapids-conda-environment" title="Permanent link">&para;</a></h3>
+<p>look for latest RAPIDS installation at https://docs.rapids.ai/install</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Create pytorch conda environment if non-exist on the Conda installation</span>
 <span class="n">conda</span><span class="w"> </span><span class="n">deactivate</span>
-<span class="n">conda</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="o">--</span><span class="n">name</span><span class="w"> </span><span class="n">tensorflow</span>
-<span class="n">conda</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">tensorflow</span>
-<span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">anaconda</span><span class="w"> </span><span class="n">tensorflow</span><span class="o">-</span><span class="n">gpu</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="o">--</span><span class="n">solver</span><span class="o">=</span><span class="n">libmamba</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">rapids</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">rapidsai</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">nvidia</span><span class="w">  </span>\
+<span class="w">    </span><span class="n">rapids</span><span class="o">=</span><span class="m">23.08</span><span class="w"> </span><span class="n">python</span><span class="o">=</span><span class="m">3.10</span><span class="w"> </span><span class="n">cuda</span><span class="o">-</span><span class="n">version</span><span class="o">=</span><span class="m">11.8</span>
+
 
 <span class="c1"># Set pre-installed conda libraries to path (including cudatoolkit=11.2 cudnn=8.1.0 )</span>
 <span class="n">export</span><span class="w"> </span><span class="n">LD_LIBRARY_PATH</span><span class="o">=$</span><span class="n">LD_LIBRARY_PATH</span><span class="o">:$</span><span class="n">CONDA_PREFIX</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span>
@@ -619,14 +622,103 @@
 <p>Open a second terminal (1st terminal is connected to the VM):</p>
 <div class="highlight"><pre><span></span><code><span class="n">scp</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;C:\path\pytorch_folder&quot;</span><span class="w"> </span><span class="n">ucloud</span><span class="o">@</span><span class="n">IP_address_from_the_red_mark</span><span class="o">:</span>
 </code></pre></div>
-<h3 id="run-tensorflow-training-in-ddp-mode">Run Tensorflow training in DDP mode:<a class="headerlink" href="#run-tensorflow-training-in-ddp-mode" title="Permanent link">&para;</a></h3>
-<p>In this example a model is trained for 10 epocs using 2 GPUs with a model checkpoint being saved with "ckpt" folder for each epoc and the final model being saved as "final_model.keras". </p>
-<p>functions "get_compiled_model" and "get_dataset" need to be changed to adjust training data and model.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Run the model with 10 epcos and 2 GPUs</span>
-<span class="n">python</span><span class="w"> </span><span class="n">multigpu_tensorflow.py</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">2</span>
+<h3 id="run-a-random-forrest-training-on-multiple-gpus">Run a Random Forrest training on multiple GPUs:<a class="headerlink" href="#run-a-random-forrest-training-on-multiple-gpus" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">python</span><span class="w"> </span><span class="n">multigpu_rapids.py</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">import</span><span class="w"> </span><span class="n">numpy</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">np</span>
+<span class="n">import</span><span class="w"> </span><span class="n">sklearn</span>
+<span class="n">import</span><span class="w"> </span><span class="n">time</span>
 
-<span class="c1"># Run the model with 10 epcos and all avaiable GPUs</span>
-<span class="n">python</span><span class="w"> </span><span class="n">multigpu_tensorflow.py</span><span class="w"> </span><span class="m">10</span>
+<span class="n">import</span><span class="w"> </span><span class="n">pandas</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">pd</span>
+<span class="n">import</span><span class="w"> </span><span class="n">cudf</span>
+<span class="n">import</span><span class="w"> </span><span class="n">cuml</span>
+
+<span class="n">from</span><span class="w"> </span><span class="n">sklearn</span><span class="w"> </span><span class="n">import</span><span class="w"> </span><span class="n">model_selection</span>
+
+<span class="n">from</span><span class="w"> </span><span class="n">cuml</span><span class="w"> </span><span class="n">import</span><span class="w"> </span><span class="n">datasets</span>
+<span class="n">from</span><span class="w"> </span><span class="n">cuml.metrics</span><span class="w"> </span><span class="n">import</span><span class="w"> </span><span class="n">accuracy_score</span>
+<span class="n">from</span><span class="w"> </span><span class="n">cuml.dask.common</span><span class="w"> </span><span class="n">import</span><span class="w"> </span><span class="n">utils</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">dask_utils</span>
+<span class="n">from</span><span class="w"> </span><span class="n">dask.distributed</span><span class="w"> </span><span class="n">import</span><span class="w"> </span><span class="n">Client</span><span class="p">,</span><span class="w"> </span><span class="n">wait</span>
+<span class="n">from</span><span class="w"> </span><span class="n">dask_cuda</span><span class="w"> </span><span class="n">import</span><span class="w"> </span><span class="n">LocalCUDACluster</span>
+<span class="n">import</span><span class="w"> </span><span class="n">dask_cudf</span>
+
+<span class="n">from</span><span class="w"> </span><span class="n">cuml.dask.ensemble</span><span class="w"> </span><span class="n">import</span><span class="w"> </span><span class="n">RandomForestClassifier</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">cumlDaskRF</span>
+<span class="n">from</span><span class="w"> </span><span class="n">sklearn.ensemble</span><span class="w"> </span><span class="n">import</span><span class="w"> </span><span class="n">RandomForestClassifier</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">sklRF</span>
+
+
+<span class="n">if</span><span class="w"> </span>__<span class="n">name__</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;__main__&quot;</span><span class="o">:</span>
+<span class="w">    </span><span class="c1">### Start Dask cluster</span>
+<span class="w">    </span><span class="c1"># This will use all GPUs on the local host by default</span>
+<span class="w">    </span><span class="n">cluster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">LocalCUDACluster</span><span class="p">(</span><span class="n">n_workers</span><span class="o">=</span><span class="m">2</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">#cluster = LocalCUDACluster(threads_per_worker=1)</span>
+<span class="w">    </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Client</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1"># Query the client for all connected workers</span>
+<span class="w">    </span><span class="n">workers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c.has_what</span><span class="p">()</span><span class="nf">.keys</span><span class="p">()</span>
+<span class="w">    </span><span class="n">n_workers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">workers</span><span class="p">)</span>
+<span class="w">    </span><span class="n">n_streams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="c1"># Performance optimization</span>
+
+<span class="w">    </span><span class="c1">### Define Parameters</span>
+<span class="w">    </span><span class="c1"># Data parameters</span>
+<span class="w">    </span><span class="n">train_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">500000</span>
+<span class="w">    </span><span class="n">test_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1000</span>
+<span class="w">    </span><span class="n">n_samples</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">train_size</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">test_size</span>
+<span class="w">    </span><span class="n">n_features</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">20</span>
+
+<span class="w">    </span><span class="c1"># Random Forest building parameters</span>
+<span class="w">    </span><span class="n">max_depth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">12</span>
+<span class="w">    </span><span class="n">n_bins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16</span>
+<span class="w">    </span><span class="n">n_trees</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5000</span>
+
+<span class="w">    </span><span class="c1">### Generate Data on host</span>
+<span class="w">    </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">datasets.make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="n">n_samples</span><span class="p">,</span><span class="w"> </span><span class="n">n_features</span><span class="o">=</span><span class="n">n_features</span><span class="p">,</span>
+<span class="w">                                    </span><span class="n">n_clusters_per_class</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">n_informative</span><span class="o">=</span><span class="nf">int</span><span class="p">(</span><span class="n">n_features</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">3</span><span class="p">),</span>
+<span class="w">                                    </span><span class="n">random_state</span><span class="o">=</span><span class="m">123</span><span class="p">,</span><span class="w"> </span><span class="n">n_classes</span><span class="o">=</span><span class="m">5</span><span class="p">)</span>
+<span class="w">    </span><span class="n">X</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">X.astype</span><span class="p">(</span><span class="n">np.float32</span><span class="p">)</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">y.astype</span><span class="p">(</span><span class="n">np.int32</span><span class="p">)</span>
+<span class="w">    </span><span class="n">X_train</span><span class="p">,</span><span class="w"> </span><span class="n">X_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_train</span><span class="p">,</span><span class="w"> </span><span class="n">y_test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">model_selection.train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">test_size</span><span class="o">=</span><span class="n">test_size</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">### Distribute data to worker GPUs</span>
+<span class="w">    </span><span class="n">n_partitions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n_workers</span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="nf">distribute</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="o">:</span>
+<span class="w">        </span><span class="c1"># First convert to cudf (with real data, you would likely load in cuDF format to start)</span>
+<span class="w">        </span><span class="n">X_cudf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">cudf.DataFrame</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="w">        </span><span class="n">y_cudf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">cudf.Series</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="w">        </span><span class="c1"># Partition with Dask</span>
+<span class="w">        </span><span class="c1"># In this case, each worker will train on 1/n_partitions fraction of the data</span>
+<span class="w">        </span><span class="n">X_dask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">dask_cudf.from_cudf</span><span class="p">(</span><span class="n">X_cudf</span><span class="p">,</span><span class="w"> </span><span class="n">npartitions</span><span class="o">=</span><span class="n">n_partitions</span><span class="p">)</span>
+<span class="w">        </span><span class="n">y_dask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">dask_cudf.from_cudf</span><span class="p">(</span><span class="n">y_cudf</span><span class="p">,</span><span class="w"> </span><span class="n">npartitions</span><span class="o">=</span><span class="n">n_partitions</span><span class="p">)</span>
+
+<span class="w">        </span><span class="c1"># Persist to cache the data in active memory</span>
+<span class="w">        </span><span class="n">X_dask</span><span class="p">,</span><span class="w"> </span><span class="n">y_dask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>\
+<span class="w">        </span><span class="nf">dask_utils.persist_across_workers</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="n">X_dask</span><span class="p">,</span><span class="w"> </span><span class="n">y_dask</span><span class="p">],</span><span class="w"> </span><span class="n">workers</span><span class="o">=</span><span class="n">workers</span><span class="p">)</span>
+
+<span class="w">        </span><span class="n">return</span><span class="w"> </span><span class="n">X_dask</span><span class="p">,</span><span class="w"> </span><span class="n">y_dask</span>
+
+<span class="w">    </span><span class="n">X_train_dask</span><span class="p">,</span><span class="w"> </span><span class="n">y_train_dask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">distribute</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="w"> </span><span class="n">y_train</span><span class="p">)</span>
+<span class="w">    </span><span class="n">X_test_dask</span><span class="p">,</span><span class="w"> </span><span class="n">y_test_dask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">distribute</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_test</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">### Build a scikit-learn model (single node)</span>
+<span class="w">    </span><span class="c1"># Use all available CPU cores</span>
+<span class="w">    </span><span class="c1">#skl_model = sklRF(max_depth=max_depth, n_estimators=n_trees, n_jobs=-1)</span>
+<span class="w">    </span><span class="c1">#skl_model.fit(X_train.get(), y_train.get())</span>
+<span class="w">    </span><span class="c1">#finish_time = time.perf_counter()</span>
+
+<span class="w">    </span><span class="c1">### Predict</span>
+<span class="w">    </span><span class="c1">#skl_y_pred = skl_model.predict(X_test.get())</span>
+<span class="w">    </span><span class="c1">#print(&quot;SKLearn accuracy:  &quot;, accuracy_score(y_test, skl_y_pred))</span>
+
+<span class="w">    </span><span class="c1">### Train the distributed cuML model</span>
+<span class="w">    </span><span class="n">cuml_model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">cumlDaskRF</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="n">max_depth</span><span class="p">,</span><span class="w"> </span><span class="n">n_estimators</span><span class="o">=</span><span class="n">n_trees</span><span class="p">,</span><span class="w"> </span><span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span><span class="w"> </span><span class="n">n_streams</span><span class="o">=</span><span class="n">n_streams</span><span class="p">)</span>
+<span class="w">    </span><span class="nf">cuml_model.fit</span><span class="p">(</span><span class="n">X_train_dask</span><span class="p">,</span><span class="w"> </span><span class="n">y_train_dask</span><span class="p">)</span>
+<span class="w">    </span><span class="nf">wait</span><span class="p">(</span><span class="n">cuml_model.rfs</span><span class="p">)</span><span class="w"> </span><span class="c1"># Allow asynchronous training tasks to finishfinish_time = time.perf_counter()</span>
+<span class="w">    </span><span class="n">finish_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">time.perf_counter</span><span class="p">()</span>
+
+<span class="w">    </span><span class="c1">### Predict</span>
+<span class="w">    </span><span class="n">cuml_y_pred</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">cuml_model.predict</span><span class="p">(</span><span class="n">X_test_dask</span><span class="p">)</span><span class="nf">.compute</span><span class="p">()</span><span class="nf">.to_numpy</span><span class="p">()</span>
+<span class="w">    </span><span class="nf">print</span><span class="p">(</span><span class="s">&quot;CuML accuracy:     &quot;</span><span class="p">,</span><span class="w"> </span><span class="nf">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">cuml_y_pred</span><span class="p">))</span>
 </code></pre></div>
 <h3 id="track-the-gpu-usage">Track the GPU usage<a class="headerlink" href="#track-the-gpu-usage" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">nvidia</span><span class="o">-</span><span class="n">smi</span><span class="w"> </span><span class="o">-</span><span class="n">l</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="c1"># Will update every 5 seconds</span>
