@@ -15,7 +15,7 @@
     
     
       
-        <title>UCloud Tutorial: Using Conda for easy workflow deployment on AAU GPU VMs - HPC & Data Science Support</title>
+        <title>Conda: for easy workflow deployment on AAU GPU VMs - HPC & Data Science Support</title>
       
     
     
@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ucloud-tutorial-using-conda-for-easy-workflow-deployment-on-aau-gpu-vms" class="md-skip">
+        <a href="#conda-for-easy-workflow-deployment-on-aau-gpu-vms" class="md-skip">
           Skip to content
         </a>
       
@@ -101,7 +101,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              UCloud Tutorial: Using Conda for easy workflow deployment on AAU GPU VMs
+              Conda: for easy workflow deployment on AAU GPU VMs
             
           </span>
         </div>
@@ -600,19 +600,6 @@
     Activate conda environment and test GPU configuration
   </a>
   
-    <nav class="md-nav" aria-label="Activate conda environment and test GPU configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#gpu-conda-environment-is-ready-to-use_1" class="md-nav__link">
-    GPU conda environment is ready to use
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
       </ul>
@@ -638,7 +625,19 @@
   
 
 
-<h1 id="ucloud-tutorial-using-conda-for-easy-workflow-deployment-on-aau-gpu-vms">UCloud Tutorial: Using Conda for easy workflow deployment on AAU GPU VMs<a class="headerlink" href="#ucloud-tutorial-using-conda-for-easy-workflow-deployment-on-aau-gpu-vms" title="Permanent link">&para;</a></h1>
+<h1 id="conda-for-easy-workflow-deployment-on-aau-gpu-vms">Conda: for easy workflow deployment on AAU GPU VMs<a class="headerlink" href="#conda-for-easy-workflow-deployment-on-aau-gpu-vms" title="Permanent link">&para;</a></h1>
+<p>Package, dependency and environment management for any language—Python, R and <a href="https://docs.conda.io/en/latest/">more</a>.</p>
+<p>The following tutorial provides step-by-step guides on how to install and use Conda for R and Python on the AAU GPU VMs available on UCloud.</p>
+<p>Using a Conda environement elimnates the need for re-installing all the needed packages/libraries when starting a new AAU GPU VM.</p>
+<p>Prerequisite reading:</p>
+<ul>
+<li>
+<p><a href="/Tutorials/VMs/shh/">How to Generate SSH key</a></p>
+</li>
+<li>
+<p><a href="/Tutorials/VMs/connectVM/">Access VM using SSH</a></p>
+</li>
+</ul>
 <h2 id="initial-installation-of-conda-on-a-aau-vm-job">Initial installation of Conda on a AAU VM job<a class="headerlink" href="#initial-installation-of-conda-on-a-aau-vm-job" title="Permanent link">&para;</a></h2>
 <h3 id="connect-to-vm-using-ssh">Connect to VM using SSH<a class="headerlink" href="#connect-to-vm-using-ssh" title="Permanent link">&para;</a></h3>
 <p>Open a terminal app on local machine and SSH onto the VM:</p>
@@ -647,7 +646,7 @@
 <h3 id="update-vm">Update VM<a class="headerlink" href="#update-vm" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="w"> </span><span class="n">update</span>
 <span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="w"> </span><span class="n">upgrade</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span>
-<span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">nvidia</span><span class="o">-</span><span class="n">headless</span><span class="m">-460</span><span class="w"> </span><span class="n">nvidia</span><span class="o">-</span><span class="n">utils</span><span class="m">-460</span><span class="w"> </span><span class="o">-</span><span class="n">y</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">nvidia</span><span class="o">-</span><span class="n">driver</span><span class="m">-525</span><span class="w"> </span><span class="n">nvidia</span><span class="o">-</span><span class="n">utils</span><span class="m">-525</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w">  </span><span class="c1"># Or newer version</span>
 </code></pre></div>
 <h3 id="download-and-install-conda">Download and Install Conda<a class="headerlink" href="#download-and-install-conda" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Download miniconda </span>
@@ -700,20 +699,10 @@
 <span class="n">conda</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">my_env</span>
 
 <span class="c1"># Install cudatoolkit and cudnn</span>
-<span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">cudatoolkit</span><span class="o">=</span><span class="m">11.2</span><span class="w"> </span><span class="n">cudnn</span><span class="o">=</span><span class="m">8.1</span><span class="n">.</span><span class="m">0</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">cudatoolkit</span><span class="w"> </span><span class="n">cudnn</span>
 
-<span class="c1"># Set pre-installed conda libraries to path (including cudatoolkit=11.2 cudnn=8.1.0 )</span>
+<span class="c1"># Set pre-installed conda libraries to path</span>
 <span class="n">export</span><span class="w"> </span><span class="n">LD_LIBRARY_PATH</span><span class="o">=$</span><span class="n">LD_LIBRARY_PATH</span><span class="o">:$</span><span class="n">CONDA_PREFIX</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span>
-
-<span class="c1"># install tensorflow</span>
-<span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">--</span><span class="n">upgrade</span><span class="w"> </span><span class="n">pip</span><span class="p">;</span><span class="w"> </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">tensorflow</span>
-
-<span class="c1"># test if tensorflow is probably configurated:</span>
-<span class="n">python3</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="s">&quot;import tensorflow as tf; print(tf.config.list_physical_devices(&#39;GPU&#39;))&quot;</span>
-<span class="n">python3</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="s">&quot;import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))&quot;</span>
-<span class="c1"># Expected Output</span>
-<span class="m">2023-08-07</span><span class="w"> </span><span class="m">09</span><span class="o">:</span><span class="m">58</span><span class="o">:</span><span class="m">29.129577</span><span class="o">:</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">tensorflow</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">common_runtime</span><span class="o">/</span><span class="n">gpu</span><span class="o">/</span><span class="n">gpu_device.cc</span><span class="o">:</span><span class="m">1639</span><span class="p">]</span><span class="w"> </span><span class="n">Created</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="o">/</span><span class="n">job</span><span class="o">:</span><span class="n">localhost</span><span class="o">/</span><span class="n">replica</span><span class="o">:</span><span class="m">0</span><span class="o">/</span><span class="n">task</span><span class="o">:</span><span class="m">0</span><span class="o">/</span><span class="n">device</span><span class="o">:</span><span class="n">GPU</span><span class="o">:</span><span class="m">0</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="m">13775</span><span class="w"> </span><span class="n">MB</span><span class="w"> </span><span class="n">memory</span><span class="o">:</span><span class="w">  </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">device</span><span class="o">:</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="n">Tesla</span><span class="w"> </span><span class="n">T4</span><span class="p">,</span><span class="w"> </span><span class="n">pci</span><span class="w"> </span><span class="n">bus</span><span class="w"> </span><span class="n">id</span><span class="o">:</span><span class="w"> </span><span class="m">0000</span><span class="o">:</span><span class="m">00</span><span class="o">:</span><span class="m">05.0</span><span class="p">,</span><span class="w"> </span><span class="n">compute</span><span class="w"> </span><span class="n">capability</span><span class="o">:</span><span class="w"> </span><span class="m">7.5</span>
-<span class="nf">tf.Tensor</span><span class="p">(</span><span class="m">-875.0791</span><span class="p">,</span><span class="w"> </span><span class="n">shape</span><span class="o">=</span><span class="p">(),</span><span class="w"> </span><span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
 </code></pre></div>
 <h4 id="gpu-conda-environment-is-ready-to-use">GPU conda environment is ready to use<a class="headerlink" href="#gpu-conda-environment-is-ready-to-use" title="Permanent link">&para;</a></h4>
 <h3 id="compress-conda-installation-to-targz-file">Compress Conda installation to tar.gz file<a class="headerlink" href="#compress-conda-installation-to-targz-file" title="Permanent link">&para;</a></h3>
@@ -780,28 +769,15 @@
 <span class="o">+-----------------------------------------------------------------------------+</span>
 </code></pre></div>
 <h3 id="activate-conda-environment-and-test-gpu-configuration">Activate conda environment and test GPU configuration<a class="headerlink" href="#activate-conda-environment-and-test-gpu-configuration" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Create conda environment </span>
-<span class="n">conda</span><span class="w"> </span><span class="n">deactivate</span>
-<span class="n">conda</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="o">--</span><span class="n">name</span><span class="w"> </span><span class="n">my_env</span><span class="w"> </span><span class="n">python</span>
-<span class="n">conda</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">my_env</span>
-
-<span class="c1"># Install cudatoolkit and cudnn</span>
-<span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">cudatoolkit</span><span class="o">=</span><span class="m">11.2</span><span class="w"> </span><span class="n">cudnn</span><span class="o">=</span><span class="m">8.1</span><span class="n">.</span><span class="m">0</span>
-
-<span class="c1"># Set pre-installed conda libraries to path (including cudatoolkit=11.2 cudnn=8.1.0 )</span>
-<span class="n">export</span><span class="w"> </span><span class="n">LD_LIBRARY_PATH</span><span class="o">=$</span><span class="n">LD_LIBRARY_PATH</span><span class="o">:$</span><span class="n">CONDA_PREFIX</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span>
-
-<span class="c1"># install tensorflow</span>
-<span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">--</span><span class="n">upgrade</span><span class="w"> </span><span class="n">pip</span><span class="p">;</span><span class="w"> </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">tensorflow</span>
-
-<span class="c1"># test if tensorflow is probably configurated:</span>
-<span class="n">python3</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="s">&quot;import tensorflow as tf; print(tf.config.list_physical_devices(&#39;GPU&#39;))&quot;</span>
-<span class="n">python3</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="s">&quot;import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))&quot;</span>
-
-<span class="c1"># Expected Output</span>
-<span class="m">2023-08-07</span><span class="w"> </span><span class="m">09</span><span class="o">:</span><span class="m">58</span><span class="o">:</span><span class="m">29.129577</span><span class="o">:</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">tensorflow</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">common_runtime</span><span class="o">/</span><span class="n">gpu</span><span class="o">/</span><span class="n">gpu_device.cc</span><span class="o">:</span><span class="m">1639</span><span class="p">]</span><span class="w"> </span><span class="n">Created</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="o">/</span><span class="n">job</span><span class="o">:</span><span class="n">localhost</span><span class="o">/</span><span class="n">replica</span><span class="o">:</span><span class="m">0</span><span class="o">/</span><span class="n">task</span><span class="o">:</span><span class="m">0</span><span class="o">/</span><span class="n">device</span><span class="o">:</span><span class="n">GPU</span><span class="o">:</span><span class="m">0</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="m">13775</span><span class="w"> </span><span class="n">MB</span><span class="w"> </span><span class="n">memory</span><span class="o">:</span><span class="w">  </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">device</span><span class="o">:</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="n">Tesla</span><span class="w"> </span><span class="n">T4</span><span class="p">,</span><span class="w"> </span><span class="n">pci</span><span class="w"> </span><span class="n">bus</span><span class="w"> </span><span class="n">id</span><span class="o">:</span><span class="w"> </span><span class="m">0000</span><span class="o">:</span><span class="m">00</span><span class="o">:</span><span class="m">05.0</span><span class="p">,</span><span class="w"> </span><span class="n">compute</span><span class="w"> </span><span class="n">capability</span><span class="o">:</span><span class="w"> </span><span class="m">7.5</span>
-<span class="nf">tf.Tensor</span><span class="p">(</span><span class="m">-875.0791</span><span class="p">,</span><span class="w"> </span><span class="n">shape</span><span class="o">=</span><span class="p">(),</span><span class="w"> </span><span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
-</code></pre></div>
+<p>```R</p>
+<h1 id="create-conda-environment">Create conda environment<a class="headerlink" href="#create-conda-environment" title="Permanent link">&para;</a></h1>
+<p>conda deactivate
+conda create --name my_env python
+conda activate my_env</p>
+<h1 id="install-cudatoolkit-and-cudnn">Install cudatoolkit and cudnn<a class="headerlink" href="#install-cudatoolkit-and-cudnn" title="Permanent link">&para;</a></h1>
+<p>conda install -c conda-forge cudatoolkit cudnn</p>
+<h1 id="set-pre-installed-conda-libraries-to-path-including-cudatoolkit112-cudnn810">Set pre-installed conda libraries to path (including cudatoolkit=11.2 cudnn=8.1.0 )<a class="headerlink" href="#set-pre-installed-conda-libraries-to-path-including-cudatoolkit112-cudnn810" title="Permanent link">&para;</a></h1>
+<p>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/</p>
 <h4 id="gpu-conda-environment-is-ready-to-use_1">GPU conda environment is ready to use<a class="headerlink" href="#gpu-conda-environment-is-ready-to-use_1" title="Permanent link">&para;</a></h4>
 
 

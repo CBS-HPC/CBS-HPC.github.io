@@ -15,7 +15,7 @@
     
     
       
-        <title>UCloud Tutorial: Setting up an interactive jupyter notebook session on AAU VMs - HPC & Data Science Support</title>
+        <title>Run Python and R jupyter notebooks on AAU VMs - HPC & Data Science Support</title>
       
     
     
@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ucloud-tutorial-setting-up-an-interactive-jupyter-notebook-session-on-aau-vms" class="md-skip">
+        <a href="#run-python-and-r-jupyter-notebooks-on-aau-vms" class="md-skip">
           Skip to content
         </a>
       
@@ -101,7 +101,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              UCloud Tutorial: Setting up an interactive jupyter notebook session on AAU VMs
+              Run Python and R jupyter notebooks on AAU VMs
             
           </span>
         </div>
@@ -464,37 +464,64 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#install-jupyter-if-needed" class="md-nav__link">
-    Install jupyter if needed:
+  <a href="#install-or-activate-conda-installation" class="md-nav__link">
+    Install or activate Conda installation
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#make-sure-jupyter-is-installed" class="md-nav__link">
-    Make sure jupyter is installed
+  <a href="#install-andor-activate-existing-python-or-r-environment-using-conda" class="md-nav__link">
+    Install and/or activate existing Python or R Environment using Conda
+  </a>
+  
+    <nav class="md-nav" aria-label="Install and/or activate existing Python or R Environment using Conda">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-jupyter-installtion-and-get-config-directory" class="md-nav__link">
+    Check jupyter installtion and get config-directory
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
+  <a href="#install-nb_conda_kernels" class="md-nav__link">
+    Install nb_conda_kernels
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-that-the-conda-environment-kernels-are-discovered-by-jupyter" class="md-nav__link">
+    Check that the conda environment kernels are discovered by jupyter:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#start-jupyter-notebook-from-remote-server" class="md-nav__link">
     Start Jupyter Notebook from remote server
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#ssh-connect-to-vm-using-a-new-terminal-app-on-local-machine" class="md-nav__link">
     SSH connect to VM using a new terminal app on local machine
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#now-press-the-links-in-the-output-above-and-it-should-open-a-jupyter-notebook" class="md-nav__link">
-    Now press the links in the output above and it should open a jupyter notebook
+        
+          <li class="md-nav__item">
+  <a href="#open-jupyter-notebook" class="md-nav__link">
+    Open Jupyter Notebook
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -516,27 +543,107 @@
   
 
 
-<h1 id="ucloud-tutorial-setting-up-an-interactive-jupyter-notebook-session-on-aau-vms">UCloud Tutorial: Setting up an interactive jupyter notebook session on AAU VMs<a class="headerlink" href="#ucloud-tutorial-setting-up-an-interactive-jupyter-notebook-session-on-aau-vms" title="Permanent link">&para;</a></h1>
+<h1 id="run-python-and-r-jupyter-notebooks-on-aau-vms">Run Python and R jupyter notebooks on AAU VMs<a class="headerlink" href="#run-python-and-r-jupyter-notebooks-on-aau-vms" title="Permanent link">&para;</a></h1>
+<p>Prerequisite reading:</p>
+<ul>
+<li>
+<p><a href="/Tutorials/VMs/shh/">How to Generate SSH key</a></p>
+</li>
+<li>
+<p><a href="/Tutorials/VMs/connectVM/">Access VM using SSH</a></p>
+</li>
+<li>
+<p><a href="/Tutorials/VMs/condaVM/">Conda: for easy workflow deployment on AAU GPU VMs</a></p>
+</li>
+</ul>
 <h3 id="connect-to-vm-using-ssh">Connect to VM using SSH<a class="headerlink" href="#connect-to-vm-using-ssh" title="Permanent link">&para;</a></h3>
 <p>Open a terminal app on local machine and SSH onto the VM:</p>
 <div class="highlight"><pre><span></span><code><span class="n">ssh</span><span class="w"> </span><span class="n">ucloud</span><span class="o">@</span><span class="n">IP_address_from_the_red_mark</span>
 </code></pre></div>
-<h3 id="install-jupyter-if-needed">Install jupyter if needed:<a class="headerlink" href="#install-jupyter-if-needed" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Using pip</span>
-<span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">jupyterlab</span>
+<h2 id="install-or-activate-conda-installation">Install or activate Conda installation<a class="headerlink" href="#install-or-activate-conda-installation" title="Permanent link">&para;</a></h2>
+<p>See <a href="/Tutorials/VMs/condaVM/">"Conda: for easy workflow deployment on AAU GPU VMs"</a> for more information.</p>
+<h2 id="install-andor-activate-existing-python-or-r-environment-using-conda">Install and/or activate existing Python or R Environment using Conda<a class="headerlink" href="#install-andor-activate-existing-python-or-r-environment-using-conda" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Python </span>
+<span class="n">conda</span><span class="w"> </span><span class="n">deactivate</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="o">--</span><span class="n">name</span><span class="w"> </span><span class="n">myenv_python</span><span class="w"> </span><span class="n">python</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">myenv_python</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">ipykernel</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">nb_conda_kernels</span>
 
-<span class="c1"># Using conda if conda environment are utilised </span>
-<span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">jupyter</span>
+<span class="c1"># R </span>
+<span class="n">conda</span><span class="w"> </span><span class="n">deactivate</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="o">--</span><span class="n">solver</span><span class="o">=</span><span class="n">libmamba</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">myenv_R</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">base</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">myenv_R</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">irkernel</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">nb_conda_kernels</span>
+
+<span class="c1"># Install cudatoolkit and cudnn</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">cudatoolkit</span><span class="w"> </span><span class="n">cudnn</span>
+
+<span class="c1"># Set pre-installed conda libraries to path</span>
+<span class="n">export</span><span class="w"> </span><span class="n">LD_LIBRARY_PATH</span><span class="o">=$</span><span class="n">LD_LIBRARY_PATH</span><span class="o">:$</span><span class="n">CONDA_PREFIX</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span>
 </code></pre></div>
-<h3 id="make-sure-jupyter-is-installed">Make sure jupyter is installed<a class="headerlink" href="#make-sure-jupyter-is-installed" title="Permanent link">&para;</a></h3>
-<p>In this case jupyter is installed and activated through a conda environment. Please see </p>
+<h3 id="check-jupyter-installtion-and-get-config-directory">Check jupyter installtion and get config-directory<a class="headerlink" href="#check-jupyter-installtion-and-get-config-directory" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">which</span><span class="w"> </span><span class="n">jupyter</span>
 
 <span class="c1"># Example Output:</span>
 <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">my_env</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jupyter</span>
+
+<span class="c1"># Get config-directory</span>
+<span class="n">jupyter</span><span class="w"> </span><span class="o">--</span><span class="n">config</span><span class="o">-</span><span class="n">dir</span>
+
+<span class="c1"># Example Output:</span>
+<span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">.jupyter</span><span class="o">/</span>
+
+<span class="c1"># Create folder if does not exist</span>
+<span class="w"> </span><span class="n">mkdir</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">.jupyter</span><span class="o">/</span>
+
+<span class="c1"># Create jupyter_config.json  in config-dir</span>
+<span class="n">echo</span><span class="w"> </span><span class="s">&#39;{&quot;CondaKernelSpecManager&quot;: {&quot;kernelspec_path&quot;: &quot;--user&quot;}}&#39;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">.jupyter</span><span class="o">/</span><span class="n">jupyter_config.json</span>
+
+<span class="c1"># Check content of jupyter_config.json</span>
+
+<span class="n">cat</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">.jupyter</span><span class="o">/</span><span class="n">jupyter_config.json</span>
+</code></pre></div>
+<h3 id="install-nb_conda_kernels">Install nb_conda_kernels<a class="headerlink" href="#install-nb_conda_kernels" title="Permanent link">&para;</a></h3>
+<p>https://github.com/Anaconda-Platform/nb_conda_kernels#installation</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Export all existing conda environment with ipykernel or r-irkernel installed</span>
+<span class="n">python</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="n">nb_conda_kernels</span><span class="w"> </span><span class="n">list</span>
+
+<span class="c1"># Example Output: </span>
+<span class="p">[</span><span class="n">ListKernelSpecs</span><span class="p">]</span><span class="w"> </span><span class="n">WARNING</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Config</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="n">`kernel_spec_manager_class`</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">recognized</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">`ListKernelSpecs`.</span>
+<span class="p">[</span><span class="n">ListKernelSpecs</span><span class="p">]</span><span class="w"> </span><span class="n">Removing</span><span class="w"> </span><span class="n">existing</span><span class="w"> </span><span class="n">kernelspec</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">.local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">kernels</span><span class="o">/</span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">jupyter</span><span class="o">-</span><span class="n">py</span>
+<span class="p">[</span><span class="n">ListKernelSpecs</span><span class="p">]</span><span class="w"> </span><span class="n">Installed</span><span class="w"> </span><span class="n">kernelspec</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">jupyter</span><span class="o">-</span><span class="n">py</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">.local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">kernels</span><span class="o">/</span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">jupyter</span><span class="o">-</span><span class="n">py</span>
+<span class="p">[</span><span class="n">ListKernelSpecs</span><span class="p">]</span><span class="w"> </span><span class="n">Installed</span><span class="w"> </span><span class="n">kernelspec</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">my_env</span><span class="o">-</span><span class="n">py</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">.local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">kernels</span><span class="o">/</span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">my_env</span><span class="o">-</span><span class="n">py</span>
+<span class="p">[</span><span class="n">ListKernelSpecs</span><span class="p">]</span><span class="w"> </span><span class="n">Removing</span><span class="w"> </span><span class="n">existing</span><span class="w"> </span><span class="n">kernelspec</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">.local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">kernels</span><span class="o">/</span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">myenv</span><span class="o">-</span><span class="n">py</span>
+<span class="p">[</span><span class="n">ListKernelSpecs</span><span class="p">]</span><span class="w"> </span><span class="n">Installed</span><span class="w"> </span><span class="n">kernelspec</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">myenv</span><span class="o">-</span><span class="n">py</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">.local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">kernels</span><span class="o">/</span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">myenv</span><span class="o">-</span><span class="n">py</span>
+<span class="p">[</span><span class="n">ListKernelSpecs</span><span class="p">]</span><span class="w"> </span><span class="n">Removing</span><span class="w"> </span><span class="n">existing</span><span class="w"> </span><span class="n">kernelspec</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">.local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">kernels</span><span class="o">/</span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">rapids</span><span class="o">-</span><span class="n">py</span>
+<span class="p">[</span><span class="n">ListKernelSpecs</span><span class="p">]</span><span class="w"> </span><span class="n">Installed</span><span class="w"> </span><span class="n">kernelspec</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">rapids</span><span class="o">-</span><span class="n">py</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">.local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">kernels</span><span class="o">/</span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">rapids</span><span class="o">-</span><span class="n">py</span>
+<span class="p">[</span><span class="n">ListKernelSpecs</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">nb_conda_kernels</span><span class="p">]</span><span class="w"> </span><span class="n">enabled</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">kernels</span><span class="w"> </span><span class="n">found</span>
+<span class="n">Available</span><span class="w"> </span><span class="n">kernels</span><span class="o">:</span>
+<span class="w">  </span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">jupyter</span><span class="o">-</span><span class="n">py</span><span class="w">    </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">kernels</span><span class="o">/</span><span class="n">python3</span>
+<span class="w">  </span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">myenv</span><span class="o">-</span><span class="n">py</span><span class="w">      </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">myenv</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">kernels</span><span class="o">/</span><span class="n">python3</span>
+<span class="w">  </span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">rapids</span><span class="o">-</span><span class="n">py</span><span class="w">     </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">rapids</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">kernels</span><span class="o">/</span><span class="n">python3</span>
+<span class="w">  </span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">my_env</span><span class="o">-</span><span class="n">py</span><span class="w">     </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">my_env</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">kernels</span><span class="o">/</span><span class="n">python3</span>
+</code></pre></div>
+<h3 id="check-that-the-conda-environment-kernels-are-discovered-by-jupyter">Check that the conda environment kernels are discovered by jupyter:<a class="headerlink" href="#check-that-the-conda-environment-kernels-are-discovered-by-jupyter" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">jupyter</span><span class="w"> </span><span class="n">kernelspec</span><span class="w"> </span><span class="n">list</span>
+
+<span class="c1"># Example output:</span>
+<span class="p">[</span><span class="n">ListKernelSpecs</span><span class="p">]</span><span class="w"> </span><span class="n">WARNING</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Config</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="n">`kernel_spec_manager_class`</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">recognized</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">`ListKernelSpecs`.</span>
+<span class="m">0.00</span><span class="n">s</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Debugger</span><span class="w"> </span><span class="n">warning</span><span class="o">:</span><span class="w"> </span><span class="n">It</span><span class="w"> </span><span class="n">seems</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">frozen</span><span class="w"> </span><span class="n">modules</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">being</span><span class="w"> </span><span class="n">used</span><span class="p">,</span><span class="w"> </span><span class="n">which</span><span class="w"> </span><span class="n">may</span>
+<span class="m">0.00</span><span class="n">s</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">make</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">debugger</span><span class="w"> </span><span class="n">miss</span><span class="w"> </span><span class="n">breakpoints.</span><span class="w"> </span><span class="n">Please</span><span class="w"> </span><span class="n">pass</span><span class="w"> </span><span class="o">-</span><span class="n">Xfrozen_modules</span><span class="o">=</span><span class="n">off</span>
+<span class="m">0.00</span><span class="n">s</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">disable</span><span class="w"> </span><span class="n">frozen</span><span class="w"> </span><span class="n">modules.</span>
+<span class="m">0.00</span><span class="n">s</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Note</span><span class="o">:</span><span class="w"> </span><span class="n">Debugging</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">proceed.</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">PYDEVD_DISABLE_FILE_VALIDATION</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">disable</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">validation.</span>
+<span class="n">Available</span><span class="w"> </span><span class="n">kernels</span><span class="o">:</span>
+<span class="w">  </span><span class="n">python3</span><span class="w">                 </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">my_env</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">kernels</span><span class="o">/</span><span class="n">python3</span>
+<span class="w">  </span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">jupyter</span><span class="o">-</span><span class="n">py</span><span class="w">    </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">.local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">kernels</span><span class="o">/</span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">jupyter</span><span class="o">-</span><span class="n">py</span>
+<span class="w">  </span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">my_env</span><span class="o">-</span><span class="n">py</span><span class="w">     </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">.local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">kernels</span><span class="o">/</span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">my_env</span><span class="o">-</span><span class="n">py</span>
+<span class="w">  </span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">myenv</span><span class="o">-</span><span class="n">py</span><span class="w">      </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">.local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">kernels</span><span class="o">/</span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">myenv</span><span class="o">-</span><span class="n">py</span>
+<span class="w">  </span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">rapids</span><span class="o">-</span><span class="n">py</span><span class="w">     </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">.local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">kernels</span><span class="o">/</span><span class="n">conda</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">rapids</span><span class="o">-</span><span class="n">py</span>
 </code></pre></div>
 <h3 id="start-jupyter-notebook-from-remote-server">Start Jupyter Notebook from remote server<a class="headerlink" href="#start-jupyter-notebook-from-remote-server" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">jupyter</span><span class="w"> </span><span class="n">notebook</span><span class="w"> </span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">browser</span><span class="w"> </span><span class="o">--</span><span class="n">port</span><span class="o">=</span><span class="m">8080</span>
+<div class="highlight"><pre><span></span><code><span class="n">jupyter</span><span class="w"> </span><span class="n">notebook</span><span class="w"> </span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">browser</span><span class="w"> </span><span class="o">--</span><span class="n">port</span><span class="o">=</span><span class="m">8080</span><span class="w"> </span><span class="c1"># Change the port number if multiple jupyter notebook are started within the same session</span>
 
 <span class="c1"># Output</span>
 
@@ -555,9 +662,13 @@
 </code></pre></div>
 <h3 id="ssh-connect-to-vm-using-a-new-terminal-app-on-local-machine">SSH connect to VM using a new terminal app on local machine<a class="headerlink" href="#ssh-connect-to-vm-using-a-new-terminal-app-on-local-machine" title="Permanent link">&para;</a></h3>
 <p>Open a 2nd instance of Terminal on Local machine</p>
-<div class="highlight"><pre><span></span><code><span class="n">ssh</span><span class="w"> </span><span class="o">-</span><span class="n">L</span><span class="w"> </span><span class="m">8080</span><span class="o">:</span><span class="n">localhost</span><span class="o">:</span><span class="m">8080</span><span class="w"> </span><span class="n">ucloud</span><span class="o">@</span><span class="n">IP_address_from_the_red_mark</span>
+<div class="highlight"><pre><span></span><code><span class="n">ssh</span><span class="w"> </span><span class="o">-</span><span class="n">L</span><span class="w"> </span><span class="m">8080</span><span class="o">:</span><span class="n">localhost</span><span class="o">:</span><span class="m">8080</span><span class="w"> </span><span class="n">ucloud</span><span class="o">@</span><span class="n">IP_address_from_the_red_mark</span><span class="w"> </span><span class="c1"># Change the port number if multiple jupyter notebook are started within the same session</span>
 </code></pre></div>
-<h3 id="now-press-the-links-in-the-output-above-and-it-should-open-a-jupyter-notebook">Now press the links in the output above and it should open a jupyter notebook<a class="headerlink" href="#now-press-the-links-in-the-output-above-and-it-should-open-a-jupyter-notebook" title="Permanent link">&para;</a></h3>
+<h3 id="open-jupyter-notebook">Open Jupyter Notebook<a class="headerlink" href="#open-jupyter-notebook" title="Permanent link">&para;</a></h3>
+<p>Press the link in the output above and it should open a jupyter notebook</p>
+<p>Now the R and Python kernel should be available (see figure below)</p>
+<p><img alt="" src="../kernel_choice.PNG" title="kernel" /></p>
+<p><img alt="" src="../kernel_choice2.PNG" title="kernel" /></p>
 
 
 

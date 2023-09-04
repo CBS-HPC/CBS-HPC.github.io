@@ -15,7 +15,7 @@
     
     
       
-        <title>Pytorch: Train your deep-learning models on AAU GPUs - HPC & Data Science Support</title>
+        <title>Tensorflow: Train your deep-learning models on AAU GPUs - HPC & Data Science Support</title>
       
     
     
@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#pytorch-train-your-deep-learning-models-on-aau-gpus" class="md-skip">
+        <a href="#tensorflow-train-your-deep-learning-models-on-aau-gpus" class="md-skip">
           Skip to content
         </a>
       
@@ -101,7 +101,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Pytorch: Train your deep-learning models on AAU GPUs
+              Tensorflow: Train your deep-learning models on AAU GPUs
             
           </span>
         </div>
@@ -485,8 +485,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#create-or-re-load-a-pytorch-conda-environment" class="md-nav__link">
-    Create or re-load a Pytorch-conda environment
+  <a href="#create-or-re-load-a-tensorflowkeras-conda-environment" class="md-nav__link">
+    Create or re-load a Tensorflow/Keras Conda environment
   </a>
   
 </li>
@@ -499,8 +499,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#run-pytorch-training-in-ddp-mode" class="md-nav__link">
-    Run Pytorch training in DDP mode:
+  <a href="#run-tensorflow-training-in-ddp-mode" class="md-nav__link">
+    Run Tensorflow training in DDP mode:
   </a>
   
 </li>
@@ -537,14 +537,13 @@
   
 
 
-<h1 id="pytorch-train-your-deep-learning-models-on-aau-gpus">Pytorch: Train your deep-learning models on AAU GPUs<a class="headerlink" href="#pytorch-train-your-deep-learning-models-on-aau-gpus" title="Permanent link">&para;</a></h1>
-<p>This tutorial show how to deploy "Distributed Data Parallel (DDP) in PyTorch" to efficiently train your deep-learning models on the AAU GPUs avalaible through UCloud.</p>
-<p>See <a href="https://pytorch.org/tutorials/beginner/ddp_series_intro.html">here</a> for a more detailed tutorial on DDP using Pytorch.</p>
-<p>This tutorial specifically focuses on <a href="https://pytorch.org/tutorials/beginner/ddp_series_fault_tolerance.html">Part 4: Multi-GPU DDP Training with fault tolerance using Torchrun</a>. </p>
-<p>The following python scripts are needed to replicate this tutorial: </p>
+<h1 id="tensorflow-train-your-deep-learning-models-on-aau-gpus">Tensorflow: Train your deep-learning models on AAU GPUs<a class="headerlink" href="#tensorflow-train-your-deep-learning-models-on-aau-gpus" title="Permanent link">&para;</a></h1>
+<p>This tutorial show how to deploy "Distributed Data Parallel (DDP) using Tensorflow/Keras" to efficiently train your deep-learning models on the AAU GPUs avalaible through UCloud.</p>
+<p>See <a href="https://www.tensorflow.org/guide/keras/distributed_training">here</a> for a more detailed tutorial on DDP using Tensorflow.</p>
+<p>This tutorial specifically focuses on <a href="https://www.tensorflow.org/guide/keras/distributed_training#using_callbacks_to_ensure_fault_tolerance">Multi-GPU DDP Training with fault tolerance</a></p>
+<p>The following python script is needed to replicate this tutorial: </p>
 <ul>
-<li><a href="https://github.com/CBS-HPC/Tutorials/tree/main/AI/multigpu_torchrun.py">multigpu_torchrun.py</a> (Can be used as template)</li>
-<li><a href="https://github.com/CBS-HPC/Tutorials/tree/main/AI/datautils.py">datautils.py</a> (Used to load dummy data)</li>
+<li><a href="https://github.com/CBS-HPC/Tutorials/tree/main/GPU/multigpu_tensorflow.py">multigpu_torchrun.py</a> (Can be used as template)</li>
 </ul>
 <p>Prerequisite reading:</p>
 <ul>
@@ -555,7 +554,7 @@
 <p><a href="/Tutorials/VMs/connectVM/">Access VM using SSH</a></p>
 </li>
 <li>
-<p><a href="/Tutorials/VMs/condaVM/">Using Conda for easy workflow deployment on AAU GPU VMs</a></p>
+<p><a href="/Tutorials/VMs/condaVM/">Conda: for easy workflow deployment on AAU GPU VMs</a></p>
 </li>
 </ul>
 <h3 id="update-vm">Update VM<a class="headerlink" href="#update-vm" title="Permanent link">&para;</a></h3>
@@ -606,13 +605,12 @@
 <span class="o">|</span><span class="w">  </span><span class="n">No</span><span class="w"> </span><span class="n">running</span><span class="w"> </span><span class="n">processes</span><span class="w"> </span><span class="n">found</span><span class="w">                                                 </span><span class="o">|</span>
 <span class="o">+-----------------------------------------------------------------------------+</span>
 </code></pre></div>
-<h3 id="create-or-re-load-a-pytorch-conda-environment">Create or re-load a Pytorch-conda environment<a class="headerlink" href="#create-or-re-load-a-pytorch-conda-environment" title="Permanent link">&para;</a></h3>
-<p>look for latest pytorch installation at https://pytorch.org/get-started/locally/</p>
+<h3 id="create-or-re-load-a-tensorflowkeras-conda-environment">Create or re-load a Tensorflow/Keras Conda environment<a class="headerlink" href="#create-or-re-load-a-tensorflowkeras-conda-environment" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Create pytorch conda environment if non-exist on the Conda installation</span>
 <span class="n">conda</span><span class="w"> </span><span class="n">deactivate</span>
-<span class="n">conda</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="o">--</span><span class="n">name</span><span class="w"> </span><span class="n">pytorch</span>
-<span class="n">conda</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">pytorch</span>
-<span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">pytorch</span><span class="w"> </span><span class="n">torchvision</span><span class="w"> </span><span class="n">torchaudio</span><span class="w"> </span><span class="n">pytorch</span><span class="o">-</span><span class="n">cuda</span><span class="o">=</span><span class="m">11.8</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">pytorch</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">nvidia</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="o">--</span><span class="n">name</span><span class="w"> </span><span class="n">tensorflow</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">tensorflow</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">anaconda</span><span class="w"> </span><span class="n">tensorflow</span><span class="o">-</span><span class="n">gpu</span>
 
 <span class="c1"># Set pre-installed conda libraries to path (including cudatoolkit=11.2 cudnn=8.1.0 )</span>
 <span class="n">export</span><span class="w"> </span><span class="n">LD_LIBRARY_PATH</span><span class="o">=$</span><span class="n">LD_LIBRARY_PATH</span><span class="o">:$</span><span class="n">CONDA_PREFIX</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span>
@@ -621,49 +619,14 @@
 <p>Open a second terminal (1st terminal is connected to the VM):</p>
 <div class="highlight"><pre><span></span><code><span class="n">scp</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;C:\path\pytorch_folder&quot;</span><span class="w"> </span><span class="n">ucloud</span><span class="o">@</span><span class="n">IP_address_from_the_red_mark</span><span class="o">:</span>
 </code></pre></div>
-<h3 id="run-pytorch-training-in-ddp-mode">Run Pytorch training in DDP mode:<a class="headerlink" href="#run-pytorch-training-in-ddp-mode" title="Permanent link">&para;</a></h3>
-<p>In this example a model is trained for 50 epocs with a model snapshot ("snapshot.pt") being save every 10 epocs and the final model being saved as "finalmodel.pt". </p>
-<p>Line 78 and 79 needs to be changed to adjust training data and model. 
- 78   train_set = MyTrainDataset(2048)  # load your dataset
- 79   model = torch.nn.Linear(20, 1)  # load your model</p>
-<p>"--nproc_per_node=" determines the number of GPUs to use. "gpu" pytorch will utilise all avaliable GPUs.</p>
-<div class="highlight"><pre><span></span><code><span class="n">torchrun</span><span class="w"> </span><span class="o">--</span><span class="n">standalone</span><span class="w"> </span><span class="o">--</span><span class="n">nproc_per_node</span><span class="o">=</span><span class="n">gpu</span><span class="w"> </span><span class="n">multigpu_torchrun.py</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="m">10</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="o">$</span><span class="w"> </span><span class="n">torchrun</span><span class="w"> </span><span class="o">--</span><span class="n">standalone</span><span class="w"> </span><span class="o">--</span><span class="n">nproc_per_node</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="n">multigpu_torchrun.py</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="m">10</span>
-<span class="n">master_addr</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">only</span><span class="w"> </span><span class="n">used</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">static</span><span class="w"> </span><span class="n">rdzv_backend</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">when</span><span class="w"> </span><span class="n">rdzv_endpoint</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">specified.</span>
-<span class="n">WARNING</span><span class="o">:</span><span class="n">torch.distributed.run</span><span class="o">:</span>
-<span class="o">*****************************************</span>
-<span class="n">Setting</span><span class="w"> </span><span class="n">OMP_NUM_THREADS</span><span class="w"> </span><span class="n">environment</span><span class="w"> </span><span class="n">variable</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">each</span><span class="w"> </span><span class="n">process</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">default</span><span class="p">,</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">avoid</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">system</span><span class="w"> </span><span class="n">being</span><span class="w"> </span><span class="n">overloaded</span><span class="p">,</span><span class="w"> </span><span class="n">please</span><span class="w"> </span><span class="n">further</span><span class="w"> </span><span class="n">tune</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">variable</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">optimal</span><span class="w"> </span><span class="n">performance</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">application</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">needed.</span>
-<span class="o">*****************************************</span>
-<span class="p">[</span><span class="n">GPU0</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="p">[</span><span class="n">GPU1</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="n">Epoch</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Training</span><span class="w"> </span><span class="n">snapshot</span><span class="w"> </span><span class="n">saved</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">snapshot.pt</span>
-<span class="p">[</span><span class="n">GPU1</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="p">[</span><span class="n">GPU0</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="p">[</span><span class="n">GPU0</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="p">[</span><span class="n">GPU1</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="p">[</span><span class="n">GPU0</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="p">[</span><span class="n">GPU1</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="kc">...</span>
-<span class="p">[</span><span class="n">GPU0</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="p">[</span><span class="n">GPU1</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="p">[</span><span class="n">GPU0</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="p">[</span><span class="n">GPU1</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="p">[</span><span class="n">GPU0</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="p">[</span><span class="n">GPU1</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="p">[</span><span class="n">GPU0</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="p">[</span><span class="n">GPU1</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="n">Epoch</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Training</span><span class="w"> </span><span class="n">snapshot</span><span class="w"> </span><span class="n">saved</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">snapshot.pt</span>
-<span class="p">[</span><span class="n">GPU0</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">11</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="p">[</span><span class="n">GPU1</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">11</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="kc">...</span>
-<span class="p">[</span><span class="n">GPU0</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">47</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="p">[</span><span class="n">GPU1</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">47</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="p">[</span><span class="n">GPU0</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">48</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="p">[</span><span class="n">GPU1</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">48</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="p">[</span><span class="n">GPU0</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">49</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="p">[</span><span class="n">GPU1</span><span class="p">]</span><span class="w"> </span><span class="n">Epoch</span><span class="w"> </span><span class="m">49</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Batchsize</span><span class="o">:</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Steps</span><span class="o">:</span><span class="w"> </span><span class="m">32</span>
-<span class="n">Final</span><span class="w"> </span><span class="n">model</span><span class="w"> </span><span class="n">saved</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">finalmodel.pt</span>
+<h3 id="run-tensorflow-training-in-ddp-mode">Run Tensorflow training in DDP mode:<a class="headerlink" href="#run-tensorflow-training-in-ddp-mode" title="Permanent link">&para;</a></h3>
+<p>In this example a model is trained for 10 epocs using 2 GPUs with a model checkpoint being saved with "ckpt" folder for each epoc and the final model being saved as "final_model.keras". </p>
+<p>functions "get_compiled_model" and "get_dataset" need to be changed to adjust training data and model.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run the model with 10 epcos and 2 GPUs</span>
+<span class="n">python</span><span class="w"> </span><span class="n">multigpu_tensorflow.py</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">2</span>
+
+<span class="c1"># Run the model with 10 epcos and all avaiable GPUs</span>
+<span class="n">python</span><span class="w"> </span><span class="n">multigpu_tensorflow.py</span><span class="w"> </span><span class="m">10</span>
 </code></pre></div>
 <h3 id="track-the-gpu-usage">Track the GPU usage<a class="headerlink" href="#track-the-gpu-usage" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">nvidia</span><span class="o">-</span><span class="n">smi</span><span class="w"> </span><span class="o">-</span><span class="n">l</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="c1"># Will update every 5 seconds</span>

@@ -467,7 +467,6 @@
 
 
 <h1 id="ucloud-tutorial-using-conda-for-easy-management-of-r-environments">UCloud Tutorial: Using Conda for easy management of R environments<a class="headerlink" href="#ucloud-tutorial-using-conda-for-easy-management-of-r-environments" title="Permanent link">&para;</a></h1>
-<p>Introduction text</p>
 <p>https://docs.cloud.sdu.dk/hands-on/conda-setup.html?highlight=conda</p>
 <p>The Conda package and environment management system is already included in few applications available on UCloud (see, e.g., JupyerLab and PyTorch). For more general uses of Conda and its powerful package manager it is convenient to create a local installation and save it in a UCloud project.
 Conda is included in all versions of Anaconda and Miniconda. For example, to install the latest version of Miniconda, just start any interactive app on UCloud, such as Terminal, and run the following shell commands:</p>
@@ -495,19 +494,14 @@ Conda is included in all versions of Anaconda and Miniconda. For example, to ins
 <h2 id="installing-r-environment-using-conda">Installing R environment using Conda<a class="headerlink" href="#installing-r-environment-using-conda" title="Permanent link">&para;</a></h2>
 <h3 id="installing-mamba-add-in">Installing Mamba add-in<a class="headerlink" href="#installing-mamba-add-in" title="Permanent link">&para;</a></h3>
 <p>Managing R environment using Conda is facilitated by a add-in library “mamba” (https://astrobiomike.github.io/unix/conda-intro#bonus-mamba-no-5).</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Installing mamba add-in:</span>
-<span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">base</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">mamba</span>
-</code></pre></div>
 <h3 id="installing-and-activate-r-environment-with-mamba">Installing and activate R environment with mamba<a class="headerlink" href="#installing-and-activate-r-environment-with-mamba" title="Permanent link">&para;</a></h3>
+<p>Managing R environment using Conda is facilitated by a add-in library “mamba” (https://astrobiomike.github.io/unix/conda-intro#bonus-mamba-no-5).</p>
 <p>https://astrobiomike.github.io/R/managing-r-and-rstudio-with-conda</p>
-<div class="highlight"><pre><span></span><code><span class="c1">#Showing available R versions</span>
-<span class="n">mamba</span><span class="w"> </span><span class="n">search</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">base</span>
-
-<span class="c1">#Installing a R environment (R-4.2.3 in this example) </span>
-<span class="n">mamba</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">myenv</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">base</span><span class="o">=</span><span class="m">4.2</span><span class="n">.</span><span class="m">3</span>
+<div class="highlight"><pre><span></span><code><span class="c1">#Installing a R environment (R-4.2.3 in this example) </span>
+<span class="n">conda</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="o">--</span><span class="n">solver</span><span class="o">=</span><span class="n">libmamba</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">myenv</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">base</span><span class="o">=</span><span class="m">4.2</span><span class="n">.</span><span class="m">3</span>
 
 <span class="c1">#Or install packages during installation.</span>
-<span class="n">mamba</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">myenv</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">base</span><span class="o">=</span><span class="m">4.2</span><span class="n">.</span><span class="m">3</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">tidyverse</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="o">--</span><span class="n">solver</span><span class="o">=</span><span class="n">libmamba</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">myenv</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">base</span><span class="o">=</span><span class="m">4.2</span><span class="n">.</span><span class="m">3</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">tidyverse</span>
 
 <span class="c1">#Shows already installed environments (&quot;myenv&quot; should be displayed)</span>
 <span class="n">conda</span><span class="w"> </span><span class="n">env</span><span class="w"> </span><span class="n">list</span>
@@ -522,11 +516,14 @@ Conda is included in all versions of Anaconda and Miniconda. For example, to ins
 <span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">myenv</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">R</span>
 </code></pre></div>
 <h3 id="start-r-and-run-code-or-install-packages">Start R and run code or install packages:<a class="headerlink" href="#start-r-and-run-code-or-install-packages" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Install packages:</span>
-<span class="n">R</span><span class="w"> </span><span class="nf">install.packages</span><span class="p">(</span>“<span class="n">tidymodels</span>”<span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Start R:</span>
+<span class="n">R</span>
 
-<span class="c1"># If the user wish to run this environment with “JupyterLab” then it is advised to install “iRkernel” at this point:</span>
-<span class="n">R</span><span class="w"> </span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;IRkernel&quot;</span><span class="p">)</span>
+<span class="c1"># Install a package</span>
+<span class="nf">install.packages</span><span class="p">(</span>“<span class="n">tidymodels</span>”<span class="p">)</span>
+
+<span class="c1"># Close R:</span>
+<span class="nf">quit</span><span class="p">()</span>
 </code></pre></div>
 <h1 id="r-studio-on-ucloud">R Studio on UCloud<a class="headerlink" href="#r-studio-on-ucloud" title="Permanent link">&para;</a></h1>
 <h3 id="add-the-miniconda3-folder-when-starting-the-new-rstudio-ucloud-job">Add the “miniconda3” folder when starting the new Rstudio UCloud job.<a class="headerlink" href="#add-the-miniconda3-folder-when-starting-the-new-rstudio-ucloud-job" title="Permanent link">&para;</a></h3>
@@ -563,13 +560,14 @@ Conda is included in all versions of Anaconda and Miniconda. For example, to ins
 
 <span class="c1"># Activate environment:</span>
 <span class="n">conda</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">myenv</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="c1"># Install iRkernel R package:</span>
 
-<span class="n">R</span><span class="w"> </span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;IRkernel&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1"># Can be problematic to install at this point</span>
+<span class="c1"># Install iRkernel:</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">irkernel</span>
+
+<span class="c1"># Activate R Kernel in Jupter</span>
 <span class="n">R</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s">&quot;IRkernel::installspec(name = &#39;myenv&#39;, displayname = &#39;myenv&#39;)&quot;</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="c1"># De-activate environment:</span>
+
+<span class="c1"># De-activate environment:</span>
 <span class="n">conda</span><span class="w"> </span><span class="n">deactivate</span>
 </code></pre></div>
 <h3 id="now-you-can-launch-jupyterlab-interface-and-the-myenv-environment-should-be-available-on-the-frontpage">Now you can launch JupyterLab interface and the “myenv” environment should be available on the frontpage.<a class="headerlink" href="#now-you-can-launch-jupyterlab-interface-and-the-myenv-environment-should-be-available-on-the-frontpage" title="Permanent link">&para;</a></h3>

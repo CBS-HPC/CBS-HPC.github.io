@@ -457,16 +457,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#deic-interactive-hpc-sdu-u1-standard-cpu" class="md-nav__link">
-    DeiC Interactive HPC (SDU) / u1-standard (CPU)
+  <a href="#deic-interactive-hpc-sdu" class="md-nav__link">
+    DeiC Interactive HPC (SDU)
   </a>
   
-    <nav class="md-nav" aria-label="DeiC Interactive HPC (SDU) / u1-standard (CPU)">
+    <nav class="md-nav" aria-label="DeiC Interactive HPC (SDU)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#u1-standard-64-specs" class="md-nav__link">
-    u1-standard-64 Specs
+  <a href="#u1-standard" class="md-nav__link">
+    u1-standard
   </a>
   
 </li>
@@ -477,16 +477,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#deic-interactive-hpc-aau-uc-t4-gpu" class="md-nav__link">
-    DeiC Interactive HPC (AAU) / uc-t4 (GPU)
+  <a href="#deic-interactive-hpc-aau" class="md-nav__link">
+    DeiC Interactive HPC (AAU)
   </a>
   
-    <nav class="md-nav" aria-label="DeiC Interactive HPC (AAU) / uc-t4 (GPU)">
+    <nav class="md-nav" aria-label="DeiC Interactive HPC (AAU)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#uc-t4-6-specs" class="md-nav__link">
-    uc-t4-6 Specs
+  <a href="#nvidia-t4" class="md-nav__link">
+    Nvidia T4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nvidia-a100" class="md-nav__link">
+    Nvidia A100
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nvidia-a40" class="md-nav__link">
+    Nvidia A40
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nvidia-a10" class="md-nav__link">
+    Nvidia A10
   </a>
   
 </li>
@@ -515,28 +536,79 @@
 
 
 <h1 id="type-1-deic-interactive-hpc">Type 1 - DeiC Interactive HPC<a class="headerlink" href="#type-1-deic-interactive-hpc" title="Permanent link">&para;</a></h1>
-<p>Find more information <a href="https://escience.sdu.dk/index.php/ucloud-yougene-cluster/">here</a>.</p>
-<h2 id="deic-interactive-hpc-sdu-u1-standard-cpu">DeiC Interactive HPC (SDU) / u1-standard (CPU)<a class="headerlink" href="#deic-interactive-hpc-sdu-u1-standard-cpu" title="Permanent link">&para;</a></h2>
+<h2 id="deic-interactive-hpc-sdu">DeiC Interactive HPC (SDU)<a class="headerlink" href="#deic-interactive-hpc-sdu" title="Permanent link">&para;</a></h2>
 <p><a href="https://cloud.sdu.dk/app/providers/detailed/ucloud">SDU</a> provides <strong>CPU</strong> based containerized applications such as MATLAB, STATA, RStudio, and JupyterLab through a graphical user interface (GUI), in the same way as you would on your laptop. <a href="https://docs.cloud.sdu.dk/Apps/type.html">See all apps</a>. </p>
+<h3 id="u1-standard">u1-standard<a class="headerlink" href="#u1-standard" title="Permanent link">&para;</a></h3>
 <p><strong>The following machines are available:</strong></p>
 <p><img alt="" src="../images/u1-standard.PNG" /></p>
-<h3 id="u1-standard-64-specs">u1-standard-64 Specs<a class="headerlink" href="#u1-standard-64-specs" title="Permanent link">&para;</a></h3>
+<p><strong>The specification of the largest node (u1-standard-64) are summarized below:</strong></p>
 <p><strong>Dell PowerEdge C6420</strong></p>
-<p><strong>vCPU:</strong>   64 (32 virtual cores) 2x Intel Xeon Gold 6130 16-Core @ 2.10GHz</p>
+<p><strong>CPU:</strong>    64 (32 virtual cores) 2x Intel Xeon Gold 6130 16-Core @ 2.10GHz</p>
 <p><strong>RAM:</strong> 384 GB  DDR 4-2666</p>
 <p><strong>Price:</strong> 5,49 DKK/hour</p>
 <p><strong>Description:</strong> The full node consists of 2x Intel(R) Xeon(R) Gold 6130 CPU@2.10 GHz, 32 virtual cores/CPU, and 384 GB of memory.</p>
-<h2 id="deic-interactive-hpc-aau-uc-t4-gpu">DeiC Interactive HPC (AAU) / uc-t4 (GPU)<a class="headerlink" href="#deic-interactive-hpc-aau-uc-t4-gpu" title="Permanent link">&para;</a></h2>
+<h2 id="deic-interactive-hpc-aau">DeiC Interactive HPC (AAU)<a class="headerlink" href="#deic-interactive-hpc-aau" title="Permanent link">&para;</a></h2>
 <p><a href="https://cloud.sdu.dk/app/providers/detailed/aau">AAU</a> provides primary <strong>GPU</strong> based <a href="https://cloud.sdu.dk/app/applications/search?q=Virtual%20Machines">virtual machines</a>. Access is obtained through terminal and <a href="">SSH</a>. It is possible to set up interactive enviroments such as <a href="https://hpc.ruc.dk/blog/tutorials/setting-up-jupyternotebook-with-gpus-on-aau/">JupyterLab</a>.</p>
-<p><strong>The following machines are available:</strong></p>
+<p>Four different machine types based on different Nvidia GPUs (T4, A10 , A40 and A100) with different application purposes. Their specifications are summarized in a table below.</p>
+<p><strong>CUDA Cores provides a platform for general-purpose computing on GPUs.</strong></p>
+<p><strong>Tensor Cores are specialized processing units designed for matrix operations in deep learning.</strong></p>
+<p>** A more detailed description can be found <a href="https://medium.com/@primedeviation/cuda-vs-tensor-cores-a-guide-for-ml-workloads-and-model-training-1756bedd5f03">here</a></p>
+<table>
+<thead>
+<tr>
+<th>GPU</th>
+<th>Architecture</th>
+<th>CUDA Cores</th>
+<th>Tensor Cores</th>
+<th>Memory</th>
+<th>Data Sheet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nvidia T4</td>
+<td>Turing</td>
+<td>2,560</td>
+<td>320</td>
+<td>16 GB GDDR6</td>
+<td><a href="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/tesla-t4/t4-tensor-core-datasheet-951643.pdf">T4</a></td>
+</tr>
+<tr>
+<td>Nvidia A100</td>
+<td>Ampere</td>
+<td>6,912</td>
+<td>432</td>
+<td>80 GB HBM2</td>
+<td><a href="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/Nvidnvidia-a100-datasheet-nvidia-us-2188504-web.pdf">A100</a></td>
+</tr>
+<tr>
+<td>Nvidia A40</td>
+<td>Ampere</td>
+<td>10,240</td>
+<td>320</td>
+<td>48 GB GDDR6</td>
+<td><a href="https://images.nvidia.com/content/Solutions/data-center/a40/nvidia-a40-datasheet.pdf">A40</a></td>
+</tr>
+<tr>
+<td>Nvidia A10</td>
+<td>Ampere</td>
+<td>6,144</td>
+<td>384</td>
+<td>24 GB GDDR6</td>
+<td><a href="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a10/pdf/datasheet-new/nvidia-a10-datasheet.pdf">A10</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>The different GPUs are avaliable on the following machines:</strong></p>
+<h3 id="nvidia-t4">Nvidia T4<a class="headerlink" href="#nvidia-t4" title="Permanent link">&para;</a></h3>
 <p><img alt="" src="../images/uc-t4.PNG" /></p>
-<h3 id="uc-t4-6-specs">uc-t4-6 Specs<a class="headerlink" href="#uc-t4-6-specs" title="Permanent link">&para;</a></h3>
-<p><strong>vCPU:</strong>   60 cores</p>
-<p><strong>RAM:</strong> 240 GB</p>
-<p><strong>GPU:</strong>    6 (NVIDIA T4)</p>
-<p><strong>Storage:</strong>  10 TB</p>
-<p><strong>Price:</strong>  50,94 DKK/hour</p>
-<p><strong>Description:</strong>        Virtual machine with 6 NVIDIA T4 GPUs deployed and 10TB of storage on the AAU OpenStack system.</p>
+<p><img alt="" src="../images/uc-t4h.PNG" /></p>
+<h3 id="nvidia-a100">Nvidia A100<a class="headerlink" href="#nvidia-a100" title="Permanent link">&para;</a></h3>
+<p><img alt="" src="../images/uc-a100.PNG" /></p>
+<h3 id="nvidia-a40">Nvidia A40<a class="headerlink" href="#nvidia-a40" title="Permanent link">&para;</a></h3>
+<p><img alt="" src="../images/uc-a40.PNG" /></p>
+<h3 id="nvidia-a10">Nvidia A10<a class="headerlink" href="#nvidia-a10" title="Permanent link">&para;</a></h3>
+<p><img alt="" src="../images/uc-a10.PNG" /></p>
 
 
 
