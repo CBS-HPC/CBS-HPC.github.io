@@ -461,59 +461,12 @@
     DeiC Interactive HPC (SDU)
   </a>
   
-    <nav class="md-nav" aria-label="DeiC Interactive HPC (SDU)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#u1-standard" class="md-nav__link">
-    u1-standard
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
   <a href="#deic-interactive-hpc-aau" class="md-nav__link">
     DeiC Interactive HPC (AAU)
   </a>
-  
-    <nav class="md-nav" aria-label="DeiC Interactive HPC (AAU)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#nvidia-t4" class="md-nav__link">
-    Nvidia T4
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#nvidia-a100" class="md-nav__link">
-    Nvidia A100
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#nvidia-a40" class="md-nav__link">
-    Nvidia A40
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#nvidia-a10" class="md-nav__link">
-    Nvidia A10
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -538,7 +491,7 @@
 <h1 id="type-1-deic-interactive-hpc">Type 1 - DeiC Interactive HPC<a class="headerlink" href="#type-1-deic-interactive-hpc" title="Permanent link">&para;</a></h1>
 <h2 id="deic-interactive-hpc-sdu">DeiC Interactive HPC (SDU)<a class="headerlink" href="#deic-interactive-hpc-sdu" title="Permanent link">&para;</a></h2>
 <p><a href="https://cloud.sdu.dk/app/providers/detailed/ucloud">SDU</a> provides <strong>CPU</strong> based containerized applications such as MATLAB, STATA, RStudio, and JupyterLab through a graphical user interface (GUI), in the same way as you would on your laptop. <a href="https://docs.cloud.sdu.dk/Apps/type.html">See all apps</a>. </p>
-<h3 id="u1-standard">u1-standard<a class="headerlink" href="#u1-standard" title="Permanent link">&para;</a></h3>
+<p><strong>u1-standard</strong></p>
 <p><strong>The following machines are available:</strong></p>
 <p><img alt="" src="../images/u1-standard.PNG" /></p>
 <p><strong>The specification of the largest node (u1-standard-64) are summarized below:</strong></p>
@@ -549,7 +502,41 @@
 <p><strong>Description:</strong> The full node consists of 2x Intel(R) Xeon(R) Gold 6130 CPU@2.10 GHz, 32 virtual cores/CPU, and 384 GB of memory.</p>
 <h2 id="deic-interactive-hpc-aau">DeiC Interactive HPC (AAU)<a class="headerlink" href="#deic-interactive-hpc-aau" title="Permanent link">&para;</a></h2>
 <p><a href="https://cloud.sdu.dk/app/providers/detailed/aau">AAU</a> provides primary <strong>GPU</strong> based <a href="https://cloud.sdu.dk/app/applications/search?q=Virtual%20Machines">virtual machines</a>. Access is obtained through terminal and <a href="">SSH</a>. It is possible to set up interactive enviroments such as <a href="https://hpc.ruc.dk/blog/tutorials/setting-up-jupyternotebook-with-gpus-on-aau/">JupyterLab</a>.</p>
-<p>Four different machine types based on different Nvidia GPUs (T4, A10 , A40 and A100) with different application purposes. Their specifications are summarized in a table below.</p>
+<p>Four different machine types based on different Nvidia GPUs (T4, A10 , A40 and A100) with different application purposes. </p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:5"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Nvidia T4</label><label for="__tabbed_1_2">Nvidia A10</label><label for="__tabbed_1_3">Nvidia A40</label><label for="__tabbed_1_4">Nvidia A100</label><label for="__tabbed_1_5">Specification Comparisons</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ul>
+<li>AI Inference: The T4 is optimized for AI inference workloads, making it suitable for applications like image and speech recognition, natural language processing, and recommendation systems in data centers.</li>
+</ul>
+<p><strong>Nvidia T4 is avaliable on the following machines:</strong></p>
+<p><img alt="" src="../images/uc-t4.PNG" /></p>
+<p><img alt="" src="../images/uc-t4h.PNG" /></p>
+</div>
+<div class="tabbed-block">
+<ul>
+<li>Data Center Workloads: The A10 offers a balance of compute power and memory, making it versatile for various data center tasks, including virtualization, cloud computing, and database acceleration.</li>
+</ul>
+<p><strong>Nvidia A10 is avaliable on the following machines:</strong></p>
+<p><img alt="" src="../images/uc-a10.PNG" /></p>
+</div>
+<div class="tabbed-block">
+<ul>
+<li>High-Performance Computing (HPC): The A40 is designed for HPC applications, such as scientific simulations, climate modeling, and molecular dynamics, where high computational power is essential.</li>
+</ul>
+<p><strong>Nvidia A40 is avaliable on the following machines:</strong></p>
+<p><img alt="" src="../images/uc-a40.PNG" /></p>
+</div>
+<div class="tabbed-block">
+<ul>
+<li>Deep Learning and AI Research: The A100 excels in deep learning training and AI research, enabling faster model training for tasks like image recognition, natural language understanding, and autonomous driving.</li>
+<li>High-Performance Computing (HPC): It's also used in HPC environments for tasks like molecular dynamics simulations, quantum chemistry, and climate modeling, thanks to its exceptional computational capabilities.</li>
+</ul>
+<p><strong>Nvidia A100 is avaliable on the following machines:</strong></p>
+<p><img alt="" src="../images/uc-a100.PNG" /></p>
+</div>
+<div class="tabbed-block">
+<p>Their specifications are summarized in a table below.</p>
 <table>
 <thead>
 <tr>
@@ -558,7 +545,9 @@
 <th>CUDA Cores</th>
 <th>Tensor Cores</th>
 <th>Memory</th>
-<th>Relative Speedup*</th>
+<th>FP16 (Half) TFLOPS</th>
+<th>FP32 (Float) TFLOPS</th>
+<th>FP64 (Double) GFLOPS</th>
 <th>Data Sheet</th>
 </tr>
 </thead>
@@ -569,26 +558,10 @@
 <td>2,560</td>
 <td>320</td>
 <td>16 GB GDDR6</td>
-<td>1</td>
+<td>65.1</td>
+<td>8.1</td>
+<td>254.4</td>
 <td><a href="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/tesla-t4/t4-tensor-core-datasheet-951643.pdf">T4</a></td>
-</tr>
-<tr>
-<td>Nvidia A100</td>
-<td>Ampere</td>
-<td>6,912</td>
-<td>432</td>
-<td>80 GB HBM2</td>
-<td>10</td>
-<td><a href="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/Nvidnvidia-a100-datasheet-nvidia-us-2188504-web.pdf">A100</a></td>
-</tr>
-<tr>
-<td>Nvidia A40</td>
-<td>Ampere</td>
-<td>10,240</td>
-<td>320</td>
-<td>48 GB GDDR6</td>
-<td>5</td>
-<td><a href="https://images.nvidia.com/content/Solutions/data-center/a40/nvidia-a40-datasheet.pdf">A40</a></td>
 </tr>
 <tr>
 <td>Nvidia A10</td>
@@ -596,8 +569,32 @@
 <td>6,144</td>
 <td>384</td>
 <td>24 GB GDDR6</td>
-<td></td>
+<td>31.2</td>
+<td>31.2</td>
+<td>976.3</td>
 <td><a href="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a10/pdf/datasheet-new/nvidia-a10-datasheet.pdf">A10</a></td>
+</tr>
+<tr>
+<td>Nvidia A40</td>
+<td>Ampere</td>
+<td>10,240</td>
+<td>320</td>
+<td>48 GB GDDR6</td>
+<td>37.4</td>
+<td>37.4</td>
+<td>0.59</td>
+<td><a href="https://images.nvidia.com/content/Solutions/data-center/a40/nvidia-a40-datasheet.pdf">A40</a></td>
+</tr>
+<tr>
+<td>Nvidia A100</td>
+<td>Ampere</td>
+<td>6,912</td>
+<td>432</td>
+<td>80 GB HBM2</td>
+<td>78.0</td>
+<td>19.5</td>
+<td>9700</td>
+<td><a href="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/nvidia-a100-datasheet-nvidia-us-2188504-web.pdf">A100</a></td>
 </tr>
 </tbody>
 </table>
@@ -611,20 +608,10 @@
 <li>
 <p>A more detailed description can be found <a href="https://medium.com/@primedeviation/cuda-vs-tensor-cores-a-guide-for-ml-workloads-and-model-training-1756bedd5f03">here</a>.</p>
 </li>
-<li>
-<p>links </p>
-</li>
 </ul>
-<p><strong>The different GPUs are avaliable on the following machines:</strong></p>
-<h3 id="nvidia-t4">Nvidia T4<a class="headerlink" href="#nvidia-t4" title="Permanent link">&para;</a></h3>
-<p><img alt="" src="../images/uc-t4.PNG" /></p>
-<p><img alt="" src="../images/uc-t4h.PNG" /></p>
-<h3 id="nvidia-a100">Nvidia A100<a class="headerlink" href="#nvidia-a100" title="Permanent link">&para;</a></h3>
-<p><img alt="" src="../images/uc-a100.PNG" /></p>
-<h3 id="nvidia-a40">Nvidia A40<a class="headerlink" href="#nvidia-a40" title="Permanent link">&para;</a></h3>
-<p><img alt="" src="../images/uc-a40.PNG" /></p>
-<h3 id="nvidia-a10">Nvidia A10<a class="headerlink" href="#nvidia-a10" title="Permanent link">&para;</a></h3>
-<p><img alt="" src="../images/uc-a10.PNG" /></p>
+</div>
+</div>
+</div>
 
 
 
