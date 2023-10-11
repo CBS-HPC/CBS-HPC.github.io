@@ -600,6 +600,19 @@
     Activate conda environment and test GPU configuration
   </a>
   
+    <nav class="md-nav" aria-label="Activate conda environment and test GPU configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpu-conda-environment-is-ready-to-use_1" class="md-nav__link">
+    GPU conda environment is ready to use
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -769,15 +782,17 @@
 <span class="o">+-----------------------------------------------------------------------------+</span>
 </code></pre></div>
 <h3 id="activate-conda-environment-and-test-gpu-configuration">Activate conda environment and test GPU configuration<a class="headerlink" href="#activate-conda-environment-and-test-gpu-configuration" title="Permanent link">&para;</a></h3>
-<p>```R</p>
-<h1 id="create-conda-environment">Create conda environment<a class="headerlink" href="#create-conda-environment" title="Permanent link">&para;</a></h1>
-<p>conda deactivate
-conda create --name my_env python
-conda activate my_env</p>
-<h1 id="install-cudatoolkit-and-cudnn">Install cudatoolkit and cudnn<a class="headerlink" href="#install-cudatoolkit-and-cudnn" title="Permanent link">&para;</a></h1>
-<p>conda install -c conda-forge cudatoolkit cudnn</p>
-<h1 id="set-pre-installed-conda-libraries-to-path-including-cudatoolkit112-cudnn810">Set pre-installed conda libraries to path (including cudatoolkit=11.2 cudnn=8.1.0 )<a class="headerlink" href="#set-pre-installed-conda-libraries-to-path-including-cudatoolkit112-cudnn810" title="Permanent link">&para;</a></h1>
-<p>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create conda environment </span>
+<span class="n">conda</span><span class="w"> </span><span class="n">deactivate</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="o">--</span><span class="n">name</span><span class="w"> </span><span class="n">my_env</span><span class="w"> </span><span class="n">python</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">my_env</span>
+
+<span class="c1"># Install cudatoolkit and cudnn</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">cudatoolkit</span><span class="w"> </span><span class="n">cudnn</span>
+
+<span class="c1"># Set pre-installed conda libraries to path (including cudatoolkit=11.2 cudnn=8.1.0 )</span>
+<span class="n">export</span><span class="w"> </span><span class="n">LD_LIBRARY_PATH</span><span class="o">=$</span><span class="n">LD_LIBRARY_PATH</span><span class="o">:$</span><span class="n">CONDA_PREFIX</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span>
+</code></pre></div>
 <h4 id="gpu-conda-environment-is-ready-to-use_1">GPU conda environment is ready to use<a class="headerlink" href="#gpu-conda-environment-is-ready-to-use_1" title="Permanent link">&para;</a></h4>
 
 
