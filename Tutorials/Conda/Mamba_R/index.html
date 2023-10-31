@@ -480,7 +480,7 @@ Conda is included in all versions of Anaconda and Miniconda. For example, to ins
 <span class="n">bash</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">miniconda_installer.sh</span><span class="w"> </span><span class="o">-</span><span class="n">b</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">miniconda3</span>
 </code></pre></div>
 <h3 id="when-the-job-is-finished-copy-the-miniconda3-folder-from-ucloud-job-folder-to-a-folder-you-want-within-your-ucloud-project">When the job is finished copy the “miniconda3” folder from UCloud “Job” folder to a folder you want within your UCloud project.<a class="headerlink" href="#when-the-job-is-finished-copy-the-miniconda3-folder-from-ucloud-job-folder-to-a-folder-you-want-within-your-ucloud-project" title="Permanent link">&para;</a></h3>
-<p><img alt="" src="../folder1.PNG" title="folder1" /></p>
+<p><img alt="" src="/folder1.PNG" title="folder1" /></p>
 <h2 id="activating-conda-in-a-new-ucloud-job">Activating Conda in a new UCloud Job<a class="headerlink" href="#activating-conda-in-a-new-ucloud-job" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="c1">#Running a new UCloud run the following lines in the terminal to activate Conda:</span>
 <span class="n">sudo</span><span class="w"> </span><span class="n">ln</span><span class="w"> </span><span class="o">-</span><span class="n">s</span><span class="w"> </span><span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">conda</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">conda</span>
@@ -529,7 +529,7 @@ Conda is included in all versions of Anaconda and Miniconda. For example, to ins
 <h3 id="add-the-miniconda3-folder-when-starting-the-new-rstudio-ucloud-job">Add the “miniconda3” folder when starting the new Rstudio UCloud job.<a class="headerlink" href="#add-the-miniconda3-folder-when-starting-the-new-rstudio-ucloud-job" title="Permanent link">&para;</a></h3>
 <p>Make sure that Rstudio UCloud job is based on the save R version ad the installed Conda R environment (“myenv”).</p>
 <p>Navigate to the R console: </p>
-<p><img alt="" src="../rconsole.PNG" title="rconsole" /></p>
+<p><img alt="" src="/rconsole.PNG" title="rconsole" /></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Setting &quot;myenv&quot; library into library path of the active R kernel </span>
 <span class="nf">.libPaths</span><span class="p">(</span><span class="s">&quot;/work/miniconda3/envs/myenv/lib/R/library&quot;</span><span class="p">)</span>
 
@@ -571,7 +571,7 @@ Conda is included in all versions of Anaconda and Miniconda. For example, to ins
 <span class="n">conda</span><span class="w"> </span><span class="n">deactivate</span>
 </code></pre></div>
 <h3 id="now-you-can-launch-jupyterlab-interface-and-the-myenv-environment-should-be-available-on-the-frontpage">Now you can launch JupyterLab interface and the “myenv” environment should be available on the frontpage.<a class="headerlink" href="#now-you-can-launch-jupyterlab-interface-and-the-myenv-environment-should-be-available-on-the-frontpage" title="Permanent link">&para;</a></h3>
-<p><img alt="" src="../jupyterR.PNG" title="jupyterR" /></p>
+<p><img alt="" src="/jupyterR.PNG" title="jupyterR" /></p>
 <h1 id="terminal-app-on-ucloud">Terminal app on UCloud<a class="headerlink" href="#terminal-app-on-ucloud" title="Permanent link">&para;</a></h1>
 <h3 id="add-the-miniconda3-folder-when-starting-the-new-terminal-app-ucloud-job">Add the “miniconda3” folder when starting the new Terminal App UCloud job.<a class="headerlink" href="#add-the-miniconda3-folder-when-starting-the-new-terminal-app-ucloud-job" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Running a new UCloud run the following lines in the terminal to activate Conda:</span>
