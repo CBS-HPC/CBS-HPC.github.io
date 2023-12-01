@@ -15,7 +15,7 @@
     
     
       
-        <title>SLURM Clusters on UCloud - HPC & Data Science Support</title>
+        <title>Get Resources - HPC & Data Science Support</title>
       
     
     
@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slurm-clusters-on-ucloud" class="md-skip">
+        <a href="#get-resources" class="md-skip">
           Skip to content
         </a>
       
@@ -101,7 +101,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              SLURM Clusters on UCloud
+              Get Resources
             
           </span>
         </div>
@@ -457,43 +457,50 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#files" class="md-nav__link">
-    Files
+  <a href="#local-resources" class="md-nav__link">
+    Local Resources
   </a>
   
-    <nav class="md-nav" aria-label="Files">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-get-local-resources" class="md-nav__link">
+    How to get Local Resources
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sandbox-resources" class="md-nav__link">
+    Sandbox Resources
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grant-applications" class="md-nav__link">
+    Grant Applications
+  </a>
+  
+    <nav class="md-nav" aria-label="Grant Applications">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#launch-file" class="md-nav__link">
-    Launch File
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ray-python" class="md-nav__link">
-    Ray (Python)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dask-python" class="md-nav__link">
-    Dask (Python)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#doparallel-r" class="md-nav__link">
-    doParallel (R)
+  <a href="#current-calls" class="md-nav__link">
+    Current Calls
   </a>
   
 </li>
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#external-links" class="md-nav__link">
+    External Links
+  </a>
   
 </li>
       
@@ -515,31 +522,128 @@
   
 
 
-<h1 id="slurm-clusters-on-ucloud">SLURM Clusters on UCloud<a class="headerlink" href="#slurm-clusters-on-ucloud" title="Permanent link">&para;</a></h1>
+<h1 id="get-resources">Get Resources<a class="headerlink" href="#get-resources" title="Permanent link">&para;</a></h1>
+<h2 id="local-resources">Local Resources<a class="headerlink" href="#local-resources" title="Permanent link">&para;</a></h2>
+<p>Twice a year CBS is awarded <strong>Local</strong> HPC ressources that can be freely distributed to our researchers and students. CBS primarily have <strong>Local</strong> Type 1 resources as the reflects our current user needs:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>System</th>
+<th>Type</th>
+<th>Total CBS Core H (approx.)</th>
+<th>Smallest Machine (Core H/hour)</th>
+<th>Largest Machine (Core H/hour)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>u1-standard</td>
+<td>Type 1</td>
+<td>CPU</td>
+<td>2,000,000</td>
+<td>1</td>
+<td>64</td>
+</tr>
+<tr>
+<td>uc-t4-h</td>
+<td>Type 1</td>
+<td>GPU</td>
+<td>88,000</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>uc-a10-h</td>
+<td>Type 1</td>
+<td>GPU</td>
+<td>103,000</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>uc-a40-h</td>
+<td>Type 1</td>
+<td>GPU</td>
+<td>265,000</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>uc-a100-h</td>
+<td>Type 1</td>
+<td>GPU</td>
+<td>53,000</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-to-get-local-resources">How to get Local Resources<a class="headerlink" href="#how-to-get-local-resources" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">TYPE 1 (UCloud)</label><label for="__tabbed_1_2">TYPE 3 (Hippo)</label><label for="__tabbed_1_3">Other</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <ul>
-<li><a href="https://github.com/CBS-HPC/UCloud_SlurmCluster/blob/main/SLURM.ipynb">Run Multi-node SLURM Cluster on UCloud</a></li>
+<li>
+<p>You apply from UCloud by sending a <a href="/HPC_Facilities/GrantApp/">UCloud grant application</a>. </p>
+</li>
+<li>
+<p>Information on machine type selection be found <a href="/HPC_Facilities/MachineType/">here</a>. </p>
+</li>
+<li>
+<p>Otherwise please contact <a href="/contact/">RDM Support</a>.</p>
+</li>
 </ul>
-<h3 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h3>
-<h4 id="launch-file">Launch File<a class="headerlink" href="#launch-file" title="Permanent link">&para;</a></h4>
+</div>
+<div class="tabbed-block">
+<p><strong>Students</strong></p>
 <ul>
-<li><a href="https://github.com/CBS-HPC/UCloud_SlurmCluster/blob/main/SLURM_deployment/slurm-launch.py">slurm-launch.py</a></li>
+<li>
+<p>CBS students can only under very specific situation get access to Type 3 HPC. If this is of interrest you are welcome to contact <a href="/contact/">RDM Support</a> to discuss further.</p>
+</li>
+<li>
+<p>Please contact <a href="/contact/">RDM Support</a> if you would like to CBS to request <strong>Local</strong> resources to Type 3.</p>
+</li>
 </ul>
-<h4 id="ray-python">Ray (Python)<a class="headerlink" href="#ray-python" title="Permanent link">&para;</a></h4>
+<p><strong>Staff</strong></p>
 <ul>
-<li><a href="https://github.com/CBS-HPC/UCloud_SlurmCluster/blob/main/SLURM_deployment/slurm-template_ray.sh">slurm-template_ray.sh</a></li>
-<li><a href="https://github.com/CBS-HPC/UCloud_SlurmCluster/blob/main/SLURM_scripts/SklearnRay.py">SklearnRay.py</a></li>
+<li>
+<p>You apply from UCloud by sending a <a href="/HPC_Facilities/GrantApp/">UCloud grant application</a>. </p>
+</li>
+<li>
+<p>In 2023 CBS has a very limited Type 3 resource pool. Type 3 grant applications are therefore only granted after thorough evulation by the <a href="/contact/">RDM Support</a>.</p>
+</li>
+<li>
+<p>For more information please contact <a href="/contact/">RDM Support</a>.</p>
+</li>
 </ul>
-<h4 id="dask-python">Dask (Python)<a class="headerlink" href="#dask-python" title="Permanent link">&para;</a></h4>
+</div>
+<div class="tabbed-block">
+<p>Please contact <a href="/contact/">RDM Support</a> if you would like to CBS to request <strong>Local</strong> resources to Type 2 and 5.</p>
+</div>
+</div>
+</div>
+<h2 id="sandbox-resources">Sandbox Resources<a class="headerlink" href="#sandbox-resources" title="Permanent link">&para;</a></h2>
+<p>CBS researchers wanting to test out HPC systems Type 2 to 5 can gain acess to sandbox ressources by contacting <a href="/contact/">RDM Support</a>. Find more information <a href="https://www.deic.dk/en/Supercomputing/Instructions-and-Guides/Access-to-HPC-Sandbox">here</a>.</p>
+<h2 id="grant-applications">Grant Applications<a class="headerlink" href="#grant-applications" title="Permanent link">&para;</a></h2>
+<p>Find an overview of currently open application rounds <a href="/getresources/#current-calls/">below</a>. Please contact <a href="/contact/">RDM Support</a> as soon as possible if you consider applying as we can aid in the application process.</p>
 <ul>
-<li><a href="https://github.com/CBS-HPC/UCloud_SlurmCluster/blob/main/SLURM_deployment/slurm-template_dask.sh">slurm-template_dask.sh</a></li>
-<li><a href="https://github.com/CBS-HPC/UCloud_SlurmCluster/blob/main/SLURM_scripts/SklearnDask.py">SklearnDask.py</a></li>
+<li>
+<p><strong>TYPE 1 to 3:</strong> Researcher can apply for the <a href="https://www.deic.dk/en/supercomputing/Apply-for-HPC-resources">bi-annual application round</a> for the national HPC resources. </p>
+</li>
+<li>
+<p><strong>TYPE 5 &amp; other international HPC systems:</strong> Researcher can apply for resources at <a href="https://www.deic.dk/en/Supercomputing/International-HPC-Facilities">LUMI and other international HPC facilities</a>. </p>
+</li>
 </ul>
-<h4 id="doparallel-r">doParallel (R)<a class="headerlink" href="#doparallel-r" title="Permanent link">&para;</a></h4>
+<h3 id="current-calls">Current Calls<a class="headerlink" href="#current-calls" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="https://github.com/CBS-HPC/UCloud_SlurmCluster/blob/main/SLURM_deployment/slurm-template_R.sh">slurm-template_R.sh</a></li>
-<li><a href="https://github.com/CBS-HPC/UCloud_SlurmCluster/blob/main/SLURM_scripts/doParallel.r">doParallel.r</a></li>
-<li><a href="https://github.com/CBS-HPC/UCloud_SlurmCluster/blob/main/SLURM_scripts/tidyModel_RF.r">tidyModel_RF.r</a></li>
-<li><a href="https://github.com/CBS-HPC/UCloud_SlurmCluster/blob/main/SLURM_scripts/tidyModel_NN.r">tidyModel_NN.r</a></li>
+<li><a href="https://www.deic.dk/en/supercomputing/Apply-for-HPC-resources">DeiC - Call H1-2024 Call for applications for access to the e- resources - (Deadline: September 5th, 2023)</a></li>
+</ul>
+<h2 id="external-links">External Links<a class="headerlink" href="#external-links" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://www.deic.dk/en/supercomputing/Apply-for-HPC-resources">Apply for national HPC resources</a></li>
+<li><a href="https://www.deic.dk/en/Supercomputing/Instructions-and-Guides/Remember-to-acknowledge-the-use-of-national-hpc">Acknowledge the use of national HPC</a> </li>
+<li><a href="https://deic-hpc.github.io/EuroCC-knowledgepool/">The EuroCC Knowledge Pool (Hosted by DeiC)</a></li>
 </ul>
 
 
