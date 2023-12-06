@@ -15,7 +15,7 @@
     
     
       
-        <title>SSH to Server through local Terminal - HPC & Data Science Support</title>
+        <title>connectVM - HPC & Data Science Support</title>
       
     
     
@@ -101,7 +101,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              SSH to Server through local Terminal
+              connectVM
             
           </span>
         </div>
@@ -447,8 +447,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -457,9 +455,43 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#ssh-to-server-through-local-terminal" class="md-nav__link">
+    SSH to Server through local Terminal
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#from-local-terminal-connect-to-vm-by" class="md-nav__link">
     From Local Terminal connect to VM by:
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transfer-files-and-folders-ssh-copy" class="md-nav__link">
+    Transfer Files and Folders (SSH-Copy)
+  </a>
+  
+    <nav class="md-nav" aria-label="Transfer Files and Folders (SSH-Copy)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#to-vm" class="md-nav__link">
+    To VM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-vm" class="md-nav__link">
+    From VM
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -481,20 +513,22 @@
   
 
 
-<h1 id="ssh-to-server-through-local-terminal">SSH to Server through local Terminal<a class="headerlink" href="#ssh-to-server-through-local-terminal" title="Permanent link">&para;</a></h1>
+  <h1>connectVM</h1>
+
+<h2 id="ssh-to-server-through-local-terminal">SSH to Server through local Terminal<a class="headerlink" href="#ssh-to-server-through-local-terminal" title="Permanent link">&para;</a></h2>
 <p>Add public SSH key while starting a VM job</p>
-<p><img alt="" src="/startjob.png" title="startjob" /></p>
+<p><img alt="" src="/Tutorials/VMs/startjob.png" title="startjob" /></p>
 <p>Identify VM IP when UCloud job is ready.</p>
-<p><img alt="" src="/jobready.png" title="jobready" /></p>
+<p><img alt="" src="/Tutorials/VMs/jobready.png" title="jobready" /></p>
 <h2 id="from-local-terminal-connect-to-vm-by">From Local Terminal connect to VM by:<a class="headerlink" href="#from-local-terminal-connect-to-vm-by" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="n">ssh</span><span class="w"> </span><span class="n">ucloud</span><span class="o">@</span><span class="n">IP_address_from_the_red_mark</span>
 </code></pre></div>
-<h1 id="transfer-files-and-folders-ssh-copy">Transfer Files and Folders (SSH-Copy)<a class="headerlink" href="#transfer-files-and-folders-ssh-copy" title="Permanent link">&para;</a></h1>
-<h2 id="to-vm">To VM<a class="headerlink" href="#to-vm" title="Permanent link">&para;</a></h2>
+<h2 id="transfer-files-and-folders-ssh-copy">Transfer Files and Folders (SSH-Copy)<a class="headerlink" href="#transfer-files-and-folders-ssh-copy" title="Permanent link">&para;</a></h2>
+<h3 id="to-vm">To VM<a class="headerlink" href="#to-vm" title="Permanent link">&para;</a></h3>
 <p>Open a second terminal (1st terminal is connected to the VM):</p>
 <div class="highlight"><pre><span></span><code><span class="n">scp</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;C:\path-to-folder-or-files&quot;</span><span class="w"> </span><span class="n">ucloud</span><span class="o">@</span><span class="n">IP_address_from_the_red_mark</span><span class="o">:</span>
 </code></pre></div>
-<h2 id="from-vm">From VM<a class="headerlink" href="#from-vm" title="Permanent link">&para;</a></h2>
+<h3 id="from-vm">From VM<a class="headerlink" href="#from-vm" title="Permanent link">&para;</a></h3>
 <p>Open a second terminal (1st terminal is connected to the VM)</p>
 <div class="highlight"><pre><span></span><code><span class="n">scp</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="n">ucloud</span><span class="o">@</span><span class="n">IP_address_from_the_red_mark</span><span class="o">:/</span><span class="n">home</span><span class="o">/</span><span class="n">ucloud</span><span class="o">/</span><span class="n">folder</span><span class="w"> </span><span class="s">&quot;C:\path-to-folder&quot;</span>
 </code></pre></div>

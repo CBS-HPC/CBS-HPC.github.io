@@ -492,18 +492,18 @@
 <p>In summary, the BLAS and LAPACK libraries are essential components for numerical computations and linear algebra in R. They provide efficient and optimized routines for fundamental linear algebra operations, and various libraries such as OpenBLAS, Intel MKL, ACML, vecLib, and ATLAS enhance their functionality or provide alternative implementations for improved performance.</p>
 <h1 id="rstudio-on-ucloud">RStudio on UCloud<a class="headerlink" href="#rstudio-on-ucloud" title="Permanent link">&para;</a></h1>
 <p>When looking at the different R/RStudio version available on UCloud (see below) it can be observed that some have the suffix "_MKL". These have "Intel MKL" as their default BLAS/LAPACK library, while versions with out the suffix have the "LibBLAST" library whihc is the base R library on linux systems.</p>
-<p><img alt="" src="/Rstudio_Ucloud1.PNG" /></p>
+<p><img alt="" src="/Tutorials/BLAS/Rstudio_Ucloud1.PNG" /></p>
 <h3 id="use-the-sessioninfo-function-to-check-which-blaslapack-library-is-deployed">Use the "sessionInfo()" function to check which BLAS/LAPACK library is deployed:<a class="headerlink" href="#use-the-sessioninfo-function-to-check-which-blaslapack-library-is-deployed" title="Permanent link">&para;</a></h3>
 <p><strong>MKL</strong></p>
-<p><img alt="" src="/sessionInfo_1.PNG" /></p>
+<p><img alt="" src="/Tutorials/BLAS/sessionInfo_1.PNG" /></p>
 <p><strong>LibBLAS</strong></p>
-<p><img alt="" src="/sessionInfo_2.PNG" /></p>
+<p><img alt="" src="/Tutorials/BLAS/sessionInfo_2.PNG" /></p>
 <h1 id="benchmarking-the-two-versions">Benchmarking the two versions<a class="headerlink" href="#benchmarking-the-two-versions" title="Permanent link">&para;</a></h1>
 <p><strong>Benchmarking a simple matrix multiplication shows that the "MKL" is close 78 times faster than the "LibBLAS"!!</strong></p>
 <p><strong>MKL</strong> mean = 7.63 milliseconds</p>
-<p><img alt="" src="/benchmark_1.PNG" /></p>
+<p><img alt="" src="/Tutorials/BLAS/benchmark_1.PNG" /></p>
 <p><strong>LiBLAS</strong> mean = 592.666 milliseconds</p>
-<p><img alt="" src="/benchmark_2.PNG" /></p>
+<p><img alt="" src="/Tutorials/BLAS/benchmark_2.PNG" /></p>
 <div class="highlight"><pre><span></span><code><span class="n">library</span><span class="p">(</span><span class="n">microbenchmark</span><span class="p">)</span>
 
 <span class="n">n</span> <span class="o">&lt;-</span> <span class="mi">1000</span>
@@ -564,7 +564,7 @@
 </code></pre></div>
 <h2 id="select-an-alternative-library-atlas-libraries-in-this-case">Select an alternative library (Atlas libraries in this case)<a class="headerlink" href="#select-an-alternative-library-atlas-libraries-in-this-case" title="Permanent link">&para;</a></h2>
 <p>Open R and confirm the change of BLAS/LAPACK library using "sessionInfo()" function.</p>
-<p><img alt="" src="/sessionInfo_3.PNG" /></p>
+<p><img alt="" src="/Tutorials/BLAS/sessionInfo_3.PNG" /></p>
 
 
 

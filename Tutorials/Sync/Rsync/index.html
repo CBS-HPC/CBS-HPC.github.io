@@ -515,19 +515,19 @@
 
 <span class="c1"># highlight public key with mouse and copy using &quot;ctrl+c&quot;</span>
 </code></pre></div>
-<p><img alt="" src="/Image1.PNG" /></p>
+<p><img alt="" src="/Tutorials/Sync/image1.PNG" /></p>
 <h2 id="add-public-ssh-key-to-ucloud">Add public SSH key to UCloud<a class="headerlink" href="#add-public-ssh-key-to-ucloud" title="Permanent link">&para;</a></h2>
 <h3 id="step-1-on-ucloud-go-to-resources-shh-keys-create-ssh-key">Step 1: On UCloud go to "Resources -&gt; SHH-Keys -&gt; Create SSH key"<a class="headerlink" href="#step-1-on-ucloud-go-to-resources-shh-keys-create-ssh-key" title="Permanent link">&para;</a></h3>
-<p><img alt="" src="/Image2.PNG" /></p>
+<p><img alt="" src="/Tutorials/Sync/image2.PNG" /></p>
 <h3 id="step-2-paste-pulic-key-give-a-meaningful-name-and-press-add-ssh-key">Step 2: Paste pulic key, give a meaningful name and press "Add SSH key".<a class="headerlink" href="#step-2-paste-pulic-key-give-a-meaningful-name-and-press-add-ssh-key" title="Permanent link">&para;</a></h3>
-<p><img alt="" src="/Image3.PNG" /></p>
-<p><img alt="" src="/Image4.PNG" /></p>
+<p><img alt="" src="/Tutorials/Sync/image3.PNG" /></p>
+<p><img alt="" src="/Tutorials/Sync/image4.PNG" /></p>
 <p>More information can be found in the UCloud <a href="https://docs.cloud.sdu.dk/Apps/general_settings.html#configure-ssh-access">documentation</a>.</p>
 <h2 id="start-rsync-job">Start Rsync Job<a class="headerlink" href="#start-rsync-job" title="Permanent link">&para;</a></h2>
 <h3 id="step-1-start-rsync-job-by-filling-out-the-necessary-fields">Step 1: Start Rsync Job by filling out the necessary fields<a class="headerlink" href="#step-1-start-rsync-job-by-filling-out-the-necessary-fields" title="Permanent link">&para;</a></h3>
-<p><img alt="" src="/Image5.PNG" /></p>
+<p><img alt="" src="/Tutorials/Sync/image5.PNG" /></p>
 <h3 id="step-2-when-job-ready-please-locate-the-ssh-port-which-is-randomly-generated-in-the-cas-below-the-shh-port-is-2167">Step 2: When job ready please locate the SSH port which is randomly generated. In the cas below the SHH port is 2167.<a class="headerlink" href="#step-2-when-job-ready-please-locate-the-ssh-port-which-is-randomly-generated-in-the-cas-below-the-shh-port-is-2167" title="Permanent link">&para;</a></h3>
-<p><img alt="" src="/Image6.PNG" /></p>
+<p><img alt="" src="/Tutorials/Sync/image6.PNG" /></p>
 <h2 id="connect-from-local-machine-using-ssh">Connect from local machine using SSH.<a class="headerlink" href="#connect-from-local-machine-using-ssh" title="Permanent link">&para;</a></h2>
 <p>Open Terminal and follow steps below.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Activate Ubuntu (for Windows)</span>
@@ -537,7 +537,7 @@
 <span class="n">ssh</span><span class="w"> </span><span class="n">ucloud</span><span class="o">@</span><span class="n">ssh.cloud.sdu.dk</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="m">2167</span>
 </code></pre></div>
 <p>If sucessfull you should get the output shown in the figure below.</p>
-<p><img alt="" src="/Image7.PNG" /></p>
+<p><img alt="" src="/Tutorials/Sync/image7.PNG" /></p>
 <h2 id="transfer-data-using-rsync">Transfer data using Rsync<a class="headerlink" href="#transfer-data-using-rsync" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># Navigate to path contain the folder of files to transfer - Alternatively you can open terminal directly in the right directory to skip step below.</span>
 <span class="n">cd</span><span class="w"> </span><span class="s">&quot;path/of/folders-or-files&quot;</span><span class="w"> </span>
