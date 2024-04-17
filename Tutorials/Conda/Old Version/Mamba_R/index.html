@@ -1,0 +1,646 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../../../images/CBS_logo2.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
+    
+    
+      
+        <title>UCloud Tutorial: Using Conda for easy management of R environments - HPC & Data Science Support</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.26e3688c.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ecc896b0.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ucloud-tutorial-using-conda-for-easy-management-of-r-environments" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://example.com" title="HPC &amp; Data Science Support" class="md-header__button md-logo" aria-label="HPC & Data Science Support" data-md-component="logo">
+      
+  <img src="../../../../images/CBS_logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HPC & Data Science Support
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              UCloud Tutorial: Using Conda for easy management of R environments
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+            
+              <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+              </label>
+            
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+            
+              <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+              </label>
+            
+          
+        </form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/CBS-HPC/CBS-HPC.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CBS-HPC/CBS-HPC.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../.." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../news/" class="md-tabs__link">
+      News
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../events/" class="md-tabs__link">
+      Teaching Events
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../hpc/" class="md-tabs__link">
+      HPC Facilites
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../getresources/" class="md-tabs__link">
+      Get Resources
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../tut_docs/" class="md-tabs__link">
+      Tutorials & Documentation
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../contact/" class="md-tabs__link">
+      Contact
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://example.com" title="HPC &amp; Data Science Support" class="md-nav__button md-logo" aria-label="HPC & Data Science Support" data-md-component="logo">
+      
+  <img src="../../../../images/CBS_logo.png" alt="logo">
+
+    </a>
+    HPC & Data Science Support
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/CBS-HPC/CBS-HPC.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CBS-HPC/CBS-HPC.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../news/" class="md-nav__link">
+        News
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../events/" class="md-nav__link">
+        Teaching Events
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hpc/" class="md-nav__link">
+        HPC Facilites
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getresources/" class="md-nav__link">
+        Get Resources
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tut_docs/" class="md-nav__link">
+        Tutorials & Documentation
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contact/" class="md-nav__link">
+        Contact
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="ucloud-tutorial-using-conda-for-easy-management-of-r-environments">UCloud Tutorial: Using Conda for easy management of R environments<a class="headerlink" href="#ucloud-tutorial-using-conda-for-easy-management-of-r-environments" title="Permanent link">&para;</a></h1>
+<p>Introduction text</p>
+<p>https://docs.cloud.sdu.dk/hands-on/conda-setup.html?highlight=conda</p>
+<p>The Conda package and environment management system is already included in few applications available on UCloud (see, e.g., JupyerLab and PyTorch). For more general uses of Conda and its powerful package manager it is convenient to create a local installation and save it in a UCloud project.
+Conda is included in all versions of Anaconda and Miniconda. For example, to install the latest version of Miniconda, just start any interactive app on UCloud, such as Terminal, and run the following shell commands:</p>
+<h1 id="installing-conda-on-ucloud">Installing Conda on UCloud<a class="headerlink" href="#installing-conda-on-ucloud" title="Permanent link">&para;</a></h1>
+<h3 id="launch-a-terminal-app-ucloud-job">Launch a "Terminal App" UCloud Job<a class="headerlink" href="#launch-a-terminal-app-ucloud-job" title="Permanent link">&para;</a></h3>
+<p>Run following commands in the terminal: </p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Download miniconda </span>
+<span class="n">curl</span><span class="w"> </span><span class="o">-</span><span class="n">s</span><span class="w"> </span><span class="o">-</span><span class="n">L</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">miniconda_installer.sh</span><span class="w"> </span><span class="n">https</span><span class="o">://</span><span class="n">repo.anaconda.com</span><span class="o">/</span><span class="n">miniconda</span><span class="o">/</span><span class="n">Miniconda3</span><span class="o">-</span><span class="n">latest</span><span class="o">-</span><span class="n">Linux</span><span class="o">-</span><span class="n">x86_64.sh</span>
+
+<span class="c1"># Install miniconda</span>
+<span class="n">bash</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">miniconda_installer.sh</span><span class="w"> </span><span class="o">-</span><span class="n">b</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">miniconda3</span>
+</code></pre></div>
+<h3 id="when-the-job-is-finished-copy-the-miniconda3-folder-from-ucloud-job-folder-to-a-folder-you-want-within-your-ucloud-project">When the job is finished copy the “miniconda3” folder from UCloud “Job” folder to a folder you want within your UCloud project.<a class="headerlink" href="#when-the-job-is-finished-copy-the-miniconda3-folder-from-ucloud-job-folder-to-a-folder-you-want-within-your-ucloud-project" title="Permanent link">&para;</a></h3>
+<p><img alt="" src="/mkdocs/folder1.PNG" title="folder1" /></p>
+<h2 id="activating-conda-in-a-new-ucloud-job">Activating Conda in a new UCloud Job<a class="headerlink" href="#activating-conda-in-a-new-ucloud-job" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1">#Running a new UCloud run the following lines in the terminal to activate Conda:</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">ln</span><span class="w"> </span><span class="o">-</span><span class="n">s</span><span class="w"> </span><span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">conda</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">conda</span>
+
+<span class="c1"># Initiate Conda and reboot </span>
+<span class="n">conda</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">bash</span><span class="w"> </span><span class="o">-</span><span class="n">i</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">#Shows already installed environments:</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">env</span><span class="w"> </span><span class="n">list</span>
+</code></pre></div>
+<h2 id="installing-r-environment-using-conda">Installing R environment using Conda<a class="headerlink" href="#installing-r-environment-using-conda" title="Permanent link">&para;</a></h2>
+<h3 id="installing-mamba-add-in">Installing Mamba add-in<a class="headerlink" href="#installing-mamba-add-in" title="Permanent link">&para;</a></h3>
+<p>Managing R environment using Conda is facilitated by a add-in library “mamba” (https://astrobiomike.github.io/unix/conda-intro#bonus-mamba-no-5).</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Installing mamba add-in:</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">base</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">mamba</span>
+</code></pre></div>
+<h3 id="installing-and-activate-r-environment-with-mamba">Installing and activate R environment with mamba<a class="headerlink" href="#installing-and-activate-r-environment-with-mamba" title="Permanent link">&para;</a></h3>
+<p>https://astrobiomike.github.io/R/managing-r-and-rstudio-with-conda</p>
+<div class="highlight"><pre><span></span><code><span class="c1">#Showing available R versions</span>
+<span class="n">mamba</span><span class="w"> </span><span class="n">search</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">base</span>
+
+<span class="c1">#Installing a R environment (R-4.2.3 in this example) </span>
+<span class="n">mamba</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">myenv</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">base</span><span class="o">=</span><span class="m">4.2</span><span class="n">.</span><span class="m">3</span>
+
+<span class="c1">#Or install packages during installation.</span>
+<span class="n">mamba</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">myenv</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">conda</span><span class="o">-</span><span class="n">forge</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">base</span><span class="o">=</span><span class="m">4.2</span><span class="n">.</span><span class="m">3</span><span class="w"> </span><span class="n">r</span><span class="o">-</span><span class="n">tidyverse</span>
+
+<span class="c1">#Shows already installed environments (&quot;myenv&quot; should be displayed)</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">env</span><span class="w"> </span><span class="n">list</span>
+
+<span class="c1">#Activate environment</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">myenv</span>
+
+<span class="c1">#Check which R is in path</span>
+<span class="n">which</span><span class="w"> </span><span class="n">R</span>
+
+<span class="c1">#Output should be: </span>
+<span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">myenv</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">R</span>
+</code></pre></div>
+<h3 id="start-r-and-run-code-or-install-packages">Start R and run code or install packages:<a class="headerlink" href="#start-r-and-run-code-or-install-packages" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install packages:</span>
+<span class="n">R</span><span class="w"> </span><span class="nf">install.packages</span><span class="p">(</span>“<span class="n">tidymodels</span>”<span class="p">)</span>
+
+<span class="c1"># If the user wish to run this environment with “JupyterLab” then it is advised to install “iRkernel” at this point:</span>
+<span class="n">R</span><span class="w"> </span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;IRkernel&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h1 id="r-studio-on-ucloud">R Studio on UCloud<a class="headerlink" href="#r-studio-on-ucloud" title="Permanent link">&para;</a></h1>
+<h3 id="add-the-miniconda3-folder-when-starting-the-new-rstudio-ucloud-job">Add the “miniconda3” folder when starting the new Rstudio UCloud job.<a class="headerlink" href="#add-the-miniconda3-folder-when-starting-the-new-rstudio-ucloud-job" title="Permanent link">&para;</a></h3>
+<p>Make sure that Rstudio UCloud job is based on the save R version ad the installed Conda R environment (“myenv”).</p>
+<p>Navigate to the R console: </p>
+<p><img alt="" src="/mkdocs/rconsole.PNG" title="rconsole" /></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Setting &quot;myenv&quot; library into library path of the active R kernel </span>
+<span class="nf">.libPaths</span><span class="p">(</span><span class="s">&quot;/work/miniconda3/envs/myenv/lib/R/library&quot;</span><span class="p">)</span>
+
+<span class="c1"># Check if right path is set: </span>
+<span class="nf">.libPaths</span><span class="p">()</span>
+
+<span class="c1"># Now &quot;myenv&quot; packages are available and new packages can be installed:</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;googlesheets4&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="be-attentive-that-some-dependencies-may-be-pre-installed-in-the-r-studio-ucloud-job-which-may-be-missing-when-loading-this-packages-in-another-ucloud-app-eg-terminal-or-jupyterlab-app">Be attentive that some dependencies may be pre-installed in the “R studio” UCloud job which may be missing when loading this packages in another UCloud app (e.g. Terminal or JupyterLab app).<a class="headerlink" href="#be-attentive-that-some-dependencies-may-be-pre-installed-in-the-r-studio-ucloud-job-which-may-be-missing-when-loading-this-packages-in-another-ucloud-app-eg-terminal-or-jupyterlab-app" title="Permanent link">&para;</a></h3>
+<h1 id="jupyterlab-on-ucloud">JupyterLab on UCloud<a class="headerlink" href="#jupyterlab-on-ucloud" title="Permanent link">&para;</a></h1>
+<h3 id="add-the-miniconda3-folder-when-starting-the-new-jupyterlab-ucloud-job">Add the “miniconda3” folder when starting the new JupyterLab UCloud job.<a class="headerlink" href="#add-the-miniconda3-folder-when-starting-the-new-jupyterlab-ucloud-job" title="Permanent link">&para;</a></h3>
+<p>In terminal add conda environment:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Init conda:</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">bash</span><span class="w"> </span><span class="o">-</span><span class="n">i</span>
+
+<span class="c1"># JupyterLab app on UCloud is Conda based with a installation found on the following path: </span>
+<span class="n">conda</span><span class="w"> </span><span class="n">info</span><span class="w"> </span>–<span class="o">-</span><span class="n">envs</span>
+
+<span class="c1"># Output should be: </span>
+<span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">conda</span>
+
+<span class="c1"># Create symbolic link for R environment between the two conda installations: </span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">ln</span><span class="w"> </span><span class="o">-</span><span class="n">s</span><span class="w"> </span><span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">myenv</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">conda</span><span class="o">/</span><span class="n">envs</span>
+
+<span class="c1"># Shows already installed environments (Now “myenv” is available):</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">env</span><span class="w"> </span><span class="n">list</span>
+
+<span class="c1"># Activate environment:</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">myenv</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install iRkernel R package:</span>
+
+<span class="n">R</span><span class="w"> </span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;IRkernel&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1"># Can be problematic to install at this point</span>
+<span class="n">R</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s">&quot;IRkernel::installspec(name = &#39;myenv&#39;, displayname = &#39;myenv&#39;)&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># De-activate environment:</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">deactivate</span>
+</code></pre></div>
+<h3 id="now-you-can-launch-jupyterlab-interface-and-the-myenv-environment-should-be-available-on-the-frontpage">Now you can launch JupyterLab interface and the “myenv” environment should be available on the frontpage.<a class="headerlink" href="#now-you-can-launch-jupyterlab-interface-and-the-myenv-environment-should-be-available-on-the-frontpage" title="Permanent link">&para;</a></h3>
+<p><img alt="" src="/mkdocs/jupyterR.PNG" title="jupyterR" /></p>
+<h1 id="terminal-app-on-ucloud">Terminal app on UCloud<a class="headerlink" href="#terminal-app-on-ucloud" title="Permanent link">&para;</a></h1>
+<h3 id="add-the-miniconda3-folder-when-starting-the-new-terminal-app-ucloud-job">Add the “miniconda3” folder when starting the new Terminal App UCloud job.<a class="headerlink" href="#add-the-miniconda3-folder-when-starting-the-new-terminal-app-ucloud-job" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Running a new UCloud run the following lines in the terminal to activate Conda:</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">ln</span><span class="w"> </span><span class="o">-</span><span class="n">s</span><span class="w"> </span><span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">conda</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">conda</span>
+
+<span class="c1"># Init Conda:</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">bash</span><span class="w"> </span><span class="o">-</span><span class="n">i</span>
+
+<span class="c1"># Shows already installed environments:</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">env</span><span class="w"> </span><span class="n">list</span>
+
+<span class="c1"># Activate environment:</span>
+<span class="n">conda</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">myenv</span>
+
+<span class="c1"># Check which R is in path:</span>
+<span class="n">which</span><span class="w"> </span><span class="n">R</span>
+
+<span class="c1"># Output should be: </span>
+<span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">myenv</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">R</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Start R and run code or install packages:</span>
+<span class="n">R</span><span class="w"> </span><span class="nf">install.packages</span><span class="p">(</span>“<span class="n">tidymodels</span>”<span class="p">)</span>
+</code></pre></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.indexes", "toc.follow", "search.suggest", "search.higlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.b4d07000.min.js"></script>
+      
+    
+  </body>
+</html>
