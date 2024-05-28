@@ -450,6 +450,28 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#costs" class="md-nav__link">
+    Costs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -468,52 +490,84 @@
 
 <h1 id="type-1-interactive-hpc-ucloud">Type 1 – Interactive HPC (UCloud)     <a href="https://cloud.sdu.dk/app/login"><img align="right" alt="UCloud" src="/HPC_Facilities/images/hpc_ucloud.png" /></a><a class="headerlink" href="#type-1-interactive-hpc-ucloud" title="Permanent link">&para;</a></h1>
 <p>The easiest-to-use HPC service is DeiC Interactive HPC (Type 1) also known as <a href="https://cloud.sdu.dk/">UCloud</a>. This service is provided by the Danish universities <strong>SDU</strong> and <strong>AAU</strong>.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">SDU</label><label for="__tabbed_1_2">AAU</label></div>
+<h2 id="costs">Costs<a class="headerlink" href="#costs" title="Permanent link">&para;</a></h2>
+<p>Machine types are devided into CPU and GPU based machines with their costs being  measured in <strong>core hours</strong> and <strong>GPU core-hours</strong> respectively.</p>
+<p>A 1 (GPU) core machine cost 1 (GPU) core-hour pr. hour and a 64 (GPU) core machine cost 1 (GPU) core-hour pr. hour.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">SDU/K8</label><label for="__tabbed_1_2">AAU/K8</label><label for="__tabbed_1_3">AAU</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><a href="https://cloud.sdu.dk/app/providers/detailed/ucloud">SDU</a> provides <strong>CPU</strong> based containerized applications such as MATLAB, STATA, RStudio, and JupyterLab through a graphical user interface (GUI), in the same way as you would on your laptop. <a href="https://docs.cloud.sdu.dk/Apps/type.html">See all apps</a>. </p>
-<p><strong>u1-standard</strong></p>
-<p><strong>The following machines are available:</strong></p>
+<p><a href="https://cloud.sdu.dk/app/providers/detailed/ucloud">(SDU/K8)</a> provides <strong>CPU</strong> and <strong>GPU</strong> based containerized applications such as MATLAB, STATA, RStudio, and JupyterLab through a graphical user interface (GUI), in the same way as they would on your laptop. <a href="https://docs.cloud.sdu.dk/Apps/apps_index.html">See all apps</a>.</p>
+<p><strong>CPU Nodes (u1-standard):</strong></p>
+<pre><code>Dell PowerEdge C6420
+2x Intel Xeon Gold 6130 @ 2.10 Ghz (total of 64 vCPU)
+384 GB DDR4-2400
+</code></pre>
 <p><img alt="" src="/HPC_Facilities/images/u1-standard.PNG" /></p>
-<p><strong>The specification of the largest node (u1-standard-64) are summarized below:</strong></p>
-<p><strong>Dell PowerEdge C6420</strong></p>
-<p><strong>CPU:</strong>    64 (32 virtual cores) 2x Intel Xeon Gold 6130 16-Core @ 2.10GHz</p>
-<p><strong>RAM:</strong> 384 GB  DDR 4-2666</p>
-<p><strong>Price:</strong> 5,49 DKK/hour</p>
-<p><strong>Description:</strong> The full node consists of 2x Intel(R) Xeon(R) Gold 6130 CPU@2.10 GHz, 32 virtual cores/CPU, and 384 GB of memory.</p>
+<p><strong>GPU Nodes (u3-gpu):</strong></p>
+<pre><code>Lenovo ThinkSystem SR675 V3  
+2x AMD EPYC 9454 @ 2.75 Ghz (total of 192 vCPU) 
+768 GB DDR5-4800 
+4x NVIDIA Hopper H100-SXM5, 80 GB
+</code></pre>
+<p><img alt="" src="/HPC_Facilities/images/u3-gpu.PNG" /></p>
+<p><strong>Storage:</strong></p>
+<pre><code>u1-cephfs - The storage system for DeiC interactive HPC
+</code></pre>
+</div>
+<div class="tabbed-block">
+<p><a href="https://cloud.sdu.dk/app/providers/detailed/aau-k8">(AAU/K8)</a> provides <strong>CPU</strong> and <strong>GPU</strong> based containerized applications such as MATLAB, STATA, RStudio, and JupyterLab through a graphical user interface (GUI), in the same way as they would on your laptop. <a href="https://docs.cloud.sdu.dk/Apps/apps_index.html">See all apps</a>.</p>
+<p><strong>CPU Nodes (uc1-gc):</strong></p>
+<pre><code>128 AMD EPYC 7702 
+512 GBs of RAM
+4x NVIDIA A10 GPU
+</code></pre>
+<p><img alt="" src="/HPC_Facilities/images/u1-gc.PNG" /></p>
+<p><strong>GPU Nodes (uc1-A10):</strong></p>
+<pre><code>64 Intel Xeon Gold 6326
+256 GBs of RAM
+4x NVIDIA A10 GPU
+</code></pre>
+<p><img alt="" src="/HPC_Facilities/images/u1-a10.PNG" /></p>
+<p><strong>Storage:</strong></p>
+<pre><code>uc1-cephfs - The storage system for DeiC interactive HPC (AAU).
+</code></pre>
 </div>
 <div class="tabbed-block">
 <p><a href="https://cloud.sdu.dk/app/providers/detailed/aau">AAU</a> provides primary <strong>GPU</strong> based <a href="https://cloud.sdu.dk/app/applications/search?q=Virtual%20Machines">virtual machines</a>. Access is obtained through terminal and <a href="">SSH</a>. It is possible to set up interactive enviroments such as <a href="https://hpc.ruc.dk/blog/tutorials/setting-up-jupyternotebook-with-gpus-on-aau/">JupyterLab</a>.</p>
-<p>Four different machine types based on different Nvidia GPUs (T4, A10 , A40 and A100) with different application purposes. </p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:5"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><input id="__tabbed_2_5" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Nvidia T4</label><label for="__tabbed_2_2">Nvidia A10</label><label for="__tabbed_2_3">Nvidia A40</label><label for="__tabbed_2_4">Nvidia A100</label><label for="__tabbed_2_5">Specification Comparisons</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:6"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><input id="__tabbed_2_5" name="__tabbed_2" type="radio" /><input id="__tabbed_2_6" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">NO SENSITIVE DATA</label><label for="__tabbed_2_2">Nvidia T4</label><label for="__tabbed_2_3">Nvidia A10</label><label for="__tabbed_2_4">Nvidia A40</label><label for="__tabbed_2_5">Nvidia A100</label><label for="__tabbed_2_6">Specifications</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
+<p>Virtual machines hosted by AAU are only suitable for the processing of</p>
 <ul>
-<li>AI Inference: The T4 is optimized for AI inference workloads, making it suitable for applications like image and speech recognition, natural language processing, and recommendation systems in data centers.</li>
+<li>public and,</li>
+<li>low risk internal data.</li>
 </ul>
-<p><strong>Nvidia T4 is avaliable on the following machines:</strong></p>
-<p><img alt="" src="/HPC_Facilities/images/uc-t4.PNG" /></p>
-<p><img alt="" src="/HPC_Facilities/images/uc-t4h.PNG" /></p>
+<p>The specific data classification model applicable to your institution should be consulted before using these compute resources.</p>
+<p>AUTOMATIC SHUT OFF AND DELETION</p>
+<p>It is your responsibility to ensure that you have sufficient resources to keep your virtual machine running while you need it. All virtual machines are automatically shut off when the user runs out of resources.</p>
+<p>To restart the machine, additional funds should be requested from your front office to cover the full duration that the virtual machine is shut off, plus any additional compute time.</p>
+<p>All data and information related to virtual machines are IRRECOVERABLY deleted if shut off for:</p>
+<ul>
+<li>A100 virtual machines: 3 days (72 hours)</li>
+<li>All other virtual machines: 14 days (336 hours)</li>
+</ul>
+<p>Four different machine types based on different Nvidia GPUs (T4, A10 , A40 and A100) with different application purposes. </p>
+<p><strong>Nvidia A100 is avaliable on the following machines:</strong></p>
 </div>
 <div class="tabbed-block">
-<ul>
-<li>Data Center Workloads: The A10 offers a balance of compute power and memory, making it versatile for various data center tasks, including virtualization, cloud computing, and database acceleration.</li>
-</ul>
+<p><strong>Nvidia T4 is avaliable on the following machines:</strong></p>
+<p><img alt="" src="/HPC_Facilities/images/uc-t4.PNG" /></p>
+</div>
+<div class="tabbed-block">
 <p><strong>Nvidia A10 is avaliable on the following machines:</strong></p>
 <p><img alt="" src="/HPC_Facilities/images/uc-a10.PNG" /></p>
 </div>
 <div class="tabbed-block">
-<ul>
-<li>High-Performance Computing (HPC): The A40 is designed for HPC applications, such as scientific simulations, climate modeling, and molecular dynamics, where high computational power is essential.</li>
-</ul>
 <p><strong>Nvidia A40 is avaliable on the following machines:</strong></p>
 <p><img alt="" src="/HPC_Facilities/images/uc-a40.PNG" /></p>
 </div>
 <div class="tabbed-block">
-<ul>
-<li>Deep Learning and AI Research: The A100 excels in deep learning training and AI research, enabling faster model training for tasks like image recognition, natural language understanding, and autonomous driving.</li>
-<li>High-Performance Computing (HPC): It's also used in HPC environments for tasks like molecular dynamics simulations, quantum chemistry, and climate modeling, thanks to its exceptional computational capabilities.</li>
-</ul>
 <p><strong>Nvidia A100 is avaliable on the following machines:</strong></p>
 <p><img alt="" src="/HPC_Facilities/images/uc-a100.PNG" /></p>
 </div>
