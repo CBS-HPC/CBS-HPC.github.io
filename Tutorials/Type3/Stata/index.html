@@ -38,6 +38,8 @@
       
     
     
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -282,6 +284,18 @@
   </li>
 
       
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../database_tools/" class="md-tabs__link">
+      Database Tools
+    </a>
+  </li>
+
+      
     </ul>
   </div>
 </nav>
@@ -430,6 +444,21 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../database_tools/" class="md-nav__link">
+        Database Tools
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -540,7 +569,7 @@
 <p>This is a guide on how to install Stata on DieC large memory HPC/TYPE 3 (Hippo).</p>
 <p>Prerequisite reading:</p>
 <ul>
-<li><a href="/Tutorials/VMs/shh/">Using Conda for easy management of Python and R environments</a></li>
+<li><a href="/Tutorials/SHH/shh_create/">Using Conda for easy management of Python and R environments</a></li>
 </ul>
 <h2 id="get-stata-license-and-installation-file-cbs-users">Get Stata license and Installation file (CBS Users)<a class="headerlink" href="#get-stata-license-and-installation-file-cbs-users" title="Permanent link">&para;</a></h2>
 <p>Follow the instructions to get a Stata license at CBS https://studentcbs.sharepoint.com/sites/ITandCampus/SitePages/en/Free-software.aspx</p>
@@ -663,7 +692,7 @@ ___<span class="o">/</span><span class="w">   </span><span class="o">/</span><sp
 <span class="n">.</span>
 </code></pre></div>
 <h2 id="create-a-conda-stata-environment">Create a Conda Stata environment<a class="headerlink" href="#create-a-conda-stata-environment" title="Permanent link">&para;</a></h2>
-<p>Assumes that miniconda3 has been installed. For more information on how to install conda on Type 3 see <a href="/Tutorials/VMs/shh/">here</a>.</p>
+<p>Assumes that miniconda3 has been installed. For more information on how to install conda on Type 3 see <a href="/Tutorials/SHH/shh_create/">here</a>.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Create conda environment</span>
 <span class="n">conda</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">myenv_stata</span><span class="w"> </span><span class="n">python</span>
 <span class="n">conda</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">myenv_stata</span>
