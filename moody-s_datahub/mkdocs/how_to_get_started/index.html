@@ -15,7 +15,7 @@
     
     
       
-        <title>How to get Started - HPC & Data Science Support</title>
+        <title>How to get started - HPC & Data Science Support</title>
       
     
     
@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#how-to-get-started" class="md-skip">
+        <a href="#download" class="md-skip">
           Skip to content
         </a>
       
@@ -103,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              How to get Started
+              How to get started
             
           </span>
         </div>
@@ -284,18 +284,6 @@
   </li>
 
       
-        
-  
-  
-
-
-  <li class="md-tabs__item">
-    <a href="../../../database_tools/" class="md-tabs__link">
-      Database Tools
-    </a>
-  </li>
-
-      
     </ul>
   </div>
 </nav>
@@ -444,21 +432,6 @@
   
 
     
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../database_tools/" class="md-nav__link">
-        Database Tools
-      </a>
-    </li>
-  
-
-    
   </ul>
 </nav>
                   </div>
@@ -476,8 +449,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -489,26 +460,6 @@
   <a href="#download" class="md-nav__link">
     Download
   </a>
-  
-    <nav class="md-nav" aria-label="Download">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#on-windows" class="md-nav__link">
-    On Windows
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#on-linux" class="md-nav__link">
-    On Linux
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -528,8 +479,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#connect-to-sftp-server-using-ssh-key" class="md-nav__link">
-    Connect to SFTP server using SSH key.
+  <a href="#connect-to-sftp-server" class="md-nav__link">
+    Connect to SFTP server
   </a>
   
 </li>
@@ -537,6 +488,27 @@
           <li class="md-nav__item">
   <a href="#select-data-product-and-table" class="md-nav__link">
     Select Data Product and Table
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overview-of-remote-files" class="md-nav__link">
+    Overview of Remote Files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#define-options" class="md-nav__link">
+    Define Options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#column-selection" class="md-nav__link">
+    Column Selection
   </a>
   
 </li>
@@ -556,8 +528,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#column-filter" class="md-nav__link">
-    Column Filter
+  <a href="#create-filters-using-the-sftpquery-method" class="md-nav__link">
+    Create Filters using the SFTP.query() method
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-filters-using-custom-functions" class="md-nav__link">
+    Create Filters using custom functions
   </a>
   
 </li>
@@ -565,6 +544,13 @@
           <li class="md-nav__item">
   <a href="#test-the-selected-filters" class="md-nav__link">
     Test the selected Filters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-all-files-before-batch-processing" class="md-nav__link">
+    Download all files before "Batch Processing"
   </a>
   
 </li>
@@ -584,36 +570,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#search-for-country-codes" class="md-nav__link">
+    Search for country codes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#create-a-new-sftp-object" class="md-nav__link">
     Create a new SFTP Object
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create-filters-using-the-pandasquery-method" class="md-nav__link">
-    Create Filters using the pandas.query() method
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create-filters-using-custom-functions" class="md-nav__link">
-    Create Filters using custom functions
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#other-options" class="md-nav__link">
-    Other Options
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#other-functions" class="md-nav__link">
-    Other functions
   </a>
   
 </li>
@@ -641,22 +606,12 @@
   
 
 
-<h1 id="how-to-get-started">How to get Started<a class="headerlink" href="#how-to-get-started" title="Permanent link">&para;</a></h1>
+  <h1>How to get started</h1>
+
 <h2 id="download">Download<a class="headerlink" href="#download" title="Permanent link">&para;</a></h2>
+<p>The pip wheel can be manually downloaded using the link below: </p>
 <p>https://github.com/CBS-HPC/moody-s_datahub/blob/main/dist/moodys_datahub-0.0.1-py3-none-any.whl</p>
-<h3 id="on-windows">On Windows<a class="headerlink" href="#on-windows" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">subprocess</span>
-
-<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/CBS-HPC/moody-s_datahub/blob/main/dist/moodys_datahub-0.0.1-py3-none-any.whl&quot;</span>
-<span class="n">output_file</span> <span class="o">=</span> <span class="s2">&quot;moodys_datahub-0.0.1-py3-none-any.whl&quot;</span>
-
-<span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span>
-    <span class="s2">&quot;powershell&quot;</span><span class="p">,</span> 
-    <span class="s2">&quot;-Command&quot;</span><span class="p">,</span> 
-    <span class="sa">f</span><span class="s2">&quot;Invoke-WebRequest -Uri </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2"> -OutFile </span><span class="si">{</span><span class="n">output_file</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="p">])</span>
-</code></pre></div>
-<h3 id="on-linux">On Linux<a class="headerlink" href="#on-linux" title="Permanent link">&para;</a></h3>
+<p>Or directly to the working folder by running the line below:</p>
 <div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">curl</span> <span class="o">-</span><span class="n">s</span> <span class="o">-</span><span class="n">L</span> <span class="o">-</span><span class="n">o</span> <span class="n">moodys_datahub</span><span class="o">-</span><span class="mf">0.0.1</span><span class="o">-</span><span class="n">py3</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="nb">any</span><span class="o">.</span><span class="n">whl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">CBS</span><span class="o">-</span><span class="n">HPC</span><span class="o">/</span><span class="n">moody</span><span class="o">-</span><span class="n">s_datahub</span><span class="o">/</span><span class="n">blob</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">dist</span><span class="o">/</span><span class="n">moodys_datahub</span><span class="o">-</span><span class="mf">0.0.1</span><span class="o">-</span><span class="n">py3</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="nb">any</span><span class="o">.</span><span class="n">whl</span> 
 </code></pre></div>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
@@ -666,98 +621,38 @@
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">moodys_datahub.tools</span> <span class="kn">import</span> <span class="o">*</span>
 </code></pre></div>
-<h3 id="connect-to-sftp-server-using-ssh-key">Connect to SFTP server using SSH key.<a class="headerlink" href="#connect-to-sftp-server-using-ssh-key" title="Permanent link">&para;</a></h3>
+<h3 id="connect-to-sftp-server">Connect to SFTP server<a class="headerlink" href="#connect-to-sftp-server" title="Permanent link">&para;</a></h3>
+<p>For CBS associates want to connect to the "CBS server" the user needs only to provide the "privatkey" (.pem) provided by CBS Staff.</p>
+<p>To connec to other servers the user needs to provide "hostname", "username","port" and "privatkey".</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Connects to default CBS SFTP server</span>
-
 <span class="n">SFTP</span> <span class="o">=</span> <span class="n">Sftp</span><span class="p">(</span><span class="n">privatekey</span><span class="o">=</span><span class="s2">&quot;user_provided-ssh-key.pem&quot;</span><span class="p">)</span>
 
 <span class="c1"># Connects to custom SFTP server</span>
 <span class="n">SFTP</span> <span class="o">=</span> <span class="n">Sftp</span><span class="p">(</span><span class="n">hostname</span> <span class="o">=</span> <span class="s2">&quot;example.com&quot;</span><span class="p">,</span> <span class="n">username</span> <span class="o">=</span> <span class="s2">&quot;username&quot;</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="mi">22</span><span class="p">,</span><span class="n">privatekey</span><span class="o">=</span><span class="s2">&quot;user_provided-ssh-key.pem&quot;</span><span class="p">)</span> 
 </code></pre></div>
 <h3 id="select-data-product-and-table">Select Data Product and Table<a class="headerlink" href="#select-data-product-and-table" title="Permanent link">&para;</a></h3>
+<p>Run the function below to select "Data Product" and "Table" that are available on the SFTP.</p>
 <div class="highlight"><pre><span></span><code><span class="n">SFTP</span><span class="o">.</span><span class="n">select_data</span><span class="p">()</span>
 </code></pre></div>
-<pre><code>Retrieving Data Product overview from SFTP..wait a moment
-
-
-
----------------------------------------------------------------------------
-
-SSHException                              Traceback (most recent call last)
-
-Cell In[3], line 1
-----&gt; 1 SFTP.select_data()
-
-
-File c:\Users\kgp.lib\Anaconda3\envs\orbis\Lib\site-packages\orbis\tools.py:567, in Sftp.select_data(self)
-    564     print(f"{self.set_table} was set as Table")
-    566 if self._tables_available is None and self._tables_backup is None:
---&gt; 567         self.tables_available(save_to=False)
-    569 asyncio.ensure_future(f(self))
-
-
-File c:\Users\kgp.lib\Anaconda3\envs\orbis\Lib\site-packages\orbis\tools.py:819, in Sftp.tables_available(self, save_to, reset)
-    806 """
-    807 Retrieve available SFTP data products and tables and save them to a file.
-    808 
-   (...)
-    815 - Pandas DataFrame with the available SFTP data products and tables.
-    816 """
-    818 if self._tables_available is None and self._tables_backup is None:
---&gt; 819    self._tables_available = self._table_overview()
-    820    self._tables_backup = self._tables_available 
-    821 elif reset:
-
-
-File c:\Users\kgp.lib\Anaconda3\envs\orbis\Lib\site-packages\orbis\tools.py:1011, in Sftp._table_overview(self, product_overview)
-   1008 if product_overview is None:
-   1009     product_overview =_table_names()
--&gt; 1011 with self.connect() as sftp:
-   1012     exports = sftp.listdir()
-   1013     newest_exports = []
-
-
-File c:\Users\kgp.lib\Anaconda3\envs\orbis\Lib\site-packages\orbis\tools.py:553, in Sftp.connect(self)
-    543 def connect(self):
-    544     """
-    545     Establish an SFTP connection.
-    546 
-   (...)
-    551     - SFTP connection object.
-    552     """
---&gt; 553     sftp = pysftp.Connection(host=self.hostname , username=self.username ,port = self.port ,private_key=self.privatekey, cnopts=self._cnopts)
-    554     return sftp
-
-
-File c:\Users\kgp.lib\Anaconda3\envs\orbis\Lib\site-packages\pysftp\__init__.py:140, in Connection.__init__(self, host, username, private_key, password, port, private_key_pass, ciphers, log, cnopts, default_path)
-    138 # Begin the SSH transport.
-    139 self._transport = None
---&gt; 140 self._start_transport(host, port)
-    141 self._transport.use_compression(self._cnopts.compression)
-    142 self._set_authentication(password, private_key, private_key_pass)
-
-
-File c:\Users\kgp.lib\Anaconda3\envs\orbis\Lib\site-packages\pysftp\__init__.py:176, in Connection._start_transport(self, host, port)
-    174 '''start the transport and set the ciphers if specified.'''
-    175 try:
---&gt; 176     self._transport = paramiko.Transport((host, port))
-    177     # Set security ciphers if set
-    178     if self._cnopts.ciphers is not None:
-
-
-File c:\Users\kgp.lib\Anaconda3\envs\orbis\Lib\site-packages\paramiko\transport.py:448, in Transport.__init__(self, sock, default_window_size, default_max_packet_size, gss_kex, gss_deleg_creds, disabled_algorithms, server_sig_algs)
-    446                 break
-    447     else:
---&gt; 448         raise SSHException(
-    449             "Unable to connect to {}: {}".format(hostname, reason)
-    450         )
-    451 # okay, normal socket-ish flow here...
-    452 threading.Thread.__init__(self)
-
-
-SSHException: Unable to connect to example.com: [WinError 10060] Et forsøg på at oprette forbindelse mislykkedes, fordi den part, der havde oprettet forbindelse, ikke svarede korrekt efter en periode, eller en oprettet forbindelse blev afbrudt, fordi værten ikke svarede
-</code></pre>
+<h3 id="overview-of-remote-files">Overview of Remote Files<a class="headerlink" href="#overview-of-remote-files" title="Permanent link">&para;</a></h3>
+<p>The "Data Product" and "Table" has been selected the associated files on the SFTP server are listed as shown below:</p>
+<div class="highlight"><pre><span></span><code><span class="n">SFTP</span><span class="o">.</span><span class="n">remote_files</span>
+</code></pre></div>
+<h3 id="define-options">Define Options<a class="headerlink" href="#define-options" title="Permanent link">&para;</a></h3>
+<p>The function below allows the user to set the following options:</p>
+<p><strong>SFTP.delete_files</strong> : Delete Files After Processing (To Prevent Large Storage Consumption - 'False' is recommeded)</p>
+<p><strong>SFTP.concat_files</strong> : Concatenate Sub-Files into a Single Output File ('True' is Recommeded):</p>
+<p><strong>SFTP.output_format</strong> : Select Output File Formats (More than one can be selected - '.xlsx' is not recommeded)</p>
+<p><strong>SFTP.file_size_mb</strong> : File Size Cutoff (MB) Before Splitting into Multiple Output files (Only an approxiate)</p>
+<div class="highlight"><pre><span></span><code><span class="n">SFTP</span><span class="o">.</span><span class="n">define_options</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="column-selection">Column Selection<a class="headerlink" href="#column-selection" title="Permanent link">&para;</a></h3>
+<p>Select which columns (variables) to keep </p>
+<div class="highlight"><pre><span></span><code><span class="n">SFTP</span><span class="o">.</span><span class="n">select_columns</span><span class="p">()</span>
+</code></pre></div>
 <h3 id="bvd-filter">BVD Filter<a class="headerlink" href="#bvd-filter" title="Permanent link">&para;</a></h3>
+<p>Set a "bvd_id" filter. This can be provided in different ways as seen below as a python list of in .txt [Link] or .xlsx[Link] format. When setting the .bvd_list the user will be prompted to select one or more "bvd" related columns.</p>
+<p>It can perform an extract search based on full bvd_id numbers or based on the country code that is the two starting letter of the bvd_id numbers.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Text file</span>
 <span class="n">SFTP</span><span class="o">.</span><span class="n">bvd_list</span> <span class="o">=</span> <span class="s1">&#39;bvd_numbers.txt&#39;</span>
 
@@ -771,103 +666,34 @@ SSHException: Unable to connect to example.com: [WinError 10060] Et forsøg på 
 <span class="n">SFTP</span><span class="o">.</span><span class="n">bvd_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;DK28505116&#39;</span><span class="p">,</span><span class="s1">&#39;SE5567031702&#39;</span><span class="p">,</span><span class="s1">&#39;SE5565475489&#39;</span><span class="p">,</span><span class="s1">&#39;NO934382404&#39;</span><span class="p">,</span><span class="s1">&#39;SE5566674205&#39;</span><span class="p">,</span><span class="s1">&#39;DK55828415&#39;</span><span class="p">]</span>
 </code></pre></div>
 <h3 id="time-period-filter">Time Period Filter<a class="headerlink" href="#time-period-filter" title="Permanent link">&para;</a></h3>
+<p>A time periode filter can be set as seen below. Subsequently the user will be prompted to select a "date" column. </p>
+<p>Not all table have suitable "date" columns for which time periode filtration is not possible. </p>
 <div class="highlight"><pre><span></span><code><span class="n">SFTP</span><span class="o">.</span><span class="n">time_period</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1998</span><span class="p">,</span><span class="mi">2005</span><span class="p">]</span>
 </code></pre></div>
-<h3 id="column-filter">Column Filter<a class="headerlink" href="#column-filter" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">SFTP</span><span class="o">.</span><span class="n">select_columns</span><span class="p">()</span>
-</code></pre></div>
-<h3 id="test-the-selected-filters">Test the selected Filters<a class="headerlink" href="#test-the-selected-filters" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">test_sample</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">process_one</span><span class="p">(</span><span class="n">save_to</span><span class="o">=</span><span class="s1">&#39;csv&#39;</span><span class="p">)</span>
-</code></pre></div>
-<h3 id="batch-process-for-on-all-files">Batch Process for on all files<a class="headerlink" href="#batch-process-for-on-all-files" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">results</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">process_all</span><span class="p">()</span>
-</code></pre></div>
-<h3 id="search-in-data-dictionary-for-variablescolumns">Search in Data Dictionary for variables/columns<a class="headerlink" href="#search-in-data-dictionary-for-variablescolumns" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">search_dict</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">search_dictionary</span><span class="p">(</span><span class="n">save_to</span><span class="o">=</span><span class="s1">&#39;xlsx&#39;</span><span class="p">,</span> <span class="n">search_word</span><span class="o">=</span><span class="s1">&#39;total_asset&#39;</span><span class="p">)</span>
-
-<span class="n">search_dict</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">search_dictionary</span><span class="p">(</span><span class="n">search_word</span><span class="o">=</span><span class="s1">&#39;subsidiaries&#39;</span><span class="p">,</span><span class="n">letters_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">search_cols</span><span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;Data Product&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span><span class="s1">&#39;Table&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span><span class="s1">&#39;Column&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span><span class="s1">&#39;Definition&#39;</span><span class="p">:</span> <span class="kc">False</span> <span class="p">})</span>
-</code></pre></div>
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Unnamed: 0</th>
-      <th>Data Product</th>
-      <th>Table</th>
-      <th>Column</th>
-      <th>Definition</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1546</th>
-      <td>1547</td>
-      <td>Key Ownership (Monthly)</td>
-      <td>basic_shareholder_info</td>
-      <td>no_of_recorded_subsidiaries</td>
-      <td>This field indicates the number of subsidiarie...</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-<h3 id="create-a-new-sftp-object">Create a new SFTP Object<a class="headerlink" href="#create-a-new-sftp-object" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">SFTP_2</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">copy_obj</span><span class="p">()</span>
-</code></pre></div>
-<pre><code>Dropdown(description='Data Product:', options=('Listed Financials (Monthly)', 'Interim Financials (Monthly)', …
-
-
-
-Dropdown(description='Table:', disabled=True, options=(), value=None)
-
-
-
-Button(description='OK', disabled=True, style=ButtonStyle())
-
-
-
-Button(description='Cancel', style=ButtonStyle())
-</code></pre>
-<h3 id="create-filters-using-the-pandasquery-method">Create Filters using the pandas.query() method<a class="headerlink" href="#create-filters-using-the-pandasquery-method" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Example 1</span>
+<h3 id="create-filters-using-the-sftpquery-method">Create Filters using the SFTP.query() method<a class="headerlink" href="#create-filters-using-the-sftpquery-method" title="Permanent link">&para;</a></h3>
+<p>With the SFTP.query() method the user can create more custom filters.The method utilises pandas.query() method. A few examples are shown below:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Example 1: </span>
 <span class="n">SFTP</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span><span class="s2">&quot;total_assets &gt; 1000000000&quot;</span>
-<span class="n">query_1</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">process_all</span><span class="p">()</span> 
 
 <span class="c1"># Example 2</span>
 <span class="n">query_args</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CN9360885371&#39;</span><span class="p">,</span><span class="s1">&#39;CN9360885372&#39;</span><span class="p">,</span><span class="s1">&#39;CN9360885373&#39;</span><span class="p">]</span>
 <span class="n">SFTP</span><span class="o">.</span><span class="n">query</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;bvd_id_number in </span><span class="si">{</span><span class="n">query_args</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="n">query_2</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">process_all</span><span class="p">()</span> 
 
 <span class="c1"># Example 3</span>
 <span class="n">query_args</span> <span class="o">=</span> <span class="s1">&#39;DK&#39;</span>
 <span class="n">SFTP</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;bvd_id_number.str.startswith(&#39;</span><span class="si">{</span><span class="n">query_args</span><span class="si">}</span><span class="s2">&#39;, na=False)&quot;</span>
-<span class="n">query_3</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">process_all</span><span class="p">()</span> 
 
 <span class="c1"># Example 4</span>
 <span class="n">bvd_numbers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CN9360885371&#39;</span><span class="p">,</span><span class="s1">&#39;CN9360885372&#39;</span><span class="p">,</span><span class="s1">&#39;CN9360885373&#39;</span><span class="p">]</span>
 <span class="n">country_code</span> <span class="o">=</span> <span class="s1">&#39;CN&#39;</span>
 <span class="n">SFTP</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span><span class="sa">f</span><span class="s2">&quot;bvd_id_number in </span><span class="si">{</span><span class="n">bvd_numbers</span><span class="si">}</span><span class="s2"> | (total_assets &gt; 1000000000 &amp; bvd_id_number.str.startswith(&#39;</span><span class="si">{</span><span class="n">country_code</span><span class="si">}</span><span class="s2">&#39;, na=False))&quot;</span>
-<span class="n">query_4</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">process_all</span><span class="p">()</span> 
 </code></pre></div>
 <h3 id="create-filters-using-custom-functions">Create Filters using custom functions<a class="headerlink" href="#create-filters-using-custom-functions" title="Permanent link">&para;</a></h3>
+<p>It is also possible to defined SFTP.queryprovide a custom functionWith the pandas.query() method the user can create more custom filters. Below are show four examples of how to setup a query string. </p>
 <div class="highlight"><pre><span></span><code><span class="n">bvd_id_numbers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CN9360885371&#39;</span><span class="p">,</span><span class="s1">&#39;CN9360885372&#39;</span><span class="p">,</span><span class="s1">&#39;CN9360885373&#39;</span><span class="p">]</span>
 <span class="n">column_filter</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bvd_id_number&#39;</span><span class="p">,</span><span class="s1">&#39;fixed_assets&#39;</span><span class="p">,</span><span class="s1">&#39;original_currency&#39;</span><span class="p">,</span><span class="s1">&#39;total_assets&#39;</span><span class="p">]</span>  <span class="c1"># Example column filter</span>
 
-<span class="k">def</span> <span class="nf">bvd_filter</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">bvd_id_numbers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">column_filter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">specific_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">specific_col</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">bvd_filter</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">bvd_id_numbers</span><span class="p">,</span><span class="n">column_filter</span><span class="p">,</span><span class="n">specific_value</span><span class="p">,</span><span class="n">specific_col</span><span class="p">):</span>
 
      <span class="c1"># Check if specific_col is a column in the DataFrame</span>
     <span class="k">if</span> <span class="n">specific_col</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">specific_col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
@@ -896,78 +722,78 @@ Button(description='Cancel', style=ButtonStyle())
 
 <span class="n">SFTP</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span> <span class="n">bvd_filter</span>
 <span class="n">SFTP</span><span class="o">.</span><span class="n">query_args</span> <span class="o">=</span> <span class="p">[</span><span class="n">bvd_id_numbers</span><span class="p">,</span><span class="n">column_filter</span><span class="p">,</span><span class="mi">1000000000</span><span class="p">,</span><span class="s1">&#39;total_assets&#39;</span><span class="p">]</span>
-<span class="n">query_5</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">process_all</span><span class="p">()</span> 
 </code></pre></div>
-<h3 id="other-options">Other Options<a class="headerlink" href="#other-options" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">SFTP</span><span class="o">.</span><span class="n">delete_files</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># True/False: To delete the downloaded files post curation (to prevent very large amounts of data being stored locally)</span>
-<span class="n">SFTP</span><span class="o">.</span><span class="n">concat_files</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># True/False: To concatenate the curated data product sub files into a single output file.</span>
-<span class="n">SFTP</span><span class="o">.</span><span class="n">output_format</span> <span class="o">=</span>  <span class="p">[</span><span class="s2">&quot;.xlsx&quot;</span><span class="p">,</span><span class="s2">&quot;.csv&quot;</span><span class="p">,</span><span class="s2">&quot;.parquet&quot;</span><span class="p">]</span> <span class="c1"># [&quot;.csv&quot;,&quot;xlsx&quot;,&quot;.parquet&quot;,&quot;.pickle&quot;,&quot;.dta&quot;] # Defining output formats.</span>
-<span class="n">SFTP</span><span class="o">.</span><span class="n">file_size_mb</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># Cut-off size for when to split output files into multiple files.</span>
+<h3 id="test-the-selected-filters">Test the selected Filters<a class="headerlink" href="#test-the-selected-filters" title="Permanent link">&para;</a></h3>
+<p>Before running the selected filters on all files (SFTP.remote_files) is can be a good idea to test it on a single sub-file using the function below. </p>
+<p><strong>It should be noted that the sub-file that is used below will not contain rows that a relevant for the defined filters.</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">df_sample</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">process_one</span><span class="p">()</span>
+
+<span class="n">df_sample</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">process_one</span><span class="p">(</span><span class="n">save_to</span> <span class="o">=</span> <span class="s1">&#39;csv&#39;</span><span class="p">,</span><span class="n">files</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">remote_files</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">n_rows</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">)</span>
 </code></pre></div>
-<h3 id="other-functions">Other functions<a class="headerlink" href="#other-functions" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">search_dict</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">search_dictionary</span><span class="p">(</span><span class="n">save_to</span><span class="o">=</span><span class="s1">&#39;xlsx&#39;</span><span class="p">,</span> <span class="n">search_word</span><span class="o">=</span><span class="s1">&#39;total_asset&#39;</span><span class="p">)</span>
+<h3 id="download-all-files-before-batch-processing">Download all files before "Batch Processing"<a class="headerlink" href="#download-all-files-before-batch-processing" title="Permanent link">&para;</a></h3>
+<p>If working on a slower connection it may be benificial to start downloading all remote files before processing them.</p>
+<p>When the downloading process has been started "SFTP._download_finished" will change from a "None" to "False and then "True" upon download completion.</p>
+<p>The function is executed asyncionsly and the user can proceed working in the jupyter notebook while it is running.</p>
+<div class="highlight"><pre><span></span><code><span class="n">SFTP</span><span class="o">.</span><span class="n">download_all</span><span class="p">()</span>
 
-<span class="c1"># Create a new SFTP Object</span>
-<span class="n">SFTP_2</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">copy_obj</span><span class="p">()</span>
+<span class="c1"># Define the number of workers/processors that should be utilsed. </span>
 
-<span class="c1"># Search for country codes</span>
+<span class="n">SFTP</span><span class="o">.</span><span class="n">download_all</span><span class="p">(</span><span class="n">num_workers</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="batch-process-for-on-all-files">Batch Process for on all files<a class="headerlink" href="#batch-process-for-on-all-files" title="Permanent link">&para;</a></h3>
+<p>All files can be processed using the function below. </p>
+<ul>
+<li>
+<p>If "SFTP._download_finished" is "None" the function also download the files. </p>
+</li>
+<li>
+<p>If "SFTP._download_finished" is "False" it will wait upon the download process has been completed and "SFTP._download_finished" is set to "True". </p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># If no input arguments are provided it will utilise the filters that has beeen defined in the selection above.</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">process_all</span><span class="p">()</span>
+
+<span class="c1"># Input arguments can also be set manually as shown below:  </span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">process_all</span><span class="p">(</span><span class="n">files</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">remote_files</span><span class="p">,</span> 
+                            <span class="n">destination</span> <span class="o">=</span> <span class="s2">&quot;file_name&quot;</span><span class="p">,</span>  
+                            <span class="n">num_workers</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span> 
+                            <span class="n">select_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bvd_id_number&#39;</span><span class="p">,</span><span class="s1">&#39;fixed_assets&#39;</span><span class="p">,</span><span class="s1">&#39;original_currency&#39;</span><span class="p">,</span><span class="s1">&#39;total_assets&#39;</span><span class="p">],</span>
+                            <span class="n">date_query</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                            <span class="n">bvd_query</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                            <span class="n">query</span> <span class="o">=</span> <span class="n">bvd_filter</span><span class="p">,</span> 
+                            <span class="n">query_args</span> <span class="o">=</span> <span class="p">[</span><span class="n">bvd_id_numbers</span><span class="p">,</span><span class="n">column_filter</span><span class="p">,</span><span class="mi">1000000000</span><span class="p">,</span><span class="s1">&#39;total_assets&#39;</span><span class="p">]</span>
+                            <span class="p">)</span>
+</code></pre></div>
+<h3 id="search-in-data-dictionary-for-variablescolumns">Search in Data Dictionary for variables/columns<a class="headerlink" href="#search-in-data-dictionary-for-variablescolumns" title="Permanent link">&para;</a></h3>
+<p>It is possible to search in the "Data Dictionary" for variables, keywords or topic. The "Data Dictionary" will be filtrated according to "Data Product" and "Table" selection.</p>
+<div class="highlight"><pre><span></span><code><span class="n">df_search</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">search_dictionary</span><span class="p">(</span><span class="n">save_to</span> <span class="o">=</span> <span class="s1">&#39;xlsx&#39;</span><span class="p">,</span> <span class="n">search_word</span> <span class="o">=</span> <span class="s1">&#39;total_asset&#39;</span><span class="p">)</span>
+
+<span class="n">df_search</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">search_dictionary</span><span class="p">(</span><span class="n">save_to</span> <span class="o">=</span> <span class="s1">&#39;xlsx&#39;</span><span class="p">,</span>
+                                    <span class="n">search_word</span> <span class="o">=</span> <span class="s1">&#39;subsidiaries&#39;</span><span class="p">,</span>
+                                    <span class="n">search_cols</span><span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;Data Product&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span><span class="s1">&#39;Table&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span><span class="s1">&#39;Column&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span><span class="s1">&#39;Definition&#39;</span><span class="p">:</span> <span class="kc">False</span> <span class="p">},</span>
+                                    <span class="n">letters_only</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                                    <span class="n">extact_match</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                                    <span class="n">data_product</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                    <span class="n">table</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  
+                                    <span class="p">)</span>
+</code></pre></div>
+<h3 id="search-for-country-codes">Search for country codes<a class="headerlink" href="#search-for-country-codes" title="Permanent link">&para;</a></h3>
+<p>The function below can be used to find the "bvd_id" country codes for specific nations.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Search for country codes by country name</span>
 <span class="n">SFTP</span><span class="o">.</span><span class="n">search_country_codes</span><span class="p">(</span><span class="n">search_word</span><span class="o">=</span><span class="s1">&#39;congo&#39;</span><span class="p">)</span>
+
+<span class="c1"># Define columns to search in:</span>
+
+<span class="n">SFTP</span><span class="o">.</span><span class="n">search_country_codes</span><span class="p">(</span><span class="n">search_word</span><span class="o">=</span><span class="s1">&#39;DK&#39;</span><span class="p">,</span> <span class="n">search_cols</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;Country&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span><span class="s1">&#39;Code&#39;</span><span class="p">:</span> <span class="kc">True</span> <span class="p">})</span>
 </code></pre></div>
-<pre><code>The folloiwng query was executed:`Column`.str.contains('total_asset', case=False, na=False,regex=False) | `Definition`.str.contains('total_asset', case=False, na=False,regex=False)
-Results have been saved to 'orbis_dict_search_20240704_092243.xlsx'
-</code></pre>
-<h1 id="matching-bvd_numbers-from-identifiers-dataset">Matching bvd_numbers from Identifiers dataset<a class="headerlink" href="#matching-bvd_numbers-from-identifiers-dataset" title="Permanent link">&para;</a></h1>
-<div class="highlight"><pre><span></span><code><span class="n">SFTP</span><span class="o">.</span><span class="n">delete_files</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># True/False: To delete the downloaded files post curation (to prevent very large amounts of data being stored locally)</span>
-<span class="n">SFTP</span><span class="o">.</span><span class="n">concat_files</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># True/False: To concatenate the curated data product sub files into a single output file.</span>
-<span class="n">SFTP</span><span class="o">.</span><span class="n">output_format</span> <span class="o">=</span>  <span class="p">[</span><span class="s2">&quot;.csv&quot;</span><span class="p">]</span> <span class="c1"># Defining output formats.</span>
-<span class="n">SFTP</span><span class="o">.</span><span class="n">file_size_mb</span> <span class="o">=</span> <span class="mi">300</span> <span class="c1"># Cut-off size for when to split output files into multiple files.</span>
+<h3 id="create-a-new-sftp-object">Create a new SFTP Object<a class="headerlink" href="#create-a-new-sftp-object" title="Permanent link">&para;</a></h3>
+<p>The "SFTP.copy_obj()" function can be used to create a new SFTP object in order to process another "Data Product"/"Table.</p>
+<ul>
+<li>SFTP.select_data() will be prompted automatically </li>
+<li>Other filters will be reset.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">SFTP_2</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">copy_obj</span><span class="p">()</span>
 </code></pre></div>
-<h2 id="company-name-bvd_numbers-using-fuzzy-match-algoritm">company name -&gt; bvd_numbers (using fuzzy match algoritm)<a class="headerlink" href="#company-name-bvd_numbers-using-fuzzy-match-algoritm" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="n">SFTP</span><span class="o">.</span><span class="n">remote_path</span> <span class="o">=</span> <span class="s2">&quot;IvdS14LwRxucymVszEBE3Q/unscheduled/giin&quot;</span>
-<span class="n">SFTP</span><span class="o">.</span><span class="n">local_path</span> <span class="o">=</span> <span class="s2">&quot;company_names&quot;</span> 
-<span class="n">df_names</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">process_all</span><span class="p">(</span><span class="n">SFTP</span><span class="o">.</span><span class="n">remote_files</span><span class="p">,</span><span class="n">destination</span><span class="o">=</span><span class="s1">&#39;company_name&#39;</span><span class="p">,</span><span class="n">select_cols</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bvd_id_number&#39;</span><span class="p">,</span><span class="s1">&#39;name_as_in_the_fatca_register_&#39;</span><span class="p">])</span> <span class="c1"># Only loading the columns defined in filter_col</span>
-</code></pre></div>
-<pre><code>Remote path is valid:'IvdS14LwRxucymVszEBE3Q/unscheduled/giin'
-Folder 'company_names' created.
-</code></pre>
-<div class="highlight"><pre><span></span><code><span class="c1"># Example usage:</span>
-<span class="n">input_strings</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Bank of America&quot;</span><span class="p">,</span> <span class="s2">&quot;AXA2&quot;</span><span class="p">,</span> <span class="s2">&quot;JPMorgan Chase&quot;</span><span class="p">]</span>
-<span class="n">extended_list</span> <span class="o">=</span> <span class="n">input_strings</span> <span class="o">*</span> <span class="mi">100</span>
-<span class="n">match_col</span> <span class="o">=</span> <span class="s1">&#39;name_as_in_the_fatca_register_&#39;</span>
-<span class="n">return_col</span> <span class="o">=</span> <span class="s1">&#39;bvd_id_number&#39;</span>
-
-<span class="n">str_remove</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GMBH&quot;</span><span class="p">,</span><span class="s2">&quot; - Branch&quot;</span><span class="p">,</span><span class="s2">&quot;CO.&quot;</span><span class="p">,</span><span class="s2">&quot;LTD&quot;</span><span class="p">,</span><span class="s2">&quot;Ltd&quot;</span><span class="p">,</span><span class="s2">&quot;Limited&quot;</span><span class="p">,</span> <span class="s2">&quot;GMBH&quot;</span><span class="p">,</span><span class="s2">&quot;A/S&quot;</span><span class="p">]</span>
-
-<span class="n">result_df</span> <span class="o">=</span> <span class="n">fuzzy_match</span><span class="p">(</span><span class="n">input_strings</span><span class="o">=</span><span class="n">extended_list</span><span class="p">,</span><span class="n">df</span><span class="o">=</span><span class="n">df_names</span><span class="p">,</span><span class="n">num_workers</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">match_column</span><span class="o">=</span><span class="n">match_col</span><span class="p">,</span> <span class="n">return_column</span><span class="o">=</span><span class="n">return_col</span><span class="p">,</span><span class="n">cut_off</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">remove_str</span><span class="o">=</span><span class="n">str_remove</span><span class="p">)</span>
-
-<span class="n">result_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</code></pre></div>
-<h2 id="national-id-numbers-bvd_numbers">national id numbers -&gt; bvd_numbers<a class="headerlink" href="#national-id-numbers-bvd_numbers" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="n">SFTP</span><span class="o">.</span><span class="n">local_path</span> <span class="o">=</span> <span class="s2">&quot;Identifiers&quot;</span>
-<span class="n">SFTP</span><span class="o">.</span><span class="n">remote_path</span> <span class="o">=</span> <span class="s2">&quot;IvdS14LwRxucymVszEBE3Q/unscheduled/identifiers&quot;</span>
-
-<span class="c1"># Below is just to collect 1000 random &#39;national_id_numbers&#39;</span>
-<span class="n">SFTP</span><span class="o">.</span><span class="n">output_format</span> <span class="o">=</span>  <span class="kc">None</span> <span class="c1"># Defining output formats.</span>
-<span class="n">df_id_number</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">process_all</span><span class="p">(</span><span class="n">files</span> <span class="o">=</span><span class="n">SFTP</span><span class="o">.</span><span class="n">remote_files</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span><span class="n">num_workers</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span><span class="n">destination</span><span class="o">=</span><span class="s1">&#39;identifiers&#39;</span><span class="p">,</span><span class="n">select_cols</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bvd_id_number&#39;</span><span class="p">,</span><span class="s1">&#39;national_id_number&#39;</span><span class="p">])</span>
-<span class="n">national_id_number</span> <span class="o">=</span> <span class="n">random_sample</span> <span class="o">=</span> <span class="n">df_id_number</span><span class="p">[</span><span class="s1">&#39;national_id_number&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-</code></pre></div>
-<pre><code>Folder 'Identifiers' already exists.
-Remote path is valid:'IvdS14LwRxucymVszEBE3Q/unscheduled/identifiers'
-</code></pre>
-<div class="highlight"><pre><span></span><code><span class="n">SFTP</span><span class="o">.</span><span class="n">output_format</span> <span class="o">=</span>  <span class="p">[</span><span class="s2">&quot;.csv&quot;</span><span class="p">]</span> <span class="c1"># Defining output formats.</span>
-
-<span class="c1"># Define query statement</span>
-<span class="n">query_args</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">national_id_number</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span>
-<span class="n">query_str</span> <span class="o">=</span><span class="sa">f</span><span class="s2">&quot;national_id_number in </span><span class="si">{</span><span class="n">query_args</span><span class="si">}</span><span class="s2">&quot;</span>
-
-<span class="c1"># Execute</span>
-<span class="n">query_id_numbers</span> <span class="o">=</span> <span class="n">SFTP</span><span class="o">.</span><span class="n">process_all</span><span class="p">(</span><span class="n">SFTP</span><span class="o">.</span><span class="n">remote_files</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span><span class="n">num_workers</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">destination</span> <span class="o">=</span><span class="s2">&quot;query_2&quot;</span><span class="p">,</span><span class="n">select_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bvd_id_number&#39;</span><span class="p">,</span><span class="s1">&#39;national_id_number&#39;</span><span class="p">],</span><span class="n">query</span> <span class="o">=</span> <span class="n">query_str</span><span class="p">,</span><span class="n">query_args</span><span class="o">=</span><span class="n">query_args</span><span class="p">)</span> 
-
-<span class="c1"># Sanity check </span>
-<span class="n">query_id_numbers</span><span class="p">[</span><span class="s1">&#39;national_id_number&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">query_args</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-</code></pre></div>
-<pre><code>True
-</code></pre>
 
 
 

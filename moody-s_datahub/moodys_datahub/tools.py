@@ -3,6 +3,7 @@ import shutil
 import time
 import json
 import importlib
+import shlex
 import subprocess
 import os
 import re
@@ -12,6 +13,7 @@ from concurrent.futures import ThreadPoolExecutor
 from multiprocessing import Pool, cpu_count, Process
 import importlib.resources as pkg_resources
 import copy
+import ast
 
 
 # Check and install required libraries
@@ -35,6 +37,7 @@ import numpy as np
 import ipywidgets as widgets
 from IPython.display import display
 import asyncio
+
 
 # Defining Sftp Class
 class Sftp:
@@ -108,6 +111,8 @@ class Sftp:
             self._max_path_length = 1024
         elif sys.platform == 'win32':
             self._max_path_length = 256
+        
+        self.tables_available(save_to=False)
 
     # pool method
     @property
@@ -202,19 +207,23 @@ class Sftp:
             self._remote_files, self._remote_path = self._check_path(path,"remote")
 
             if self._remote_path is not None:
-                if self._tables_available is None and self._tables_backup is None:
-                    self.tables_available(save_to=False)
 
                 df = self._tables_available.query(f"`Base Directory` == '{self._remote_path}'")
-                
+        
                 if df.empty:
                     df = self._tables_available.query(f"`Export` == '{self._remote_path}'")
                     self._set_table = None
-                else:
-                    self._set_table = df['Table'].iloc[0]
+                else:                 
+                    if (self._set_table and self._set_table not in df['Table'].values) or not self._set_table:
+                        self._set_table = df['Table'].iloc[0]
                 
-                if not df.empty:    
-                    self.set_data_product = df['Data Product'].iloc[0]
+                if not df.empty:
+                    if (self._set_data_product and self._set_data_product not in df['Data Product'].values) or not self._set_data_product:    
+                        self._set_data_product = df['Data Product'].iloc[0]
+                        self._tables_available = df 
+                
+                if len(self._remote_files) > 1 and any(file.endswith('.csv') for file in self._remote_files):
+                    self._remote_files, self._remote_path = self._check_path(path,"remote")
  
     @property
     def remote_files(self):
@@ -240,11 +249,9 @@ class Sftp:
         Returns:
         - Current data product.
         """
-        if self._tables_available is None and self._tables_backup is None:
-                self.tables_available(save_to=False)
 
         if (product is None) or (product is not self._set_data_product):
-            self._tables_available = self._tables_backup
+            self._tables_available = self._tables_backup.copy()
 
         if product is None:
             self._set_data_product = None
@@ -271,7 +278,8 @@ class Sftp:
                         print(f"One data product partionally match '{product}' : {matches['Data Product'].tolist()}. Please set right data product")
 
             elif len(df['Export'].unique()) > 1:
-                matches   = df[['Data Product','Export']].drop_duplicates()              
+                matches   = df[['Data Product','Export']].drop_duplicates()
+
                 print(f"Multiple version of '{product}' are detected: {matches['Data Product'].tolist()} with export paths ('Export') {matches['Export'].tolist()} .Please Set the '.remote_path' property with the correct 'Export' Path")                
             else:
                 self._tables_available = df
@@ -280,7 +288,6 @@ class Sftp:
                 self._select_cols = None 
                 self.query = None
                 self.query_args = None
-                self.remote_path = df['Export'].iloc[0]
                 self._time_stamp = df['Timestamp'].iloc[0]
 
     @property
@@ -288,7 +295,7 @@ class Sftp:
         return self._set_table
 
     @set_table.setter
-    def set_table(self, table:str):
+    def set_table(self, table):
         """
         Set or retrieve the current table.
 
@@ -299,8 +306,6 @@ class Sftp:
         Returns:
         - Current table.
         """
-        if self._tables_available is None and self._tables_backup is None:
-                self.tables_available(save_to=False)
 
         if table is None:
             self._set_table = None
@@ -310,7 +315,12 @@ class Sftp:
             self.query_args = None
 
         elif table is not self._set_table:
-            df = self._tables_available.query(f"`Table` == '{table}'")
+            
+            if self._set_data_product is None:
+                df = self._tables_available.query(f"`Table` == '{table}'")
+            else:
+                df = self._tables_available.query(f"`Table` == '{table}' &  `Data Product` == '{self._set_data_product}'")
+
             if df.empty:
                 df = self._tables_available.query(f"`Table`.str.contains('{table}', case=False, na=False,regex=False)")
                 if len(df) >1:
@@ -318,13 +328,16 @@ class Sftp:
                     print(f"Multiple tables partionally match '{table}' : {matches['Table'].tolist()} from {matches['Data Product'].tolist()}. Please set right table" )
                 elif df.empty:    
                     print("No such Table was found. Please set right table")
+                self._set_table = None
             elif len(df) > 1:
                 if self._set_data_product is None: 
                     matches   = df[['Data Product','Table']].drop_duplicates()
                     print(f"Multiple tables match '{table}' : {matches['Table'].tolist()} from {matches['Data Product'].tolist()}. Please set Data Product using the '.set_data_product' property")
+          
                 elif len(df['Export'].unique()) > 1:
                     matches   = df[['Data Product','Table','Export']].drop_duplicates()
                     print(f"Multiple version of '{table}' are detected: {matches['Table'].tolist()} from {matches['Data Product'].tolist()} with export paths ('Base Directory') {matches['Base Directory'].tolist()} .Please Set the '.remote_path' property with the correct 'Base Directory' Path")
+                self._set_table = None    
             else:
                 self._set_table = table
                 self.set_data_product = df['Data Product'].iloc[0]
@@ -339,7 +352,6 @@ class Sftp:
        
     @bvd_list.setter
     def bvd_list(self, bvd_list = None):
-        
         def load_bvd_list(file_path, df_bvd ,delimiter='\t'):
             # Get the file extension
             file_extension = file_path.split('.')[-1].lower()
@@ -395,8 +407,8 @@ class Sftp:
         if bvd_list is not None:
             df =self.search_country_codes()
 
-            if self._bvd_list[1] is not None and self._select_cols is not None:
-                self._select_cols.remove(self._bvd_list[1])
+            if (self._bvd_list[1] is not None and self._select_cols is not None) and self._bvd_list[1] in self._select_cols:
+                    self._select_cols.remove(self._bvd_list[1])
 
             self._bvd_list = [None,None,None]
             search_word = None
@@ -437,7 +449,7 @@ class Sftp:
                 if isinstance(search_word, str) and search_word in bvd_col:
                     self._bvd_list[1] = search_word
                 else:
-                    _select_list('dropdown2',bvd_col,'bvd columns',_select_bvd,[self._bvd_list,self._select_cols, search_type])
+                    _select_list('_SelectMultiple',bvd_col,'Columns:','Select "bvd" Columns to filtrate',_select_bvd,[self._bvd_list,self._select_cols, search_type])
                     return
             else:    
                 self._bvd_list[1]  = bvd_col[0]
@@ -487,7 +499,7 @@ class Sftp:
                 return [start_year, end_year, None] 
         
         if years is not None:
-            if self._time_period[2] is not None and self._select_cols is not None:
+            if (self._time_period[2] is not None and self._select_cols is not None) and self._time_period[2] in self._select_cols:
                 self._select_cols.remove(self._time_period[2])
             
             self._time_period = check_year(years)
@@ -507,7 +519,7 @@ class Sftp:
                 raise ValueError(f"{self._time_period[2]} was not found as date related column: {date_col}. Set ._time_period[2] with the correct one") 
             
             elif self._time_period[2] is None and len(date_col) > 1:
-                _select_list('dropdown',date_col,'Date columns',_select_date,[self._time_period,self._select_cols])
+                _select_list('_SelectList',date_col,'Columns:','Select "date" Column to filtrate',_select_date,[self._time_period,self._select_cols])
                 return          
 
             if self._time_period[2] is None:
@@ -579,16 +591,52 @@ class Sftp:
         """
            
         async def f(self):
-            Select_obj = _SelectData(self._tables_backup)
+            Select_obj = _SelectData(self._tables_backup,'Select Data Product and Table')
             selected_product, selected_table = await Select_obj.display_widgets()
-            self.set_data_product = selected_product
-            self.set_table = selected_table
 
-            print(f"{self.set_data_product} was set as Data Product")
-            print(f"{self.set_table} was set as Table")
+            df = self._tables_backup.copy()
+            df = df[['Data Product','Table','Base Directory','Top-level Directory']].query(f"`Data Product` == '{selected_product}' & `Table` == '{selected_table}'").drop_duplicates()
+            
+            if len(df) > 1:
+                options = df['Top-level Directory'].tolist()
+                product = df['Data Product'].drop_duplicates().tolist()
+                msg = f"Multiple data products match '{product[0]}'. Please set right data product:" 
+                self._set_table = selected_table
+                self._set_data_product = selected_product
+                _select_list('_SelectList',options,f"'{product[0]}':",msg,_select_product,[df,self])
+            elif len(df) == 1:
+                self.set_data_product = selected_product
+                self.set_table = selected_table
+                print(f"{self.set_data_product} was set as Data Product")
+                print(f"{self.set_table} was set as Table")
 
-        if self._tables_available is None and self._tables_backup is None:
-                self.tables_available(save_to=False)
+        self._download_finished = None 
+
+        asyncio.ensure_future(f(self))
+
+    def define_options(self):
+        async def f(self):
+            
+            config = {
+            'delete_files': self.delete_files,
+            'concat_files': self.concat_files,
+            'output_format': self.output_format,
+            'file_size_mb': self.file_size_mb}
+
+            Options_obj = _SelectOptions(config)
+
+            config = await Options_obj.display_widgets()
+
+            if config:
+                self.delete_files = config['delete_files']
+                self.concat_files = config['concat_files']
+                self.output_format = config['output_format']
+                self.file_size_mb = config['file_size_mb']
+
+                print("The following options were selected:")
+                print(f"Delete Files: {self.delete_files}")
+                print(f"Concatenate Files: {self.output_format}")
+                print(f"Output File Size: {self.file_size_mb } MB")
         
         asyncio.ensure_future(f(self))
 
@@ -622,7 +670,7 @@ class Sftp:
 
             combined = [f"{col}  -----  {defn}" for col, defn in zip(column, definition)]
             
-            Select_obj = _SelectMultiple(combined,'columns')
+            Select_obj = _SelectMultiple(combined,'Columns:',"Select Table Columns")
             selected_list = await Select_obj.display_widgets()
             if selected_list is not None:
 
@@ -659,12 +707,15 @@ class Sftp:
         Returns:
         - Deep copy of the current Sftp instance with optional updates.
         """
-        new_obj = copy.deepcopy(self)
+
+        new_obj= Sftp(hostname = self.hostname, username = self.username, port = 22, privatekey= self.privatekey) 
+
+        #new_obj = copy.deepcopy(self)
 
         new_obj.select_data()
-        new_obj.bvd_list = None
-        new_obj.time_period = None
-        new_obj.select_cols = None
+        #new_obj.bvd_list = None
+        #new_obj.time_period = None
+        #new_obj.select_cols = None
         
         return new_obj
 
@@ -694,9 +745,7 @@ class Sftp:
         Example:
             df = self.table_dates(save_to='csv', data_product='Product1', table='TableA')
         """    
-        if self._tables_available is None and self._tables_backup is None:
-                self.tables_available(save_to=False)
-
+  
         if data_product is None and self.set_data_product is not None:
             data_product = self.set_data_product
 
@@ -754,9 +803,6 @@ class Sftp:
         - If `save_to` is specified, the query results are saved in the format specified.
         """
     
-        if self._tables_available is None and self._tables_backup is None:
-            self.tables_available(save_to=False)
-
         if data_product is None and self.set_data_product is not None:
             data_product = self.set_data_product
 
@@ -865,8 +911,6 @@ class Sftp:
         - If `save_to` is specified, the query results are saved in the format specified.
         """
 
-        if self._tables_available is None and self._tables_backup is None:
-                self.tables_available(save_to=False)
 
         if data_product is None and self.set_data_product is not None:
             data_product = self.set_data_product
@@ -1005,18 +1049,21 @@ class Sftp:
 
         if self._tables_available is None and self._tables_backup is None:
             self._tables_available,to_delete = self._table_overview()
-            self._tables_backup = self._tables_available 
+            self._tables_backup = self._tables_available.copy()
 
             if self.hostname == "s-f2112b8b980e44f9a.server.transfer.eu-west-1.amazonaws.com" and len(to_delete) > 0:
                 print("------------------  DELETING OLD EXPORTS FROM SFTP")
                 self._remove_exports(to_delete)
 
         elif reset:
-            self._tables_available = self._tables_backup
+            self._tables_available = self._tables_backup.copy()
+        
+        # Specify unknown data product exports
+        self._specify_data_products()
 
         _save_to(self._tables_available,'tables_available',save_to)
    
-        return self._tables_available
+        return self._tables_available.copy()
     
     def search_country_codes(self,search_word = None,search_cols={'Country':True,'Code':True}):        
         """
@@ -1155,13 +1202,12 @@ class Sftp:
             num_workers = int(num_workers) 
         else: 
             num_workers = -1
+        
+        if num_workers < 1:
+            num_workers =int(psutil.virtual_memory().total/ (1024 ** 3)/12)
 
         # Read multithreaded
-        if num_workers != 1:
-            
-            if num_workers < 1:
-                    num_workers =int(psutil.virtual_memory().total/ (1024 ** 3)/12)
-
+        if num_workers != 1 and len(files) > 1:
             def batch_processing():
                 def batch_list(input_list, batch_size):
                     """Splits the input list into batches of a given size."""
@@ -1170,7 +1216,6 @@ class Sftp:
                         batches.append(input_list[i:i + batch_size])
                     return batches
 
-         
                 batches = batch_list(files,num_workers)
 
                 lists = []
@@ -1200,7 +1245,7 @@ class Sftp:
         
         else: # Read Sequential
             print(f'Processing  {len(files)} files in sequence')
-            dfs, file_names, flags = self._process_sequential(files, destination, select_cols, date_query, bvd_query, query, query_args)
+            dfs, file_names, flags = self._process_sequential(files, destination, select_cols, date_query, bvd_query, query, query_args,num_workers)
         
         flag =  all(flags) 
 
@@ -1232,12 +1277,15 @@ class Sftp:
 
         _, _ = self._check_args(self._remote_files)
 
+        self._download_finished = None 
+        self.delete_files = False
+
         print("Downloading all files")
         process = Process(target=self.process_all, kwargs={'num_workers': num_workers, 'pool_method': pool_method})
         process.start()
 
         self._download_finished = False 
-        
+
     def get_column_names(self,save_to:str=False, files = None):
         """
         Retrieve column names from a DataFrame or dictionary and save them to a file.
@@ -1377,15 +1425,18 @@ class Sftp:
                 repeating = row['Repeating']
                 tables = sftp.listdir(export)
 
-                if pd.isna(data_product):
-                    data_product= _table_match(tables)
-
                 full_paths  = [export + '/' + table for table in tables]
+                full_paths = [os.path.dirname(full_path) if full_path.endswith('.csv') else full_path for full_path in full_paths]
+                              
+                if pd.isna(data_product):
+                    data_product, tables = _table_match(tables)
 
                 # Append a dictionary with export, timestamp, and modified_list to the list
-                for full_path in full_paths:
+                for full_path, table in zip(full_paths,tables):
+
                     data.append({'Data Product':data_product,
-                                 'Table': os.path.basename(full_path),
+                                 #'Table': os.path.basename(full_path),
+                                 'Table': table,
                                  'Base Directory': full_path,
                                  'Timestamp': timestamp,
                                  'Repeating':repeating,
@@ -1558,7 +1609,11 @@ class Sftp:
         if path is not None:
             if mode == "local" or mode is None:
                 if os.path.exists(path):
-                    files = os.listdir(path)
+                    if os.path.isdir(path):
+                        files = os.listdir(path)
+                    elif os.path.isfile(path):
+                        files = [os.path.basename(path)]
+                        path  = os.path.dirname(path)
                 else:
                     if mode is None:
                         mode = "remote"
@@ -1570,9 +1625,17 @@ class Sftp:
                 sftp = self.connect()
                 if sftp.exists(path):
                     files = sftp.listdir(path)
+                    if not files:
+                        files = [os.path.basename(path)]
+                        path  = os.path.dirname(path)
                 else:
                     print(f"Remote path is invalid:'{path}'")
                     path = None
+
+            if len(files) > 1 and any(file.endswith('.csv') for file in files):
+                if self._set_table is not None:
+                    # Find the file that matches the match_string without the .csv suffix
+                    files = [next((file for file in files if os.path.splitext(file)[0] == self._set_table), None)]
         else:
             files = []
         return files,path
@@ -1624,18 +1687,30 @@ class Sftp:
         
         return local_file, flag
 
-    def _curate_file(self,flag:bool,file:str,destination:str,local_file:str,select_cols:list, date_query:list=[None,None,None,"remove"], bvd_query:str = None, query = None, query_args:list = None):
+    def _curate_file(self,flag:bool,file:str,destination:str,local_file:str,select_cols:list, date_query:list=[None,None,None,"remove"], bvd_query:str = None, query = None, query_args:list = None,num_workers:int = -1):
         df = None 
         file_name = None
         if any([select_cols, query, all(date_query),bvd_query]) or flag: 
             
-            df = _load_table(file = local_file, 
-                                select_cols = select_cols, 
-                                date_query = date_query, 
-                                bvd_query = bvd_query, 
-                                query = query, 
-                                query_args = query_args
-                                )
+            file_extension = file.lower().split('.')[-1]
+
+            if file_extension in ['csv']:
+                df = _load_csv_table(file = local_file, 
+                                    select_cols = select_cols, 
+                                    date_query = date_query, 
+                                    bvd_query = bvd_query, 
+                                    query = query, 
+                                    query_args = query_args,
+                                    num_workers = num_workers
+                                    )
+            else:
+                df = _load_table(file = local_file, 
+                                    select_cols = select_cols, 
+                                    date_query = date_query, 
+                                    bvd_query = bvd_query, 
+                                    query = query, 
+                                    query_args = query_args
+                                    )
 
             if (df is not None and self.concat_files is False and self.output_format is not None) and not flag:
                 file_name, _ = os.path.splitext(destination + "/" + file)
@@ -1652,7 +1727,7 @@ class Sftp:
 
         return df, file_name
          
-    def _process_sequential(self, files:list, destination:str=None, select_cols:list = None, date_query:list=[None,None,None,"remove"], bvd_query:str = None, query = None, query_args:list = None):
+    def _process_sequential(self, files:list, destination:str=None, select_cols:list = None, date_query:list=[None,None,None,"remove"], bvd_query:str = None, query = None, query_args:list = None,num_workers:int = -1):
         dfs = []
         file_names = []
         flags   = []
@@ -1670,7 +1745,8 @@ class Sftp:
                                                     date_query = date_query,
                                                     bvd_query = bvd_query,
                                                     query = query,
-                                                    query_args = query_args
+                                                    query_args = query_args,
+                                                    num_workers = num_workers
                                                     )
                 flags.append(flag)
                 
@@ -1770,19 +1846,76 @@ class Sftp:
         return files, destination   
 
     def _table_search(self, search_word):
-
-        if self._tables_available is None and self._tables_backup is None:
-           self.tables_available(save_to=False) 
-        
+     
         filtered_df = self._tables_available.query(f"`Data Product`.str.contains('{search_word}', case=False, na=False,regex=False) | `Table`.str.contains('{search_word}', case=False, na=False,regex=False)")
         return filtered_df
 
-# Select_data Class
+    def _specify_data_products(self):
+
+        def extract_options(row):
+            if "Mutliple_Options: " in row:
+                # Extract the substring starting after "Mutliple_Options: "
+                list_str = row.split("Mutliple_Options: ")[1]
+                # Convert the extracted substring to a Python list using ast.literal_eval
+                try:
+                    options_list = ast.literal_eval(list_str)
+                    return options_list
+                except (SyntaxError, ValueError):
+                    print(f"Error parsing list from row: {row}")
+                    return None
+            else:
+                return None
+
+        # Function to check if a row contains "Mutliple_Options: "  
+        def contains_multiple_options(row):
+            return "Mutliple_Options: " in row
+
+        async def f(self,df,df_multiple):    
+                    selected_values = None
+                
+                    # Keep only columns '1' and '2'
+                    df_multiple = df_multiple[['Data Product','Top-level Directory']]
+
+                    # Remove duplicate rows based on columns '1' and '2'
+                    df_multiple = df_multiple.drop_duplicates()
+
+                    # Apply the function to the column '1' and store the results in a new column 'Options_List'
+                    df_multiple['Options_List'] = df_multiple['Data Product'].apply(extract_options)
+
+                    Select_obj = _Multi_dropdown(df_multiple['Options_List'].to_list(), df_multiple['Top-level Directory'].to_list(), "Specify 'Data Product' for unknown exports:")
+
+                    selected_values = await Select_obj.display_widgets()
+                            
+
+                    if selected_values:
+
+                        df_multiple['Data Product'] = selected_values
+
+                        # Create a mapping from df1
+                        mapping = pd.Series(df_multiple['Data Product'].values, index=df_multiple['Top-level Directory']).to_dict()
+
+                        # Update df2['2'] based on the mapping
+                        df['Data Product'] = df['Top-level Directory'].map(mapping).combine_first(df['Data Product'])
+                    
+                        self._tables_available = df 
+                        self._tables_backup = df 
+            
+        df = self._tables_available.copy()
+
+        # Filter rows where column '1' contains "Mutliple_Options: "
+        df_multiple = df[df['Data Product'].apply(contains_multiple_options)].copy()
+
+        if not df_multiple.empty:
+            asyncio.ensure_future(f(self,df,df_multiple))
+
 class _SelectData:
-    def __init__(self, df):
+    def __init__(self, df, title="Select Data"):
         self.df = df
         self.selected_product = None
         self.selected_table = None
+
+        # Create the title widget
+        self.title = widgets.HTML(value=f"<h2>{title}</h2>")
 
         # Create the first dropdown menu
         self.product_dropdown = widgets.Dropdown(
@@ -1798,7 +1931,7 @@ class _SelectData:
             disabled=True,
         )
 
-        # Create the button and set its initial state to disabled
+        # Create the OK button and set its initial state to disabled
         self.ok_button = widgets.Button(
             description='OK',
             disabled=True,
@@ -1849,28 +1982,34 @@ class _SelectData:
         self.product_dropdown.disabled = True 
         self.table_dropdown.disabled = True 
 
-
     async def display_widgets(self):
-        display(self.product_dropdown, self.table_dropdown, self.ok_button, self.cancel_button)
+        # Display the title and widgets arranged horizontally
+        display(self.title)
+        display(widgets.HBox([self.product_dropdown]))
+        display(widgets.HBox([self.table_dropdown]))
+        display(widgets.HBox([self.ok_button, self.cancel_button]))
 
+        # Wait for user interaction to complete
         while not self.cancel_button.disabled:
-        #while self.selected_product is None or self.selected_table is None or not self.ok_button.disabled:
             await asyncio.sleep(0.1)
 
         return self.selected_product, self.selected_table
 
 class _SelectList:
-    def __init__(self, values, col_name: str):
+    def __init__(self, values, col_name: str, title="Select an Option"):
         self.selected_value = values[0]
 
-        # Create the first dropdown menu
+        # Create the title widget
+        self.title = widgets.HTML(value=f"<h2>{title}</h2>")
+
+        # Create the dropdown menu
         self.list_dropdown = widgets.Dropdown(
             options=values,
             description=f"{col_name} :",
             disabled=False,
         )
 
-        # Create the OK button and set its initial state to disabled
+        # Create the OK button
         self.ok_button = widgets.Button(
             description='OK',
             disabled=False,
@@ -1907,7 +2046,10 @@ class _SelectList:
         self.list_dropdown.disabled = True  
 
     async def display_widgets(self):
-        display(self.list_dropdown, self.ok_button, self.cancel_button)
+        # Display the title and widgets arranged horizontally
+        display(self.title)
+        display(widgets.HBox([self.list_dropdown]))
+        display(widgets.HBox([self.ok_button, self.cancel_button]))
 
         while not self.cancel_button.disabled:
             await asyncio.sleep(0.1)
@@ -1915,19 +2057,23 @@ class _SelectList:
         return self.selected_value
 
 class _SelectMultiple:
-    def __init__(self, values, col_name: str):
+    def __init__(self, values, col_name: str, title="Select Multiple Options"):
         self.selected_list = []
         nrows = 20 if len(values) > 20 else len(values)
+        
+        # Create the title widget
+        self.title = widgets.HTML(value=f"<h2>{title}</h2>")
+        
         # Create the multiple select widget
         self.list_select = widgets.SelectMultiple(
             options=values,
             description=f"{col_name} :",
             disabled=False,
-            rows = nrows,
+            rows=nrows,
             layout=widgets.Layout(width='2000px')  # Adjust the width as needed
         )
 
-        # Create the OK button and set its initial state to enabled
+        # Create the OK button
         self.ok_button = widgets.Button(
             description='OK',
             disabled=False,
@@ -1964,25 +2110,241 @@ class _SelectMultiple:
         self.list_select.disabled = True
 
     async def display_widgets(self):
-        display(self.ok_button, self.cancel_button, self.list_select)
+        # Display the title and arrange widgets horizontally
+        display(self.title)
+        display(widgets.HBox([self.list_select]))
+        display(widgets.HBox([self.ok_button, self.cancel_button]))
 
         while not self.cancel_button.disabled:
             await asyncio.sleep(0.1)
 
         return self.selected_list
 
-def _select_list(class_type,values, col_name: str,fnc, n_args): 
-    
-    async def f(class_type,values,col_name, fnc, n_args):
-        if class_type == 'dropdown':
-            Select_obj = _SelectList(values, col_name)
+class _Multi_dropdown:
+    def __init__(self, values, col_names, title):
+        # Check if values is a list of lists or a single list
+        if isinstance(values[0], list):
+            self.is_list_of_lists = True
+            self.values = values
         else:
-            Select_obj = _SelectMultiple(values, col_name)
+            self.is_list_of_lists = False
+            self.values = [values]
+        
+        # Check if col_names is a list and its length matches values
+        if not isinstance(col_names, list):
+            raise ValueError("col_names must be a list of strings.")
+        if len(col_names) != len(self.values):
+            raise ValueError("Length of col_names must match the number of dropdowns.")
+
+        # Check title
+        if not isinstance(title, str):
+            raise ValueError("Title must be a string.")
+        # Create the title widget
+        self.title = widgets.HTML(value=f"<h2>{title}</h2>")
+
+        # Initialize dropdown widgets
+        self.dropdown_widgets = []
+        self.selected_values = []
+
+        # Create dropdowns based on values and col_names
+        for i, sublist in enumerate(self.values):
+            description = widgets.Label(value=f"{col_names[i]} :")
+            dropdown = widgets.Dropdown(
+                options=sublist,
+                value=sublist[0],  # Set default value to the first item in the list
+                disabled=False,
+            )
+            # Arrange description and dropdown horizontally
+            hbox = widgets.HBox([description, dropdown])
+            self.dropdown_widgets.append((hbox, dropdown))  # Store hbox and dropdown separately
+            self.selected_values.append(dropdown.value)
+            dropdown.observe(self._observe_list_change, names='value')
+        
+        # Create OK and Cancel buttons
+        self.ok_button = widgets.Button(
+            description='OK',
+            disabled=False,
+        )
+        self.cancel_button = widgets.Button(
+            description='Cancel',
+            disabled=False,
+        )
+        
+        # Observe button clicks
+        self.ok_button.on_click(self._ok_button_click)
+        self.cancel_button.on_click(self._cancel_button_click)
+        
+    async def _list_change(self, change):
+        # Handle asynchronous dropdown updates
+        if change['type'] == 'change' and change['name'] == 'value':
+            for i, (hbox, dropdown) in enumerate(self.dropdown_widgets):
+                if dropdown is change.owner:
+                    self.selected_values[i] = change.new
+                    self.ok_button.disabled = False  # Enable OK button on change
+                    break
+
+    def _observe_list_change(self, change):
+        asyncio.ensure_future(self._list_change(change))
+
+    def _ok_button_click(self, b):
+        self.ok_button.disabled = True  # Disable OK button after it's clicked
+        self.cancel_button.disabled = True
+        for hbox, dropdown in self.dropdown_widgets:
+            dropdown.disabled = True
+
+    def _cancel_button_click(self, b):
+        self.selected_values = None  # Reset selected values
+        self.ok_button.disabled = True  # Disable OK button
+        self.cancel_button.disabled = True
+        for hbox, dropdown in self.dropdown_widgets:
+            dropdown.disabled = True
+
+    async def display_widgets(self):
+        # Display all widgets asynchronously
+        display(self.title)
+        display(widgets.VBox([hbox for hbox, dropdown in self.dropdown_widgets]))
+        display(self.ok_button, self.cancel_button)
+
+        while not self.cancel_button.disabled:
+            await asyncio.sleep(0.1)
+
+        return self.selected_values
+
+class _SelectOptions:
+    def __init__(self,config = None):
+        # Initialize default configuration
+
+        if config:
+            self.config  = config
+        else:    
+            self.config = {
+                'delete_files': False,
+                'concat_files': True,
+                'output_format': [".csv"],
+                'file_size_mb': 500,
+            }
+
+        # Title for delete_files
+        self.delete_files_title = widgets.HTML(value="<h3>Delete Files After Processing (To Prevent Large Storage Consumption - 'False' is recommeded):</h3>")
+        # Dropdown for delete_files
+        self.delete_files_dropdown = widgets.Dropdown(
+            options=[True, False],
+            value=self.config['delete_files'],  # Use default value
+            description='Delete Files:',
+            disabled=False,
+        )
+
+        # Title for concat_files
+        self.concat_files_title = widgets.HTML(value="<h3>Concatenate Sub-Files into a Single Output File ('True' is Recommeded):</h3>")
+        # Dropdown for concat_files
+        self.concat_files_dropdown = widgets.Dropdown(
+            options=[True, False],
+            value=self.config['concat_files'],  # Use default value
+            description='Concat Files:',
+            disabled=False,
+        )
+
+        # Title for output_format
+        self.output_format_title = widgets.HTML(value="<h3>Select Output File Formats (More than one can be selected - '.xlsx' is not recommeded):</h3>")
+        # Multi-select dropdown for output_format
+        self.output_format_multiselect = widgets.SelectMultiple(
+            options=[".csv", ".xlsx", ".parquet", ".pickle", ".dta"],
+            value=self.config['output_format'],  # Use default value
+            description='Formats:',
+            disabled=False,
+        )
+
+        # Title for file_size_mb
+        self.file_size_title = widgets.HTML(value="<h3>File Size Cutoff (MB) Before Splitting into Multiple Output files (Only an approxiate):</h3>")
+        # Input field for file_size_mb
+        self.file_size_input = widgets.FloatText(
+            value=self.config['file_size_mb'],  # Use default value
+            description='File Size (MB):',
+            disabled=False,
+        )
+
+        # Create the OK button
+        self.ok_button = widgets.Button(
+            description='OK',
+            disabled=False,
+        )
+
+        # Create the Cancel button
+        self.cancel_button = widgets.Button(
+            description='Cancel',
+            disabled=False,
+        )
+
+        # Observe changes in dropdown selections and button clicks
+        self.ok_button.on_click(self._ok_button_click)
+        self.cancel_button.on_click(self._cancel_button_click)
+
+    def _ok_button_click(self, b):
+        self.ok_button.disabled = True  # Disable the OK button after it's clicked
+        self.cancel_button.disabled = True
+        self.delete_files_dropdown.disabled = True
+        self.concat_files_dropdown.disabled = True
+        self.output_format_multiselect.disabled = True
+        self.file_size_input.disabled = True
+
+        # Store the current configuration based on user input
+        self.config = {
+            'delete_files': self.delete_files_dropdown.value,
+            'concat_files': self.concat_files_dropdown.value,
+            'output_format': list(self.output_format_multiselect.value),
+            'file_size_mb': self.file_size_input.value,
+        }
+
+    def _cancel_button_click(self, b):
+        # On cancel, keep the default config (already initialized in __init__)
+        self.ok_button.disabled = True  # Disable the OK button
+        self.cancel_button.disabled = True  # Disable the Cancel button
+        self.delete_files_dropdown.disabled = True
+        self.concat_files_dropdown.disabled = True
+        self.output_format_multiselect.disabled = True
+        self.file_size_input.disabled = True
+
+    async def display_widgets(self):
+
+        spacer = widgets.Box(
+            children=[widgets.Label(value="")],  # Add a label with empty text for spacing
+            layout=widgets.Layout(height='20px')  # Adjust height for desired spacing
+            )
+    
+
+        # Display the titles, widgets, and buttons
+        display(widgets.VBox([
+            self.delete_files_title,
+            self.delete_files_dropdown,
+            self.concat_files_title,
+            self.concat_files_dropdown,
+            self.output_format_title,
+            self.output_format_multiselect,
+            self.file_size_title,
+            self.file_size_input,
+            spacer,  # Add spacing between input fields and buttons
+            widgets.HBox([self.ok_button, self.cancel_button]),
+        ]))
+
+        while not self.cancel_button.disabled:
+            await asyncio.sleep(0.1)
+
+        return self.config
+
+def _select_list(class_type,values, col_name: str,title:str,fnc=None, n_args = None): 
+    
+    async def f(class_type,values,col_name,title, fnc, n_args):
+        if class_type == '_SelectList':
+            Select_obj = _SelectList(values, col_name,title)
+        elif class_type == '_SelectMultiple':
+            Select_obj = _SelectMultiple(values, col_name,title)
 
         selected_value = await Select_obj.display_widgets()
-        fnc(selected_value, *n_args) 
 
-    asyncio.ensure_future(f(class_type,values,col_name,fnc,n_args))
+        if fnc and n_args:
+            fnc(selected_value, *n_args) 
+
+    asyncio.ensure_future(f(class_type,values,col_name,title,fnc,n_args))
 
 def _construct_query(bvd_cols,bvd_list,search_type):
     conditions = []
@@ -2016,6 +2378,23 @@ def _select_date(selected_value, time_period,select_cols):
                 select_cols = _check_list_format(select_cols,time_period[2])
         print(f"The following Period will be selected: {time_period}")
 
+def _select_product(selected_value,df,obj):
+    if selected_value is not None:
+        df = df.query(f"`Top-level Directory` == '{selected_value}'")
+        if not df.empty: 
+            obj.remote_path = df['Base Directory'].iloc[0]
+            print(f"{obj.set_data_product} was set as Data Product")
+            print(f"{obj.set_table} was set as Table")
+            
+        else: 
+            obj.remote_path = None
+            obj._set_table = None
+            obj._set_data_product = None
+    else:
+        obj.remote_path = None
+        obj._set_table = None
+        obj._set_data_product = None
+    
 # Dependency functions
 def _create_workers(num_workers:int = -1,n_total:int=None,pool_method = None  ,query = None):
 
@@ -2265,6 +2644,96 @@ def _load_table(file:str,select_cols = None, date_query:list=[None,None,None,"re
             print(f"{os.path.basename(file)} empty after query filtering")
     return df
 
+def _read_csv_chunk(params):
+    file, chunk_idx, chunk_size, select_cols, col_index, date_query, bvd_query, query, query_args = params
+    try:
+        df = pd.read_csv(file, low_memory=False, skiprows=chunk_idx * chunk_size, nrows=chunk_size)
+    except Exception as e:
+            raise ValueError(f"Error while reading chunk: {e}") 
+
+    if select_cols is not None:
+            df = df.iloc[:,col_index]
+            df.columns = select_cols
+
+    if all(date_query):
+        try:
+            df = _date_fnc(df, date_col= date_query[2],  start_year = date_query[0], end_year = date_query[1],nan_action=date_query[3])
+        except Exception as e:
+            raise ValueError(f"Error while date selection: {e}") 
+        if df.empty:
+            print(f"{os.path.basename(file)} empty after date selection")
+            return df
+    if bvd_query is not None:
+        try:
+            df = df.query(bvd_query)
+        except Exception as e:
+            raise ValueError(f"Error while bvd filtration: {e}")    
+        if df.empty:
+            print(f"{os.path.basename(file)} empty after bvd selection")
+            return df
+    
+    # Apply function or query to filter df
+    if query is not None:
+        if isinstance(query, type(lambda: None)):
+            try:
+                df = query(df, *query_args) if query_args else query(df)
+            except Exception as e:
+                raise ValueError(f"Error curating file with custom function: {e}")
+        elif isinstance(query,str):
+            try:
+                df = df.query(query)
+            except Exception as e:
+                raise ValueError(f"Error curating file with pd.query(): {e}")
+        if df.empty:
+            print(f"{os.path.basename(file)} empty after query filtering")
+    return df   
+  
+def _load_csv_table(file:str,select_cols = None, date_query:list=[None,None,None,"remove"], bvd_query:str=None, query = None, query_args:list = None,num_workers:int = -1):
+
+    def check_cols(file, select_cols):
+
+        col_index = None
+        if select_cols is not None:
+            # Read a small chunk to get column names if needed
+            header_chunk = pd.read_csv(file, nrows=0)  # Read only header
+            available_cols = header_chunk.columns.tolist()
+            
+            if not set(select_cols).issubset(available_cols):
+                missing_cols = set(select_cols) - set(available_cols)
+                raise ValueError(f"Columns not found in file: {missing_cols}")
+            
+            # Find indices of select_cols
+            col_index = [available_cols.index(col) for col in select_cols]
+            select_cols = [available_cols[i] for i in col_index]
+
+        return select_cols,col_index
+
+
+    
+    if num_workers < 1:
+        num_workers =int(psutil.virtual_memory().total/ (1024 ** 3)/12)
+
+    # check if the requested columns exist
+    select_cols,col_index = check_cols(file,select_cols)
+
+    # Step 1: Determine the total number of rows using subprocess
+    safe_file_path = shlex.quote(file)
+    num_lines = int(subprocess.check_output(f"wc -l {safe_file_path}", shell=True).split()[0]) - 1
+
+    # Step 2: Calculate the chunk size to create 64 chunks
+    chunk_size = num_lines // num_workers
+
+    # Step 3: Prepare the params_list
+    params_list = [(file, i, chunk_size, select_cols, col_index, date_query, bvd_query, query, query_args) for i in range(num_workers)]
+
+    # Step 4: Use _run_parallel to read the DataFrame in parallel
+    chunks = _run_parallel(_read_csv_chunk, params_list, n_total=num_workers, num_workers=num_workers, pool_method='process', msg='Reading chunks')
+
+    # Step 5: Concatenate all chunks into a single DataFrame
+    df = pd.concat(chunks, ignore_index=True)
+
+    return df
+
 def _save_to(df,filename,format):
 
     if df is None:
@@ -2393,24 +2862,41 @@ def _table_names(file_name:str=None):
     df = df.drop_duplicates()
     return df
 
-def _table_match(tables,file_name:str=None):
+def _table_match(tables, file_name: str = None):
+    # Step 1: Determine if any table name ends with .csv
+    contains_csv = any(table.endswith('.csv') for table in tables)
+    
+    # Step 2: If .csv is found, remove the .csv suffix from each table name for matching purposes
+    if contains_csv:
+        tables = [table[:-4] if table.endswith('.csv') else table for table in tables]
+
+    # Step 3: Read the data products Excel file
     if file_name is None:
         df = _read_excel('data_products.xlsx')
     else:
         if not os.path.exists(file_name):
-            raise ValueError("moody's datahub data product file was not detected")
+            raise ValueError("Moody's datahub data product file was not detected")
         df = pd.read_excel(file_name)
-            
+    
+    # Step 4: Perform the matching
     result = df.groupby('Data Product')['Table'].apply(lambda x: all(table in tables for table in x.values))
 
-    # Get the "Data Product" values where all tables are found within the list of strings
+    # Step 5: Get the "Data Product" values where all tables are found within the list of strings
     matched_groups = result[result].index.tolist()
 
-    if len(matched_groups) >0:
-        data_product = matched_groups[0]
+    if len(matched_groups) > 0:
+        
+        #data_product = matched_groups[0]
+        data_product = f"Mutliple_Options: {matched_groups}"
+        #print("It was not possible to determine the 'data product' for all exports. Run 'self.specify_data_product()' to correct")
+
+        # Add "[.csv]" only if the original tables list contained .csv suffixes
+        #if contains_csv:
+        #    data_product = f"[.csv] {data_product}"
     else:
-        data_product ="Unknown"
-    return data_product
+        data_product = "Unknown"
+
+    return data_product, tables
 
 def _table_dictionary(file_name:str=None):
     if file_name is None:

@@ -284,18 +284,6 @@
   </li>
 
       
-        
-  
-  
-
-
-  <li class="md-tabs__item">
-    <a href="../../../database_tools/" class="md-tabs__link">
-      Database Tools
-    </a>
-  </li>
-
-      
     </ul>
   </div>
 </nav>
@@ -444,21 +432,6 @@
   
 
     
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../database_tools/" class="md-nav__link">
-        Database Tools
-      </a>
-    </li>
-  
-
-    
   </ul>
 </nav>
                   </div>
@@ -479,6 +452,49 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sftp-server-access" class="md-nav__link">
+    SFTP server Access
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#format-recommandation" class="md-nav__link">
+    Format recommandation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-reccomendation" class="md-nav__link">
+    System Reccomendation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    Getting Started
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -496,12 +512,30 @@
 
 
 <h1 id="moodys-datahub">Moody's Datahub<a class="headerlink" href="#moodys-datahub" title="Permanent link">&para;</a></h1>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>This page introduces the "moodys_datahub" Python package, designed to facilitate access to Moody's Datahub "Data Products" exported via SFTP. </p>
+<p>The package offers a suite of functions for selecting, downloading, and curating "Data Products" in a highly parallelized manner, optimizing the use of compute power available on cloud or HPC systems.</p>
+<h2 id="sftp-server-access">SFTP server Access<a class="headerlink" href="#sftp-server-access" title="Permanent link">&para;</a></h2>
+<p>To CBS associates should contact <a href="mailto:rdm@cbs.dk">CBS staff</a> to provide a personal "privatkey" (.pem) that is used to estabilish connection to the available "CBS server".</p>
+<p>To access other SFTP servers the user also needs additional information regarding "hostname" and "username". </p>
+<p>When connecting to an SFTP server, the package detects all export folders and attempts to match them to specific "Data Products" based on their "Table" titles. However, some "Data Products" have identical table names, making automatic differentiation impossible. In such cases, the user will be prompted to manually match the export folder with the correct "Data Product."</p>
+<h2 id="format-recommandation">Format recommandation<a class="headerlink" href="#format-recommandation" title="Permanent link">&para;</a></h2>
+<p>Moody's Datahub provides several export formats (".csv", ".parquet", ".orc", and ".avro"). The moodys_datahub Python package supports all these formats, but the preferred format is ".parquet" due to its high compression, columnar storage format, and the fact that each table is partitioned into many small files, offering significant performance benefits.</p>
+<p>Using .csv is not recommended because of its lack of compression and partitioning, which results in some tables being single files exceeding 300 GB in size.</p>
+<h2 id="system-reccomendation">System Reccomendation<a class="headerlink" href="#system-reccomendation" title="Permanent link">&para;</a></h2>
+<p>Given the large size of most data tables, it is highly recommended that users utilize more powerful machines available through cloud or HPC systems. Based on user experience, a "rule of thumb" has been established: each "worker" (which processes one "subfile" at a time) should have approximately 12 GB of memory available.</p>
+<p>For CBS Associates, it is highly recommended to use <a href="https://cbs-hpc.github.io/HPC_Facilities/UCloud/">UCloud</a> and run the application on a "u1-standard" machine with 64 cores, 384 GB of RAM, and a high-speed internet connection.</p>
+<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<p>Below you will find links to a "How to Get Started" tutorial (which can also be downloaded as a Jupyter notebook), the moodys_datahub Git repository, and the "API Reference" page.</p>
 <ul>
 <li>
 <p><a href="/moody-s_datahub/mkdocs/how_to_get_started/">How to get started</a></p>
 </li>
 <li>
-<p><a href="/moody-s_datahub/mkdocs/reference/">Reference</a></p>
+<p><a href="https://github.com/CBS-HPC/moody-s_datahub">Git Repository: moody-s_datahub</a></p>
+</li>
+<li>
+<p><a href="/moody-s_datahub/mkdocs/reference/">API Reference</a></p>
 </li>
 </ul>
 
