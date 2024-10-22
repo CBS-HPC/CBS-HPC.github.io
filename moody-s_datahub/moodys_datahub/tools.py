@@ -40,37 +40,60 @@ import asyncio
 
 
 # Defining Sftp Class
-class Sftp:
-    def __init__(self, hostname:str = "s-f2112b8b980e44f9a.server.transfer.eu-west-1.amazonaws.com", username:str = "D2vdz8elTWKyuOcC2kMSnw", port:int = 22, privatekey:str = None):
-        """Constructor Method
-
-         ### Sftp Class Object Variables        
-        - `connection`: None or pysftp.Connection object. Represents the current SFTP connection.
+class Sftp: 
+    """
+    A class to manage SFTP connections and file operations for data transfer.
+    """
+    def __init__(self, hostname:str = None, username:str = None, port:int = 22, privatekey:str = None, data_product_template:str = None ):
         
-        - `hostname`: str. Hostname of the SFTP server (Default connects to CBS SFTP server).
-        - `username`: str. Username for authentication (Default connects to CBS SFTP server).
-        - `privatekey`: str or None. Path to the private key file for authentication (Valid private key is needed to access SFTP server)
-        - `port`: int. Port number for the SFTP connection (default is 22).
+        """Constructor Method
+        
+        ### Constructor Parameters:
+        - `hostname` (str, optional): Hostname of the SFTP server (default is CBS SFTP server).
+        - `username` (str, optional): Username for authentication (default is CBS SFTP server).
+        - `port` (int, optional): Port number for the SFTP connection (default is 22).
+        - `privatekey` (str, optional): Path to the private key file for authentication (required for SFTP access).
+        - `data_product_template` (str, optional): Template for managing data products during SFTP operations.
 
-        - `output_format`: list of str. List of supported output file formats (e.g., ['.csv', '.parquet']).
-        - `file_size_mb`: int. Maximum file size in MB for before splitting output files..
-        - `delete_files`: bool. Flag indicating whether to delete processed files.
-        - `concat_files`: bool. Flag indicating whether to concatenate processed files.
-        - `select_cols`: list or None. List of columns to select during file operations.
-        - `query`: str, fnc or None. Query string or function for filtering data.
-        - `query_args`: list or None. list of arguments for the query string or function.
-        - `dfs`: None or DataFrame. Stores concatenated DataFrames if concatenation is enabled.
-    
+        ### Object Attributes:
+        - `connection` (pysftp.Connection or None): Represents the current SFTP connection, initially set to `None`.
+        - `hostname` (str): Hostname for the SFTP server.
+        - `username` (str): Username for SFTP authentication.
+        - `privatekey` (str or None): Path to the private key file for SFTP authentication.
+        - `port` (int): Port number for SFTP connection (default is 22).
+        
+        ### File Handling Attributes:
+        - `output_format` (list of str): Supported output formats for files (default is ['.csv']).
+        - `file_size_mb` (int): Maximum file size in MB before splitting files (default is 500 MB).
+        - `delete_files` (bool): Flag indicating whether to delete processed files (default is `False`).
+        - `concat_files` (bool): Flag indicating whether to concatenate processed files (default is `True`).
+        - `query` (str, function, or None): Query string or function for filtering data (default is `None`).
+        - `query_args` (list or None): List of arguments for the query string or function (default is `None`).
+        - `dfs` (DataFrame or None): Stores concatenated DataFrames if concatenation is enabled.
         """
 
-        # Set connection object to None (initial value)
         self.connection: object = None
-        self.hostname: str = hostname
-        self.username: str = username
         self.privatekey: str = privatekey
         self.port: int = port
         self._cnopts = pysftp.CnOpts()
         self._cnopts.hostkeys = None
+
+        # Try connecting to CBS servers
+        if privatekey and all([hostname, username]) is False: 
+            usernames = ["D2vdz8elTWKyuOcC2kMSnw","aN54UkFxQPCOIEtmr0FmAQ"]   
+            for username in usernames:
+                self.hostname: str = "s-f2112b8b980e44f9a.server.transfer.eu-west-1.amazonaws.com"
+                self.username: str = username
+                try:
+                    self.connect()
+                    break
+                except Exception:
+                    pass
+                   
+        else:
+            self.hostname: str = hostname
+            self.username: str = username
+
         
         self.output_format: list =  ['.csv'] 
         self.file_size_mb:int = 500
@@ -112,7 +135,10 @@ class Sftp:
         elif sys.platform == 'win32':
             self._max_path_length = 256
         
-        self.tables_available(save_to=False)
+        
+
+
+        self.tables_available(product_overview = data_product_template)
 
     # pool method
     @property
@@ -349,7 +375,7 @@ class Sftp:
     @property
     def bvd_list(self):
         return self._bvd_list
-       
+    
     @bvd_list.setter
     def bvd_list(self, bvd_list = None):
         def load_bvd_list(file_path, df_bvd ,delimiter='\t'):
@@ -366,21 +392,26 @@ class Sftp:
             else:
                 raise ValueError(f"Unsupported file extension: {file_extension}")
             
-                    # Process each column
+            # Process each column
             for column in df.columns:
-                    # Convert the column to a list of strings
-                    bvd_list = df[column].dropna().astype(str).tolist()
-                    bvd_list = [item for item in bvd_list if item.strip()]
+                # Convert the column to a list of strings
+                bvd_list = df[column].dropna().astype(str).tolist()
+                bvd_list = [item for item in bvd_list if item.strip()]
 
-                    # Pass through the first function
-                    bvd_list = _check_list_format(bvd_list)
-                    
-                    # Pass through the second function
-                    bvd_list, search_type, non_matching_items = check_bvd_format(bvd_list, df_bvd)
-                    
-                    # If successful, return the result
-                    if search_type is not None:
-                        return bvd_list, search_type, non_matching_items
+                # Pass through the first function
+                bvd_list = _check_list_format(bvd_list)
+
+                # Pass through the second function
+                bvd_list, search_type, non_matching_items = check_bvd_format(bvd_list, df_bvd)
+
+                # If successful, return the result
+                if search_type is not None:
+                     #Checking if column name is a bvd or not
+                    column, _, _ = check_bvd_format([column], df_bvd)
+                    if column:
+                        bvd_list.extend(column)
+                        bvd_list = list(set(bvd_list))
+                    return bvd_list, search_type, non_matching_items
 
             return  bvd_list, search_type, non_matching_items  
             
@@ -458,7 +489,7 @@ class Sftp:
         else:
             self._bvd_list = [None,None,None]
         
-        if self._select_cols  is not None:
+        if self._select_cols is not None:
             self._select_cols = _check_list_format(self._select_cols,self._bvd_list[1],self._time_period[2])
 
     @property
@@ -572,22 +603,43 @@ class Sftp:
         sftp = pysftp.Connection(host=self.hostname , username=self.username ,port = self.port ,private_key=self.privatekey, cnopts=self._cnopts)
         return sftp
 
-    def select_data(self):
+    def select_data(self):  
         """
         Asynchronously select and set the data product and table using interactive widgets.
 
-        This method initializes an instance of `_SelectData` with `_tables_backup`, displays interactive widgets
-        to allow the user to select a data product and table, and sets these selections to `self.set_data_product`
-        and `self.set_table`, respectively. It also prints the selected data product and table.
+        This method facilitates user interaction for selecting a data product and table from a backup of available tables.
+        It leverages asynchronous widgets, allowing the user to make selections and automatically updating instance attributes
+        for the selected data product and table. The selections are applied to `self.set_data_product` and `self.set_table`, 
+        which can be used in subsequent file operations.
 
-        The method ensures that `_tables_available` or `_tables_backup` is populated by calling `tables_available()`
-        if they are not already set.
+        ### Workflow:
+        - An instance of the `_SelectData` class is created, using `_tables_backup` to populate the widget options.
+        - Users select a data product and table through the interactive widget.
+        - The method validates the selected options and updates the instance's `set_data_product` and `set_table` attributes.
+        - If multiple data products match the selection, a list of options is displayed to the user for further refinement.
+        - The selected data product and table are printed to confirm the operation.
 
-        Notes:
-        - This method uses `asyncio.ensure_future` to run the asynchronous function `f` which handles the widget interaction.
+        ### Internal Async Function (`f`):
+        - The method contains an internal asynchronous function `f` that handles the widget display and data selection.
+        - It uses the `await` keyword to ensure non-blocking behavior while the user interacts with the widget.
+        - The selected values are processed and validated before being assigned to the instance variables.
+        
+        ### Notes:
+        - This method uses `asyncio.ensure_future` to ensure that the asynchronous function `f` runs concurrently without blocking other operations.
+        - If multiple matches for the selected data product are found, the user is prompted to further specify the data product.
+        - The method uses a copy of `_tables_backup` to preserve the original data structure during the filtering process.
 
-        Example:
+        ### Example:
+            ```python
+            # Trigger the data selection process
             self.select_data()
+            ```
+        ### Raises:
+        - `ValueError`: If no valid data product or table is selected after interaction.
+        
+        ### Expected Outputs:
+        - Updates `self.set_data_product` and `self.set_table` based on user selections.
+        - Prints confirmation of the selected data product and table.
         """
            
         async def f(self):
@@ -615,8 +667,69 @@ class Sftp:
         asyncio.ensure_future(f(self))
 
     def define_options(self):
+        """
+        Asynchronously define and set file operation options using interactive widgets.
+
+        This method allows the user to configure file operation settings such as whether to delete files after processing, 
+        concatenate files, specify output format, and define the maximum file size. These options are displayed as interactive 
+        widgets, and the user can select their preferred values. Once the options are selected, the instance variables 
+        are updated with the new configurations.
+
+        ### Workflow:
+        - A dictionary `config` is initialized with the current values of key file operation settings (`delete_files`, 
+        `concat_files`, `output_format`, `file_size_mb`).
+        - An instance of `_SelectOptions` is created with this configuration, displaying the interactive widgets.
+        - The user's selections are awaited asynchronously using the `await` keyword, ensuring non-blocking behavior.
+        - Once the user makes selections, the corresponding instance variables (`delete_files`, `concat_files`, `output_format`, 
+        `file_size_mb`) are updated with the new values.
+        - A summary of the selected options is printed for confirmation.
+
+        ### Internal Async Function (`f`):
+        - The internal function `f` manages the asynchronous behavior, ensuring that the user can interact with the widget 
+        without blocking the main thread.
+        - After the user selects the options, the configuration is validated and applied to the class attributes.
+        
+        ### Notes:
+        - This method uses `asyncio.ensure_future` to execute the async function `f` concurrently, without blocking other tasks.
+        - The `config` dictionary is updated with the new options chosen by the user.
+        - If no changes are made by the user, the original configuration remains.
+
+        ### Example:
+            ```python
+            # Launch the options configuration process
+            self.define_options()
+            ```
+
+        ### Expected Outputs:
+        - Updates the instance variables based on user input:
+            - `self.delete_files`: Whether to delete files after processing.
+            - `self.concat_files`: Whether to concatenate files.
+            - `self.output_format`: The output format of processed files (e.g., `.csv`, `.parquet`).
+            - `self.file_size_mb`: Maximum file size (in MB) before splitting output files.
+        
+        - Prints the selected options:
+            - Delete Files: True/False
+            - Concatenate Files: True/False
+            - Output Format: List of formats (e.g., `['.csv']`)
+            - Output File Size: File size in MB (e.g., `500 MB`)
+
+        ### Raises:
+        - `ValueError`: If the selected options are invalid or conflict with other settings.
+
+        ### Example Output:
+            The following options were selected:
+            Delete Files: True
+            Concatenate Files: False
+            Output Format: ['.csv']
+            Output File Size: 500 MB
+        """
         async def f(self):
             
+
+
+            if self.output_format is None:
+                self.output_format = ['.csv'] 
+
             config = {
             'delete_files': self.delete_files,
             'concat_files': self.concat_files,
@@ -630,8 +743,14 @@ class Sftp:
             if config:
                 self.delete_files = config['delete_files']
                 self.concat_files = config['concat_files']
-                self.output_format = config['output_format']
                 self.file_size_mb = config['file_size_mb']
+                self.output_format = config['output_format']
+
+                if len(self.output_format) == 1 and self.output_format[0] is None:
+                    self.output_format  = None
+                elif len(self.output_format) > 1:
+                    self.output_format  = [x for x in self.output_format  if x is not None]
+
 
                 print("The following options were selected:")
                 print(f"Delete Files: {self.delete_files}")
@@ -698,25 +817,25 @@ class Sftp:
         asyncio.ensure_future(f(self, column, definition)) 
 
     def copy_obj(self):
+  
         """
-        Create a deep copy of the current Sftp instance with optional updates.
+        Create a new `Sftp` instance with updated data selection.
 
-        Input Variables:
-        - `self`: Implicit reference to the instance.
-    
+        This method returns a new `Sftp` instance, copying key attributes (`hostname`, `username`, `privatekey`), 
+        while using the default port (22). The `select_data()` method is called on the new instance to set its data 
+        product and table interactively.
+
         Returns:
-        - Deep copy of the current Sftp instance with optional updates.
-        """
+        - `new_obj` (Sftp): A new copy of the current instance with updated data product and table.
 
+        Example:
+        ```python
+        new_sftp_instance = original_sftp_instance.copy_obj()
+        """
         new_obj= Sftp(hostname = self.hostname, username = self.username, port = 22, privatekey= self.privatekey) 
 
-        #new_obj = copy.deepcopy(self)
-
         new_obj.select_data()
-        #new_obj.bvd_list = None
-        #new_obj.time_period = None
-        #new_obj.select_cols = None
-        
+   
         return new_obj
 
     def table_dates(self,save_to:str=False, data_product = None,table = None):
@@ -777,114 +896,6 @@ class Sftp:
 
         return df    
     
-    # Under development
-    def _search_dictionary_list(self, save_to:str=False, search_word=None, search_cols={'Data Product':True, 'Table':True, 'Column':True, 'Definition':True}, letters_only:bool=False, exact_match:bool=False, data_product = None, table = None):
-        """
-        Search for a term in a column/variable dictionary and save results to a file.
-
-        Args:
-        - `self`: Implicit reference to the instance.
-        - `save_to` (str, optional): Format to save results. If False, results are not saved (default is False).
-        - `search_word` (str or list of str, optional): Search term(s). If None, no term is searched.
-        - `search_cols` (dict, optional): Dictionary indicating which columns to search. Columns are 'Data Product', 'Table', 'Column', and 'Definition' with default value as True for each.
-        - `letters_only` (bool, optional): If True, search only for alphabetic characters in the search term (default is False).
-        - `exact_match` (bool, optional): If True, search for an exact match of the search term. Otherwise, search for partial matches (default is False).
-        - `data_product` (str, optional): Specific data product to filter results by. If None, no filtering by data product (default is None).
-        - `table` (str, optional): Specific table to filter results by. If None, no filtering by table (default is None).
-
-        Returns:
-        - pandas.DataFrame: A DataFrame containing the search results. If no results are found, an empty DataFrame is returned.
-
-        Notes:
-        - If `data_product` is provided and does not match any records, a message is printed and an empty DataFrame is returned.
-        - If `table` is provided and does not match any records, it attempts to perform a case-insensitive partial match search.
-        - If `search_word` is provided and no matches are found, a message is printed indicating no results were found.
-        - If `letters_only` is True, the search term is processed to include only alphabetic characters before searching.
-        - If `save_to` is specified, the query results are saved in the format specified.
-        """
-    
-        if data_product is None and self.set_data_product is not None:
-            data_product = self.set_data_product
-
-        if table is None and self.set_table is not None:
-            table = self.set_table
-
-        if self._table_dictionary is None:
-            self._table_dictionary = _table_dictionary()        
-        
-        df = self._table_dictionary
-        df = df[df['Data Product'].isin(self._tables_backup['Data Product'].drop_duplicates())]
-
-        if data_product is not None:
-            df_product = df.query(f"`Data Product` == '{data_product}'")
-            if df_product.empty:
-                print("No such Data Product was found. Please set right data product")
-                return df_product
-            else:
-                df = df_product
-            search_cols['Data Product'] = False
-        
-        if table is not None:
-            df_table = df.query(f"`Table` == '{table}'")
-            if df_table.empty:   
-                df_table = df.query(f"`Table`.str.contains('{table}', case=False, na=False, regex=False)")
-                if df_table.empty:
-                    print("No such Table was found. Please set right table")
-                    return df_table
-            search_cols['Table'] = False
-            df = df_table 
-                            
-        if search_word is not None:
-            
-            if letters_only:
-                df_backup = df.copy()
-                df = df.map(_letters_only_regex)
-
-
-            if not isinstance(search_word, list):
-                search_word = [search_word]
-
-            results = []
-
-            for word in search_word:
-                if letters_only:
-                    word = _letters_only_regex(word)
-
-                if exact_match:
-                    base_string = "`{col}` == '{{word}}'"
-                else:
-                    base_string = "`{col}`.str.contains('{{word}}', case=False, na=False, regex=False)"
-                    
-                search_conditions = " | ".join(base_string.format(col=col) for col, include in search_cols.items() if include)
-                final_string = search_conditions.format(word=word)
-
-                result_df = df.query(final_string)
-
-                if result_df.empty:
-                    base_string = "'{col}'"
-                    search_conditions = " , ".join(base_string.format(col=col) for col, include in search_cols.items() if include)
-                    print(f"No such '{word}' was detected across columns: " + search_conditions)
-                else:
-                    if letters_only:
-                      result_df = df_backup.loc[result_df.index]  
-                    result_df['search_word'] = word
-                    results.append(result_df)
-
-            if results:
-                df = pd.concat(results, ignore_index=True)
-            else:
-                df = pd.DataFrame()
-
-            #if letters_only:
-            #    df = df_backup.loc[df.index]
-
-            if save_to:
-                print(f"The following query was executed for each word in search_word: {search_word} : ")
-
-        _save_to(df, 'dict_search', save_to)
-
-        return df
-
     def search_dictionary(self,save_to:str=False, search_word = None,search_cols={'Data Product':True,'Table':True,'Column':True,'Definition':True}, letters_only:bool=False,extact_match:bool=False, data_product = None, table = None):
     
         """
@@ -975,6 +986,30 @@ class Sftp:
 
     def orbis_to_moodys(self,file):
 
+        """
+        Match headings from an Orbis output file to headings in Moody's DataHub.
+
+        This method reads headings from an Orbis output file and matches them to  headings 
+        in Moody's DataHub. The function returns a DataFrame with matched headings and a list of headings 
+        not found in Moody's DataHub.
+
+        Input Variables:
+        - `file` (str): Path to the Orbis output file.
+
+        Returns:
+        - tuple: A tuple where:
+        - The first element is a DataFrame containing matched headings.
+        - The second element is a list of headings that were not found.
+
+        Notes:
+        - Headings from the Orbis file are processed to remove any extra lines and to ensure uniqueness.
+        - The DataFrame is sorted based on the number of unique headings for each 'Data Product'.
+        - If no headings are found, an empty DataFrame is returned.
+
+        Example:
+            matched_df, not_found_list = self.orbis_to_moodys('orbis_output.xlsx')
+        """
+
         def _load_orbis_file(file):
             df = pd.read_excel(file, sheet_name='Results')
 
@@ -1034,24 +1069,36 @@ class Sftp:
 
         return found, not_found
 
-    def tables_available(self,save_to:str=False,reset:bool=False):
+    def tables_available(self,product_overview = None,save_to:str=False,reset:bool=False):
         """
-        Retrieve available SFTP data products and tables and save them to a file.
+        Retrieve and optionally save available SFTP data products and tables.
+
+        This method fetches the available data products and tables from the SFTP server. It can optionally 
+        save the results to a file in the specified format and reset the data if needed.
 
         Input Variables:
-        - `self`: Implicit reference to the instance.
-        - `save_to` (str, optional): Format to save results (default is CSV).
-        - `reset` (bool, optional): Reset flag to force refreshing data products and tables.
+        - `product_overview` (str, optional): Overview of the data products to filter. Defaults to None.
+        - `save_to` (str, optional): Format to save the results (e.g., 'csv', 'xlsx'). Defaults to 'csv'.
+        - `reset` (bool, optional): Flag to force refresh and reset the data products and tables. Defaults to False.
 
         Returns:
-        - Pandas DataFrame with the available SFTP data products and tables.
+        - Pandas DataFrame: DataFrame containing the available SFTP data products and tables.
+
+        Notes:
+        - If `reset` is `True`, the method will reset `_tables_available` to `_tables_backup`.
+        - Old exports may be deleted from the SFTP server based on conditions (e.g., large CPU count).
+        - The results are saved using the `_save_to` function.
+
+        Example:
+            df = self.tables_available(product_overview='overview.xlsx', save_to='csv', reset=True)
         """
 
         if self._tables_available is None and self._tables_backup is None:
-            self._tables_available,to_delete = self._table_overview()
+            self._tables_available,to_delete = self._table_overview(product_overview = product_overview)
             self._tables_backup = self._tables_available.copy()
 
-            if self.hostname == "s-f2112b8b980e44f9a.server.transfer.eu-west-1.amazonaws.com" and len(to_delete) > 0:
+            if self.hostname == "s-f2112b8b980e44f9a.server.transfer.eu-west-1.amazonaws.com" and self.username in ["D2vdz8elTWKyuOcC2kMSnw","aN54UkFxQPCOIEtmr0FmAQ"] and len(to_delete) > 0 and int(cpu_count()) >= 32: # So that users on small machines will not sit and wait for the Deleting process. 
+        
                 print("------------------  DELETING OLD EXPORTS FROM SFTP")
                 self._remove_exports(to_delete)
 
@@ -1099,16 +1146,27 @@ class Sftp:
 
     def process_one(self,save_to=False,files = None,n_rows:int=1000):
         """
-        Retrieve a sample of data from a table and save it to a file.
+        Retrieve a sample of data from a table and optionally save it to a file.
+
+        This method retrieves a sample of data from a specified table or file. If `files` is not provided, it uses
+        the default file from `self.remote_files`. It processes the files, retrieves the specified number of rows, 
+        and saves the result to the specified format if `save_to` is provided.
 
         Input Variables:
-        - `self`: Implicit reference to the instance.
-        - `files` (list, optional): List of files to process. Defaults to `self.remote_files`.
-        - `save_to` (str, optional): Format to save sample data (default is CSV).
-        - `n_rows` (int, optional): Number of rows to retrieve (default is 1000).
+        - `save_to` (str, optional): Format to save the sample data (default is 'CSV'). Other formats may be supported based on implementation.
+        - `files` (list, optional): List of files to process. Defaults to `self.remote_files`. If an integer is provided, it is treated as a file identifier.
+        - `n_rows` (int, optional): Number of rows to retrieve from the data (default is 1000).
 
         Returns:
-        - Pandas Dateframe with output
+        - Pandas DataFrame: DataFrame containing the sample of the processed data.
+
+        Notes:
+        - If `files` is None, the method will use the first file in `self.remote_files` and may trigger `select_data` if data product or table is not set.
+        - The method processes all specified files or retrieves data from them if needed.
+        - Results are saved to the file format specified by `save_to` if provided.
+
+        Example:
+            df = self.process_one(save_to='parquet', n_rows=500)
         """
 
         if files is None:
@@ -1126,10 +1184,13 @@ class Sftp:
                 df  = _load_table(file)
                 dfs.append(df)
             df = pd.concat(dfs, ignore_index=True)
-            df = df.head(n_rows)
+            if n_rows > 0:
+                df = df.head(n_rows)
+
             _save_to(df,'process_one',save_to) 
         elif not df.empty and files is not None:
-            df = df.head(n_rows)
+            if n_rows > 0:
+                df = df.head(n_rows)
             print(f"Results have been saved to '{files}'")
         elif df.empty:  
             print("No rows were retained")  
@@ -1137,34 +1198,40 @@ class Sftp:
     
     def process_all(self, files:list = None,destination:str = None, num_workers:int = -1, select_cols: list = None , date_query = None, bvd_query = None, query = None, query_args:list = None,pool_method = None):
         """
-        Read and process files into a DataFrame with optional filtering and parallel processing.
+        Read and process multiple files into DataFrames with optional filtering and parallel processing.
 
-        This method reads multiple files into Pandas DataFrames, optionally selecting specific columns and
-        applying filters, either sequentially or in parallel.
+        This method reads multiple files into Pandas DataFrames, with options for selecting specific columns, 
+        applying filters, and performing parallel processing. It can handle file processing sequentially or 
+        in parallel, depending on the number of workers specified.
 
         Input Variables:
-        - `self`: Implicit reference to the instance.
         - `files` (list, optional): List of files to process. Defaults to `self.remote_files`.
-        - `destination` (str, optional): Destination path for processed files.
+        - `destination` (str, optional): Path to save processed files.
         - `num_workers` (int, optional): Number of workers for parallel processing. Default is -1 (auto-determined).
-        - `select_cols` (list, optional): Columns to select from files. Default is `self._select_cols`.
-        - `date_query`: (optional): Date query for filtering data. Default is `self.time_period`.
-        - `bvd_query`: (optional): BVD query for filtering data. Default is `self._bvd_list[2]`.
-        - `query` (str, optional): Query for additional filtering of data.
+        - `select_cols` (list, optional): Columns to select from files. Defaults to `self._select_cols`.
+        - `date_query`: (optional): Date query for filtering data. Defaults to `self.time_period`.
+        - `bvd_query`: (optional): BVD query for filtering data. Defaults to `self._bvd_list[2]`.
+        - `query` (str, optional): Additional query for filtering data.
         - `query_args` (list, optional): Arguments for the query.
+        - `pool_method` (optional): Method for parallel processing (e.g., 'fork', 'threading').
 
         Returns:
         - `dfs`: List of Pandas DataFrames with selected columns and filtered data.
         - `file_names`: List of file names processed.
 
         Notes:
-        - If `select_cols` is provided, it is validated against expected formats.
-        - Uses parallel processing if `num_workers` is greater than 1.
+        - If `files` is `None`, the method will use `self.remote_files`.
+        - If `num_workers` is less than 1, it will be set automatically based on available system memory.
+        - Uses parallel processing if `num_workers` is greater than 1; otherwise, processes files sequentially.
         - Handles file concatenation and deletion based on instance attributes (`concat_files`, `delete_files`).
-        - Prints current working directory if `self.delete_files` is `True`.
+        - If `self.delete_files` is `True`, the method will print the current working directory.
 
         Raises:
-        - `ValueError`: If validation of arguments (`files`, `destination`, `flag`) fails.
+        - `ValueError`: If validation of arguments (`files`, `destination`, etc.) fails.
+
+        Example:
+            dfs, file_names = self.process_all(files=['file1.csv', 'file2.csv'], destination='/processed', num_workers=4,
+                                            select_cols=['col1', 'col2'], date_query='2023-01-01', query='col1 > 0')
         """
 
         files = files or self.remote_files
@@ -1173,6 +1240,7 @@ class Sftp:
         query = query or self.query
         query_args = query_args or self.query_args
         select_cols = select_cols or self._select_cols
+        
 
         # To handle executing when download_all() have not finished!
         if self._download_finished is False and all(file in self._remote_files for file in files): 
@@ -1191,8 +1259,9 @@ class Sftp:
         if select_cols is not None:
             select_cols = _check_list_format(select_cols,self._bvd_list[1],self._time_period[2])
 
+        # FIX ME !!!
         try:
-            flag =  any([select_cols, query, all(date_query),bvd_query]) 
+            flag =  any([select_cols, query, all(date_query),bvd_query]) and self.output_format
             files, destination = self._check_args(files,destination,flag)
         except ValueError as e:
             print(e)
@@ -1259,6 +1328,26 @@ class Sftp:
         return self.dfs, file_names
   
     def download_all(self,num_workers = None):
+        """
+        Initiates downloading of all remote files using parallel processing.
+
+        This method starts a new process to download files based on the selected data product and table. 
+        It uses parallel processing if `num_workers` is specified, defaulting to `cpu_count() - 2` if not. 
+        The process is managed using the `fork` method, which is supported only on Unix systems.
+
+        Input Variables:
+        - `num_workers` (int, optional): Number of workers for parallel processing. Defaults to `cpu_count() - 2`.
+
+        Notes:
+        - This method requires the `fork` method for parallel processing, which is supported only on Unix systems.
+        - If `self._set_data_product` or `self._set_table` is `None`, the method will call `select_data()` to initialize them.
+        - Sets `self.delete_files` to `False` before starting the download process.
+        - Starts a new process using `multiprocessing.Process` to run the `process_all` method for downloading.
+        - Sets `self._download_finished` to `False` when starting the process, indicating that the download is in progress.
+
+        Example:
+            self.download_all(num_workers=4)
+        """
         
         if hasattr(os, 'fork'):
             pool_method = 'fork'
@@ -1338,8 +1427,7 @@ class Sftp:
         
         print('Retrieving Data Product overview from SFTP..wait a moment')
         
-        if product_overview is None:
-            product_overview =_table_names()
+        product_overview =_table_names(file_name = product_overview)
 
         with self.connect() as sftp:
             product_paths = sftp.listdir()
@@ -1427,6 +1515,7 @@ class Sftp:
 
                 full_paths  = [export + '/' + table for table in tables]
                 full_paths = [os.path.dirname(full_path) if full_path.endswith('.csv') else full_path for full_path in full_paths]
+                tables = [table[:-4] if table.endswith(".csv") else table for table in tables ]
                               
                 if pd.isna(data_product):
                     data_product, tables = _table_match(tables)
@@ -1485,7 +1574,7 @@ class Sftp:
         if num_workers is None:
             num_workers= int(cpu_count() - 2)
 
-        if isinstance(num_workers, (int, float, complex))and num_workers != 1:
+        if isinstance(num_workers, (int, float, complex)) and num_workers != 1:
             num_workers = int(num_workers)
         
         # Batch files to delete
@@ -1605,6 +1694,28 @@ class Sftp:
         return file_attributes
 
     def _check_path(self,path,mode=None):
+        
+        def check_prefix(file_names):
+            # If the prefix is found, proceed to check the sequence
+            if file_names and file_names[0].startswith('part-'):
+                # Extract part numbers from file names
+                part_numbers = []
+                for file_name in file_names:
+                    match = re.search(r'part-(\d{5})', file_name)  # Regex to find part numbers
+                    if match:
+                        part_numbers.append(int(match.group(1)))
+
+                # Get the smallest and largest part numbers
+                min_part = min(part_numbers)
+                max_part = max(part_numbers)
+
+                # Check if all parts from min_part to max_part are present
+                all_parts_present = all(i in part_numbers for i in range(min_part, max_part + 1))
+
+                if not all_parts_present:
+                    print("WARNING: Some file parts are missing between part-{:05d} and part-{:05d}. Inspect further by running '.remote_files'".format(min_part, max_part))
+                    print("Please contact your local support")
+            
         files = []
         if path is not None:
             if mode == "local" or mode is None:
@@ -1632,6 +1743,8 @@ class Sftp:
                     print(f"Remote path is invalid:'{path}'")
                     path = None
 
+            check_prefix(files)
+            
             if len(files) > 1 and any(file.endswith('.csv') for file in files):
                 if self._set_table is not None:
                     # Find the file that matches the match_string without the .csv suffix
@@ -1896,9 +2009,17 @@ class Sftp:
 
                         # Update df2['2'] based on the mapping
                         df['Data Product'] = df['Top-level Directory'].map(mapping).combine_first(df['Data Product'])
-                    
+
                         self._tables_available = df 
                         self._tables_backup = df 
+
+                        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                        filename = f"{timestamp}_data_products.csv"
+                        df = df[['Data Product','Table','Top-level Directory']]
+                        df.to_csv(filename)
+                        print(f"Data Product template has been saved to: {filename}")
+
+                
             
         df = self._tables_available.copy()
 
@@ -1908,33 +2029,190 @@ class Sftp:
         if not df_multiple.empty:
             asyncio.ensure_future(f(self,df,df_multiple))
 
+    # Under development
+    def _search_dictionary_list(self, save_to:str=False, search_word=None, search_cols={'Data Product':True, 'Table':True, 'Column':True, 'Definition':True}, letters_only:bool=False, exact_match:bool=False, data_product = None, table = None):
+        """
+        Search for a term in a column/variable dictionary and save results to a file.
+
+        Args:
+        - `self`: Implicit reference to the instance.
+        - `save_to` (str, optional): Format to save results. If False, results are not saved (default is False).
+        - `search_word` (str or list of str, optional): Search term(s). If None, no term is searched.
+        - `search_cols` (dict, optional): Dictionary indicating which columns to search. Columns are 'Data Product', 'Table', 'Column', and 'Definition' with default value as True for each.
+        - `letters_only` (bool, optional): If True, search only for alphabetic characters in the search term (default is False).
+        - `exact_match` (bool, optional): If True, search for an exact match of the search term. Otherwise, search for partial matches (default is False).
+        - `data_product` (str, optional): Specific data product to filter results by. If None, no filtering by data product (default is None).
+        - `table` (str, optional): Specific table to filter results by. If None, no filtering by table (default is None).
+
+        Returns:
+        - pandas.DataFrame: A DataFrame containing the search results. If no results are found, an empty DataFrame is returned.
+
+        Notes:
+        - If `data_product` is provided and does not match any records, a message is printed and an empty DataFrame is returned.
+        - If `table` is provided and does not match any records, it attempts to perform a case-insensitive partial match search.
+        - If `search_word` is provided and no matches are found, a message is printed indicating no results were found.
+        - If `letters_only` is True, the search term is processed to include only alphabetic characters before searching.
+        - If `save_to` is specified, the query results are saved in the format specified.
+        """
+    
+        if data_product is None and self.set_data_product is not None:
+            data_product = self.set_data_product
+
+        if table is None and self.set_table is not None:
+            table = self.set_table
+
+        if self._table_dictionary is None:
+            self._table_dictionary = _table_dictionary()        
+        
+        df = self._table_dictionary
+        df = df[df['Data Product'].isin(self._tables_backup['Data Product'].drop_duplicates())]
+
+        if data_product is not None:
+            df_product = df.query(f"`Data Product` == '{data_product}'")
+            if df_product.empty:
+                print("No such Data Product was found. Please set right data product")
+                return df_product
+            else:
+                df = df_product
+            search_cols['Data Product'] = False
+        
+        if table is not None:
+            df_table = df.query(f"`Table` == '{table}'")
+            if df_table.empty:   
+                df_table = df.query(f"`Table`.str.contains('{table}', case=False, na=False, regex=False)")
+                if df_table.empty:
+                    print("No such Table was found. Please set right table")
+                    return df_table
+            search_cols['Table'] = False
+            df = df_table 
+                            
+        if search_word is not None:
+            
+            if letters_only:
+                df_backup = df.copy()
+                df = df.map(_letters_only_regex)
+
+
+            if not isinstance(search_word, list):
+                search_word = [search_word]
+
+            results = []
+
+            for word in search_word:
+                if letters_only:
+                    word = _letters_only_regex(word)
+
+                if exact_match:
+                    base_string = "`{col}` == '{{word}}'"
+                else:
+                    base_string = "`{col}`.str.contains('{{word}}', case=False, na=False, regex=False)"
+                    
+                search_conditions = " | ".join(base_string.format(col=col) for col, include in search_cols.items() if include)
+                final_string = search_conditions.format(word=word)
+
+                result_df = df.query(final_string)
+
+                if result_df.empty:
+                    base_string = "'{col}'"
+                    search_conditions = " , ".join(base_string.format(col=col) for col, include in search_cols.items() if include)
+                    print(f"No such '{word}' was detected across columns: " + search_conditions)
+                else:
+                    if letters_only:
+                      result_df = df_backup.loc[result_df.index]  
+                    result_df['search_word'] = word
+                    results.append(result_df)
+
+            if results:
+                df = pd.concat(results, ignore_index=True)
+            else:
+                df = pd.DataFrame()
+
+            #if letters_only:
+            #    df = df_backup.loc[df.index]
+
+            if save_to:
+                print(f"The following query was executed for each word in search_word: {search_word} : ")
+
+        _save_to(df, 'dict_search', save_to)
+
+        return df
+
+    def _bvd_changes(initial_ids, df):
+        new_ids = set(initial_ids)
+        # Initialize newest_ids to track the most recent IDs
+        newest_ids = {id: id for id in new_ids}
+        found_new = True
+        
+        while found_new:
+            found_new = False
+            current_ids = new_ids.copy()
+            
+            # Check for new IDs in old_id and new_id columns
+            for id in current_ids:
+                if id in df['old_id'].values:
+                    new_id_candidates = df[df['old_id'] == id]['new_id'].values
+                    for new_id in new_id_candidates:
+                        if new_id not in new_ids:
+                            new_ids.add(new_id)
+                            found_new = True  # Mark that a new ID was found
+                            # Update the newest_id for the current id
+                            newest_ids[id] = new_id
+                            # Also add new_id to newest_ids
+                            newest_ids[new_id] = new_id
+                
+                if id in df['new_id'].values:
+                    old_id_candidates = df[df['new_id'] == id]['old_id'].values
+                    for old_id in old_id_candidates:
+                        if old_id not in new_ids:
+                            new_ids.add(old_id)
+                            found_new = True  # Mark that a new ID was found
+                            # Update the newest_id for the old_id found
+                            newest_ids[old_id] = newest_ids[id]  # Set newest_id to the value of newest_ids[id]
+
+        # Filter the DataFrame based on new_ids
+        filtered_df = df[df['old_id'].isin(new_ids) | df['new_id'].isin(new_ids)]
+
+        # Map newest IDs to the filtered DataFrame
+        filtered_df['newest_id'] = filtered_df.apply(
+            lambda row: newest_ids.get(row['old_id'], newest_ids.get(row['new_id'])), axis=1
+        )
+
+        return new_ids, newest_ids,filtered_df
+
+
 class _SelectData:
     def __init__(self, df, title="Select Data"):
         self.df = df
-        self.selected_product = None
-        self.selected_table = None
 
         # Create the title widget
         self.title = widgets.HTML(value=f"<h2>{title}</h2>")
 
+        # Set an initial value for product dropdown (first product by default)
+        self.selected_product = self.df['Data Product'].unique()[0]
+         # Create the second dropdown menu, prepopulate based on initial product
+        filtered_tables = self.df[self.df['Data Product'] == self.selected_product]['Table'].unique()
+        self.selected_table = filtered_tables[0]
+
         # Create the first dropdown menu
         self.product_dropdown = widgets.Dropdown(
             options=self.df['Data Product'].unique(),
+            value=self.selected_product,  # Set the initial value
             description='Data Product:',
             disabled=False,
         )
 
         # Create the second dropdown menu placeholder
         self.table_dropdown = widgets.Dropdown(
-            options=[],
+            options=filtered_tables.tolist(),  # Populate based on initial product
+            value = self.selected_table,
             description='Table:',
-            disabled=True,
+            disabled=False,
         )
 
         # Create the OK button and set its initial state to disabled
         self.ok_button = widgets.Button(
             description='OK',
-            disabled=True,
+            disabled=False,
         )
 
         # Create the Cancel button
@@ -1950,12 +2228,11 @@ class _SelectData:
         self.cancel_button.on_click(self._cancel_button_click)
 
     async def _product_change(self, change):
-        if change['type'] == 'change' and change['name'] == 'value':
-            self.selected_product = change.new
-            filtered_tables = self.df[self.df['Data Product'] == self.selected_product]['Table'].unique()
-            self.table_dropdown.options = filtered_tables.tolist()  # Ensure options are converted to list
-            self.table_dropdown.disabled = False  # Enable the table dropdown
-            self.ok_button.disabled = True  # Disable the button until a table is selected
+        self.selected_product = self.product_dropdown.value
+        filtered_tables = self.df[self.df['Data Product'] == self.selected_product]['Table'].unique()
+        self.table_dropdown.options = filtered_tables.tolist()  # Ensure options are converted to list
+        self.table_dropdown.disabled = False  # Enable the table dropdown
+        self.ok_button.disabled = True  # Disable the button until a table is selected
 
     async def _table_change(self, change):
         if change['type'] == 'change' and change['name'] == 'value':
@@ -2248,7 +2525,8 @@ class _SelectOptions:
         self.output_format_title = widgets.HTML(value="<h3>Select Output File Formats (More than one can be selected - '.xlsx' is not recommeded):</h3>")
         # Multi-select dropdown for output_format
         self.output_format_multiselect = widgets.SelectMultiple(
-            options=[".csv", ".xlsx", ".parquet", ".pickle", ".dta"],
+            options=[".csv", ".xlsx", ".parquet", ".pickle", None],
+            #options=[".csv", ".xlsx", ".parquet", ".pickle", ".dta"],
             value=self.config['output_format'],  # Use default value
             description='Formats:',
             disabled=False,
@@ -2368,7 +2646,7 @@ def _select_bvd(selected_value, bvd_list,select_cols, search_type):
         bvd_list[2] = _construct_query(bvd_list[1],bvd_list[0],search_type)
         if select_cols is not None:
                 select_cols = _check_list_format(select_cols,bvd_list[1])
-
+        print(f"{len(bvd_list[0])} unique bvd_id numbers were detected")
         print(f"The following bvd query has been created: {bvd_list[2]}")
 
 def _select_date(selected_value, time_period,select_cols):
@@ -2400,7 +2678,10 @@ def _create_workers(num_workers:int = -1,n_total:int=None,pool_method = None  ,q
 
     if num_workers < 1:
             num_workers =int(psutil.virtual_memory().total/ (1024 ** 3)/12)
-    
+
+    if num_workers > int(cpu_count()):
+        num_workers = int(cpu_count())
+
     if num_workers > n_total:
         num_workers = int(n_total)
      
@@ -2633,6 +2914,7 @@ def _load_table(file:str,select_cols = None, date_query:list=[None,None,None,"re
         if isinstance(query, type(lambda: None)):
             try:
                 df = query(df, *query_args) if query_args else query(df)
+                print('Hello')
             except Exception as e:
                 raise ValueError(f"Error curating file with custom function: {e}")
         elif isinstance(query,str):
@@ -2693,23 +2975,24 @@ def _load_csv_table(file:str,select_cols = None, date_query:list=[None,None,None
     def check_cols(file, select_cols):
 
         col_index = None
-        if select_cols is not None:
-            # Read a small chunk to get column names if needed
-            header_chunk = pd.read_csv(file, nrows=0)  # Read only header
-            available_cols = header_chunk.columns.tolist()
-            
-            if not set(select_cols).issubset(available_cols):
-                missing_cols = set(select_cols) - set(available_cols)
-                raise ValueError(f"Columns not found in file: {missing_cols}")
-            
-            # Find indices of select_cols
-            col_index = [available_cols.index(col) for col in select_cols]
-            select_cols = [available_cols[i] for i in col_index]
+        # Read a small chunk to get column names if needed
+        header_chunk = pd.read_csv(file, nrows=0)  # Read only header
+        available_cols = header_chunk.columns.tolist()
+        
+        if select_cols is None:
+            select_cols = available_cols
+
+        if not set(select_cols).issubset(available_cols):
+            missing_cols = set(select_cols) - set(available_cols)
+            raise ValueError(f"Columns not found in file: {missing_cols}")
+        
+        # Find indices of select_cols
+        col_index = [available_cols.index(col) for col in select_cols]
+        select_cols = [available_cols[i] for i in col_index]
 
         return select_cols,col_index
 
 
-    
     if num_workers < 1:
         num_workers =int(psutil.virtual_memory().total/ (1024 ** 3)/12)
 
@@ -2717,9 +3000,25 @@ def _load_csv_table(file:str,select_cols = None, date_query:list=[None,None,None
     select_cols,col_index = check_cols(file,select_cols)
 
     # Step 1: Determine the total number of rows using subprocess
-    safe_file_path = shlex.quote(file)
-    num_lines = int(subprocess.check_output(f"wc -l {safe_file_path}", shell=True).split()[0]) - 1
-
+    if sys.platform.startswith('linux') or sys.platform == 'darwin':
+            safe_file_path = shlex.quote(file)
+            num_lines = int(subprocess.check_output(f"wc -l {safe_file_path}", shell=True).split()[0]) - 1
+    elif sys.platform == 'win32':
+            def count_lines_chunk(file_path):
+                # Open the file in binary mode for faster reading
+                with open(file_path, 'rb') as f:
+                    # Use os.read to read large chunks of the file at once (64KB in this case)
+                    buffer_size = 1024 * 64  # 64 KB
+                    read_chunk = f.read(buffer_size)
+                    count = 0
+                    while read_chunk:
+                        # Count the number of newlines in each chunk
+                        count += read_chunk.count(b'\n')
+                        read_chunk = f.read(buffer_size)
+                return count
+            
+            num_lines = count_lines_chunk(file) - 1 
+        
     # Step 2: Calculate the chunk size to create 64 chunks
     chunk_size = num_lines // num_workers
 
@@ -2849,15 +3148,27 @@ def _read_excel(file_name):
     with pkg_resources.open_binary('moodys_datahub.data', file_name) as f:
         return pd.read_excel(f)
 
-def _table_names(file_name:str=None):
+def _table_names(file_name = None):
     
     if file_name is None:
         df = _read_excel('data_products.xlsx')
-    else:
-        if not os.path.exists(file_name):
-            raise ValueError("moody's datahub data product file was not detected")
-        df = pd.read_excel(file_name)
+    elif os.path.isfile(file_name):
+        read_functions = {
+                    'csv': pd.read_csv,
+                    'xlsx': pd.read_excel
+                    }
+        file_extension = file_name.lower().split('.')[-1]
 
+        if file_extension not in read_functions:
+            raise ValueError(f"Unsupported file format: {file_extension}")
+
+        read_function = read_functions[file_extension]
+
+        df = read_function(file_name)
+         
+    else:
+        raise ValueError("moody's datahub data product file was not detected")
+    
     df = df[['Data Product', 'Top-level Directory']]
     df = df.drop_duplicates()
     return df
