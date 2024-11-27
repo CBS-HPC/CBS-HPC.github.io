@@ -1,0 +1,768 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../images/CBS_logo2.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
+    
+    
+      
+        <title>Ray - HPC & Data Science Support</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.26e3688c.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ecc896b0.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#example-using-ray" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://example.com" title="HPC &amp; Data Science Support" class="md-header__button md-logo" aria-label="HPC & Data Science Support" data-md-component="logo">
+      
+  <img src="../../images/CBS_logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HPC & Data Science Support
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ray
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+            
+              <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+              </label>
+            
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+            
+              <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+              </label>
+            
+          
+        </form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/CBS-HPC/CBS-HPC.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CBS-HPC/CBS-HPC.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../news/" class="md-tabs__link">
+      News
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../events/" class="md-tabs__link">
+      Teaching Events
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../hpc/" class="md-tabs__link">
+      HPC Facilites
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../getresources/" class="md-tabs__link">
+      Get Resources
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../tut_docs/" class="md-tabs__link">
+      Tutorials & Documentation
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../contact/" class="md-tabs__link">
+      Contact
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../LICENSE/" class="md-tabs__link">
+      License
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://example.com" title="HPC &amp; Data Science Support" class="md-nav__button md-logo" aria-label="HPC & Data Science Support" data-md-component="logo">
+      
+  <img src="../../images/CBS_logo.png" alt="logo">
+
+    </a>
+    HPC & Data Science Support
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/CBS-HPC/CBS-HPC.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CBS-HPC/CBS-HPC.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../news/" class="md-nav__link">
+        News
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../events/" class="md-nav__link">
+        Teaching Events
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hpc/" class="md-nav__link">
+        HPC Facilites
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getresources/" class="md-nav__link">
+        Get Resources
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tut_docs/" class="md-nav__link">
+        Tutorials & Documentation
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contact/" class="md-nav__link">
+        Contact
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LICENSE/" class="md-nav__link">
+        License
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example-using-ray" class="md-nav__link">
+    Example using Ray
+  </a>
+  
+    <nav class="md-nav" aria-label="Example using Ray">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#open-extra-terminal-for-three-nodes" class="md-nav__link">
+    Open extra Terminal for three Nodes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-top-command-is-used-to-show-the-linux-processes" class="md-nav__link">
+    Run "top" command is used to show the Linux processes.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#observed-that-the-work-is-disbrubted-across-all-three-nodes" class="md-nav__link">
+    Observed that the work is disbrubted across all three nodes.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-files" class="md-nav__link">
+    Output files
+  </a>
+  
+    <nav class="md-nav" aria-label="Output files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-autogenerated-slurm-script-slurmtest_0425-1208sh" class="md-nav__link">
+    The autogenerated SLURM script (SlurmTest_0425-1208.sh)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autogenerated-log-file-slurmtest_0425-1208log" class="md-nav__link">
+    Autogenerated log file (SlurmTest_0425-1208.log)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>Ray</h1>
+
+<h2 id="example-using-ray">Example using Ray<a class="headerlink" href="#example-using-ray" title="Permanent link">&para;</a></h2>
+<p>In terminal run:</p>
+<div class="highlight"><pre><span></span><code><span class="n">python</span><span class="w"> </span><span class="n">slurm</span><span class="o">-</span><span class="n">launch.py</span><span class="w"> </span><span class="o">--</span><span class="n">script</span><span class="w"> </span><span class="n">slurm</span><span class="o">-</span><span class="n">template_ray.sh</span><span class="w"> </span><span class="o">--</span><span class="n">exp</span><span class="o">-</span><span class="n">name</span><span class="w"> </span><span class="n">SlurmTest</span><span class="w"> </span><span class="o">--</span><span class="n">command</span><span class="w"> </span><span class="s">&quot;python /work/SLURM_scripts/SklearnRay.py&quot;</span><span class="w"> </span><span class="o">--</span><span class="n">num</span><span class="o">-</span><span class="n">nodes</span><span class="w"> </span><span class="m">3</span>
+
+<span class="c1"># Output</span>
+
+<span class="n">Starting</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">submit</span><span class="w"> </span><span class="n">job</span><span class="o">!</span>
+<span class="n">Job</span><span class="w"> </span><span class="n">submitted</span><span class="o">!</span><span class="w"> </span><span class="n">Script</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">at</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SlurmTest_0425</span><span class="m">-1208</span><span class="n">.sh</span><span class="o">&gt;</span><span class="n">.</span><span class="w"> </span><span class="n">Log</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">at</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SlurmTest_0425</span><span class="m">-1208</span><span class="n">.log</span><span class="o">&gt;</span>
+<span class="n">Submitted</span><span class="w"> </span><span class="n">batch</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="m">2</span>
+</code></pre></div>
+<h3 id="open-extra-terminal-for-three-nodes">Open extra Terminal for three Nodes<a class="headerlink" href="#open-extra-terminal-for-three-nodes" title="Permanent link">&para;</a></h3>
+<p><img alt="" src="/mkdocs/SLURM3.PNG" /></p>
+<h3 id="run-top-command-is-used-to-show-the-linux-processes">Run "top" command is used to show the Linux processes.<a class="headerlink" href="#run-top-command-is-used-to-show-the-linux-processes" title="Permanent link">&para;</a></h3>
+<p><img alt="" src="/mkdocs/SLURM4.PNG" /></p>
+<h3 id="observed-that-the-work-is-disbrubted-across-all-three-nodes">Observed that the work is disbrubted across all three nodes.<a class="headerlink" href="#observed-that-the-work-is-disbrubted-across-all-three-nodes" title="Permanent link">&para;</a></h3>
+<p>This may look different for different backends (e.g. Dask). It should be noted that in this example on 8 core nodes were used. Full nodes (64 cores) will generate alot more processes.</p>
+<p><img alt="" src="/mkdocs/SLURM5.PNG" /></p>
+<h2 id="output-files">Output files<a class="headerlink" href="#output-files" title="Permanent link">&para;</a></h2>
+<h3 id="the-autogenerated-slurm-script-slurmtest_0425-1208sh">The autogenerated SLURM script (SlurmTest_0425-1208.sh)<a class="headerlink" href="#the-autogenerated-slurm-script-slurmtest_0425-1208sh" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">#!/bin/bash</span>
+<span class="c1"># shellcheck disable=SC2206</span>
+<span class="c1"># THIS FILE IS GENERATED BY AUTOMATION SCRIPT! PLEASE REFER TO ORIGINAL SCRIPT!</span>
+<span class="c1"># THIS FILE IS MODIFIED AUTOMATICALLY FROM TEMPLATE AND SHOULD BE RUNNABLE!</span>
+
+<span class="c1">#SBATCH --job-name=SlurmTest_0425-1208</span>
+<span class="c1">#SBATCH --output=SlurmTest_0425-1208.log</span>
+
+<span class="c1">### This script works for any number of nodes, Ray will find and manage all resources</span>
+<span class="c1">#SBATCH --nodes=3</span>
+<span class="c1">#SBATCH --exclusive</span>
+<span class="c1">### Give all resources to a single Ray task, ray can manage the resources internally</span>
+<span class="c1">#SBATCH --ntasks-per-node=1</span>
+<span class="c1">##SBATCH --gpus-per-task=${NUM_GPUS_PER_NODE} #De-activated by KGP 230317</span>
+
+<span class="c1"># Load modules or your own conda environment here</span>
+<span class="c1"># module load pytorch/v1.4.0-gpu</span>
+<span class="c1"># conda activate ${CONDA_ENV}</span>
+
+
+<span class="c1"># ===== DO NOT CHANGE THINGS HERE UNLESS YOU KNOW WHAT YOU ARE DOING =====</span>
+
+<span class="n">echo</span><span class="w"> </span><span class="o">$</span><span class="n">SLURM_JOB_NODELIST</span>
+
+<span class="n">nodes</span><span class="o">=$</span><span class="p">(</span><span class="n">scontrol</span><span class="w"> </span><span class="n">show</span><span class="w"> </span><span class="n">hostnames</span><span class="w"> </span><span class="s">&quot;$SLURM_JOB_NODELIST&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1"># Getting the node names</span>
+
+<span class="n">nodes_array</span><span class="o">=</span><span class="p">(</span><span class="o">$</span><span class="n">nodes</span><span class="p">)</span>
+<span class="n">node_1</span><span class="o">=$</span><span class="p">{</span><span class="n">nodes_array</span><span class="p">[</span><span class="m">0</span><span class="p">]}</span>
+<span class="n">ip</span><span class="o">=$</span><span class="p">(</span><span class="n">srun</span><span class="w"> </span><span class="o">--</span><span class="n">nodes</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="o">--</span><span class="n">ntasks</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="n">w</span><span class="w"> </span><span class="s">&quot;$node_1&quot;</span><span class="w"> </span><span class="n">hostname</span><span class="w"> </span><span class="o">--</span><span class="n">ip</span><span class="o">-</span><span class="n">address</span><span class="p">)</span><span class="w"> </span><span class="c1"># making redis-address</span>
+
+<span class="c1"># if we detect a space character in the head node IP, we&#39;ll</span>
+<span class="c1"># convert it to an ipv4 address. This step is optional.</span>
+<span class="n">if</span><span class="w"> </span><span class="p">[[</span><span class="w"> </span><span class="s">&quot;$ip&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">*</span><span class="s">&quot; &quot;</span><span class="o">*</span><span class="w"> </span><span class="p">]];</span><span class="w"> </span><span class="n">then</span>
+<span class="w">  </span><span class="n">IFS</span><span class="o">=</span><span class="s">&#39; &#39;</span><span class="w"> </span><span class="n">read</span><span class="w"> </span><span class="o">-</span><span class="n">ra</span><span class="w"> </span><span class="n">ADDR</span><span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="s">&quot;$ip&quot;</span>
+<span class="w">  </span><span class="n">if</span><span class="w"> </span><span class="p">[[</span><span class="w"> </span><span class="o">$</span><span class="p">{</span><span class="c1">#ADDR[0]} -gt 16 ]]; then</span>
+<span class="w">    </span><span class="n">ip</span><span class="o">=$</span><span class="p">{</span><span class="n">ADDR</span><span class="p">[</span><span class="m">1</span><span class="p">]}</span>
+<span class="w">  </span><span class="n">else</span>
+<span class="w">    </span><span class="n">ip</span><span class="o">=$</span><span class="p">{</span><span class="n">ADDR</span><span class="p">[</span><span class="m">0</span><span class="p">]}</span>
+<span class="w">  </span><span class="n">fi</span>
+<span class="w">  </span><span class="n">echo</span><span class="w"> </span><span class="s">&quot;IPV6 address detected. We split the IPV4 address as $ip&quot;</span>
+<span class="n">fi</span>
+
+<span class="n">port</span><span class="o">=</span><span class="m">6379</span>
+<span class="n">ip_head</span><span class="o">=$</span><span class="n">ip</span><span class="o">:$</span><span class="n">port</span>
+<span class="n">export</span><span class="w"> </span><span class="n">ip_head</span>
+<span class="n">echo</span><span class="w"> </span><span class="s">&quot;IP Head: $ip_head&quot;</span>
+
+<span class="n">echo</span><span class="w"> </span><span class="s">&quot;STARTING HEAD at $node_1&quot;</span>
+<span class="n">srun</span><span class="w"> </span><span class="o">--</span><span class="n">nodes</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="o">--</span><span class="n">ntasks</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="n">w</span><span class="w"> </span><span class="s">&quot;$node_1&quot;</span><span class="w"> </span><span class="n">ray</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">--</span><span class="n">head</span><span class="w"> </span><span class="o">--</span><span class="n">node</span><span class="o">-</span><span class="n">ip</span><span class="o">-</span><span class="n">address</span><span class="o">=</span><span class="s">&quot;$ip&quot;</span><span class="w"> </span><span class="o">--</span><span class="n">port</span><span class="o">=$</span><span class="n">port</span><span class="w"> </span><span class="o">--</span><span class="n">block</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="n">sleep</span><span class="w"> </span><span class="m">30</span>
+
+<span class="c1">#worker_num=$((SLURM_JOB_NUM_NODES - 1)) #number of nodes other than the head node</span>
+<span class="c1">#export NB_WORKERS=$((${SLURM_JOB_NUM_NODES-1})) #number of nodes other than the head node</span>
+<span class="c1">#echo ${NB_WORKERS}</span>
+
+<span class="n">export</span><span class="w"> </span><span class="n">NB_WORKERS</span><span class="o">=$</span><span class="p">((</span><span class="n">SLURM_JOB_NUM_NODES</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="p">))</span><span class="w"> </span><span class="c1">#number of nodes other than the head node</span>
+<span class="n">echo</span><span class="w"> </span><span class="s">&quot;STARTING ${NB_WORKERS} WORKERS&quot;</span>
+<span class="nf">for </span><span class="p">((</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">NB_WORKERS</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">));</span><span class="w"> </span><span class="n">do</span>
+<span class="w">  </span><span class="n">node_i</span><span class="o">=$</span><span class="p">{</span><span class="n">nodes_array</span><span class="p">[</span><span class="o">$</span><span class="n">i</span><span class="p">]}</span>
+<span class="w">  </span><span class="n">echo</span><span class="w"> </span><span class="s">&quot;STARTING WORKER $i at $node_i&quot;</span>
+<span class="w">  </span><span class="n">srun</span><span class="w"> </span><span class="o">--</span><span class="n">nodes</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="o">--</span><span class="n">ntasks</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="n">w</span><span class="w"> </span><span class="s">&quot;$node_i&quot;</span><span class="w"> </span><span class="n">ray</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">--</span><span class="n">address</span><span class="w"> </span><span class="s">&quot;$ip_head&quot;</span><span class="w"> </span><span class="o">--</span><span class="n">block</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">  </span><span class="n">sleep</span><span class="w"> </span><span class="m">5</span>
+<span class="n">done</span>
+
+<span class="c1"># ===== Call your code below =====</span>
+<span class="n">echo</span><span class="w"> </span><span class="s">&quot;RUNNING CODE: python /work/data/SklearnRay.py&quot;</span>
+<span class="n">python</span><span class="w"> </span><span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">SklearnRay.py</span>
+</code></pre></div>
+<h3 id="autogenerated-log-file-slurmtest_0425-1208log">Autogenerated log file (SlurmTest_0425-1208.log)<a class="headerlink" href="#autogenerated-log-file-slurmtest_0425-1208log" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">node</span><span class="p">[</span><span class="m">0-2</span><span class="p">]</span>
+<span class="n">IPV6</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="n">detected.</span><span class="w"> </span><span class="n">We</span><span class="w"> </span><span class="n">split</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">IPV4</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="m">10.42</span><span class="n">.</span><span class="m">47.86</span>
+<span class="n">IP</span><span class="w"> </span><span class="n">Head</span><span class="o">:</span><span class="w"> </span><span class="m">10.42</span><span class="n">.</span><span class="m">47.86</span><span class="o">:</span><span class="m">6379</span>
+<span class="n">STARTING</span><span class="w"> </span><span class="n">HEAD</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">node0</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">40</span><span class="p">,</span><span class="m">054</span><span class="w"> </span><span class="n">WARNING</span><span class="w"> </span><span class="n">utils.py</span><span class="o">:</span><span class="m">652</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Ray</span><span class="w"> </span><span class="n">currently</span><span class="w"> </span><span class="n">does</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">support</span><span class="w"> </span><span class="n">initializing</span><span class="w"> </span><span class="n">Raywith</span><span class="w"> </span><span class="n">fractional</span><span class="w"> </span><span class="n">cpus.</span><span class="w"> </span><span class="n">Your</span><span class="w"> </span><span class="n">num_cpus</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">truncated</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="m">7.5</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="m">7</span><span class="n">.</span>
+<span class="n">STARTING</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">WORKERS</span>
+<span class="n">STARTING</span><span class="w"> </span><span class="n">WORKER</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">node1</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">38</span><span class="p">,</span><span class="m">026</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">usage_lib.py</span><span class="o">:</span><span class="m">461</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Usage</span><span class="w"> </span><span class="n">stats</span><span class="w"> </span><span class="n">collection</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">enabled</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">default</span><span class="w"> </span><span class="n">without</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="n">confirmation</span><span class="w"> </span><span class="n">because</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">terminal</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">detected</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">non</span><span class="o">-</span><span class="n">interactive.</span><span class="w"> </span><span class="n">To</span><span class="w"> </span><span class="n">disable</span><span class="w"> </span><span class="n">this</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="n">`--disable-usage-stats`</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">starts</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">cluster</span><span class="p">,</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">following</span><span class="w"> </span><span class="n">command</span><span class="o">:</span><span class="w"> </span><span class="n">`ray disable-usage-stats`</span><span class="w"> </span><span class="n">before</span><span class="w"> </span><span class="n">starting</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">cluster.</span><span class="w"> </span><span class="n">See</span><span class="w"> </span><span class="n">https</span><span class="o">://</span><span class="n">docs.ray.io</span><span class="o">/</span><span class="n">en</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">cluster</span><span class="o">/</span><span class="n">usage</span><span class="o">-</span><span class="n">stats.html</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">more</span><span class="w"> </span><span class="n">details.</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">38</span><span class="p">,</span><span class="m">026</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">710</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Local</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="n">IP</span><span class="o">:</span><span class="w"> </span><span class="m">10.42</span><span class="n">.</span><span class="m">47.86</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">41</span><span class="p">,</span><span class="m">222</span><span class="w"> </span><span class="n">SUCC</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">747</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="o">--------------------</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">41</span><span class="p">,</span><span class="m">222</span><span class="w"> </span><span class="n">SUCC</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">748</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Ray</span><span class="w"> </span><span class="n">runtime</span><span class="w"> </span><span class="n">started.</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">41</span><span class="p">,</span><span class="m">223</span><span class="w"> </span><span class="n">SUCC</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">749</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="o">--------------------</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">41</span><span class="p">,</span><span class="m">223</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">751</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Next</span><span class="w"> </span><span class="n">steps</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">41</span><span class="p">,</span><span class="m">223</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">752</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">To</span><span class="w"> </span><span class="n">connect</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">Ray</span><span class="w"> </span><span class="n">runtime</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">another</span><span class="w"> </span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="n">run</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">41</span><span class="p">,</span><span class="m">223</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">755</span><span class="w"> </span><span class="o">--</span><span class="w">   </span><span class="n">ray</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">--</span><span class="n">address</span><span class="o">=</span><span class="s">&#39;10.42.47.86:6379&#39;</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">41</span><span class="p">,</span><span class="m">223</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">771</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Alternatively</span><span class="p">,</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">following</span><span class="w"> </span><span class="n">Python</span><span class="w"> </span><span class="n">code</span><span class="o">:</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">41</span><span class="p">,</span><span class="m">223</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">773</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">import</span><span class="w"> </span><span class="n">ray</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">41</span><span class="p">,</span><span class="m">223</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">777</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="nf">ray.init</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="s">&#39;auto&#39;</span><span class="p">,</span><span class="w"> </span>_<span class="n">node_ip_address</span><span class="o">=</span><span class="s">&#39;10.42.47.86&#39;</span><span class="p">)</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">41</span><span class="p">,</span><span class="m">223</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">790</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">To</span><span class="w"> </span><span class="n">see</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">cluster</span><span class="p">,</span><span class="w"> </span><span class="n">use</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">41</span><span class="p">,</span><span class="m">223</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">791</span><span class="w"> </span><span class="o">--</span><span class="w">   </span><span class="n">ray</span><span class="w"> </span><span class="n">status</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">41</span><span class="p">,</span><span class="m">223</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">801</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">If</span><span class="w"> </span><span class="n">connection</span><span class="w"> </span><span class="n">fails</span><span class="p">,</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">firewall</span><span class="w"> </span><span class="n">settings</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">network</span><span class="w"> </span><span class="n">configuration.</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">41</span><span class="p">,</span><span class="m">224</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">809</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">To</span><span class="w"> </span><span class="n">terminate</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Ray</span><span class="w"> </span><span class="n">runtime</span><span class="p">,</span><span class="w"> </span><span class="n">run</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">41</span><span class="p">,</span><span class="m">224</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">810</span><span class="w"> </span><span class="o">--</span><span class="w">   </span><span class="n">ray</span><span class="w"> </span><span class="n">stop</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">41</span><span class="p">,</span><span class="m">224</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">891</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="o">--</span><span class="n">block</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">41</span><span class="p">,</span><span class="m">224</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">892</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">forever</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="n">terminated</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">signal.</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">41</span><span class="p">,</span><span class="m">224</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">895</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Running</span><span class="w"> </span><span class="n">subprocesses</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">monitored</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">printed</span><span class="w"> </span><span class="n">if</span><span class="w"> </span><span class="n">any</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">them</span><span class="w"> </span><span class="n">terminate</span><span class="w"> </span><span class="n">unexpectedly.</span><span class="w"> </span><span class="n">Subprocesses</span><span class="w"> </span><span class="n">exit</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">SIGTERM</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">treated</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">graceful</span><span class="p">,</span><span class="w"> </span><span class="n">thus</span><span class="w"> </span><span class="n">NOT</span><span class="w"> </span><span class="n">reported.</span>
+<span class="n">STARTING</span><span class="w"> </span><span class="n">WORKER</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">node2</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">48</span><span class="p">,</span><span class="m">882</span><span class="w"> </span><span class="n">WARNING</span><span class="w"> </span><span class="n">utils.py</span><span class="o">:</span><span class="m">652</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Ray</span><span class="w"> </span><span class="n">currently</span><span class="w"> </span><span class="n">does</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">support</span><span class="w"> </span><span class="n">initializing</span><span class="w"> </span><span class="n">Raywith</span><span class="w"> </span><span class="n">fractional</span><span class="w"> </span><span class="n">cpus.</span><span class="w"> </span><span class="n">Your</span><span class="w"> </span><span class="n">num_cpus</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">truncated</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="m">7.5</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="m">7</span><span class="n">.</span>
+<span class="p">[</span><span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">48</span><span class="p">,</span><span class="m">933</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="m">2244</span><span class="w"> </span><span class="m">2244</span><span class="p">]</span><span class="w"> </span><span class="n">global_state_accessor.cc</span><span class="o">:</span><span class="m">356</span><span class="o">:</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="m">10.42</span><span class="n">.</span><span class="m">28.36</span><span class="p">,</span><span class="w"> </span><span class="n">while</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">find</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">matched</span><span class="w"> </span><span class="n">Raylet</span><span class="w"> </span><span class="n">address.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">maybe</span><span class="w"> </span><span class="n">come</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">when</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">connect</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Ray</span><span class="w"> </span><span class="n">cluster</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">different</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="n">connect</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">container.</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">48</span><span class="p">,</span><span class="m">859</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">866</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Local</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="n">IP</span><span class="o">:</span><span class="w"> </span><span class="m">10.42</span><span class="n">.</span><span class="m">28.36</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">48</span><span class="p">,</span><span class="m">935</span><span class="w"> </span><span class="n">SUCC</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">878</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="o">--------------------</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">48</span><span class="p">,</span><span class="m">935</span><span class="w"> </span><span class="n">SUCC</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">879</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Ray</span><span class="w"> </span><span class="n">runtime</span><span class="w"> </span><span class="n">started.</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">48</span><span class="p">,</span><span class="m">935</span><span class="w"> </span><span class="n">SUCC</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">880</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="o">--------------------</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">48</span><span class="p">,</span><span class="m">935</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">882</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">To</span><span class="w"> </span><span class="n">terminate</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Ray</span><span class="w"> </span><span class="n">runtime</span><span class="p">,</span><span class="w"> </span><span class="n">run</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">48</span><span class="p">,</span><span class="m">935</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">883</span><span class="w"> </span><span class="o">--</span><span class="w">   </span><span class="n">ray</span><span class="w"> </span><span class="n">stop</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">48</span><span class="p">,</span><span class="m">935</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">891</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="o">--</span><span class="n">block</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">48</span><span class="p">,</span><span class="m">935</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">892</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">forever</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="n">terminated</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">signal.</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">48</span><span class="p">,</span><span class="m">935</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">895</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Running</span><span class="w"> </span><span class="n">subprocesses</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">monitored</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">printed</span><span class="w"> </span><span class="n">if</span><span class="w"> </span><span class="n">any</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">them</span><span class="w"> </span><span class="n">terminate</span><span class="w"> </span><span class="n">unexpectedly.</span><span class="w"> </span><span class="n">Subprocesses</span><span class="w"> </span><span class="n">exit</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">SIGTERM</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">treated</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">graceful</span><span class="p">,</span><span class="w"> </span><span class="n">thus</span><span class="w"> </span><span class="n">NOT</span><span class="w"> </span><span class="n">reported.</span>
+<span class="n">RUNNING</span><span class="w"> </span><span class="n">CODE</span><span class="o">:</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">SklearnRay.py</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">54</span><span class="p">,</span><span class="m">215</span><span class="w"> </span><span class="n">WARNING</span><span class="w"> </span><span class="n">utils.py</span><span class="o">:</span><span class="m">652</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Ray</span><span class="w"> </span><span class="n">currently</span><span class="w"> </span><span class="n">does</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">support</span><span class="w"> </span><span class="n">initializing</span><span class="w"> </span><span class="n">Raywith</span><span class="w"> </span><span class="n">fractional</span><span class="w"> </span><span class="n">cpus.</span><span class="w"> </span><span class="n">Your</span><span class="w"> </span><span class="n">num_cpus</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">truncated</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="m">7.5</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="m">7</span><span class="n">.</span>
+<span class="p">[</span><span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">54</span><span class="p">,</span><span class="m">271</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="m">956</span><span class="w"> </span><span class="m">956</span><span class="p">]</span><span class="w"> </span><span class="n">global_state_accessor.cc</span><span class="o">:</span><span class="m">356</span><span class="o">:</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="m">10.42</span><span class="n">.</span><span class="m">34.213</span><span class="p">,</span><span class="w"> </span><span class="n">while</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">find</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">matched</span><span class="w"> </span><span class="n">Raylet</span><span class="w"> </span><span class="n">address.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">maybe</span><span class="w"> </span><span class="n">come</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">when</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">connect</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Ray</span><span class="w"> </span><span class="n">cluster</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">different</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="n">connect</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">container.</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">54</span><span class="p">,</span><span class="m">135</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">866</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Local</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="n">IP</span><span class="o">:</span><span class="w"> </span><span class="m">10.42</span><span class="n">.</span><span class="m">34.213</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">54</span><span class="p">,</span><span class="m">274</span><span class="w"> </span><span class="n">SUCC</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">878</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="o">--------------------</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">54</span><span class="p">,</span><span class="m">275</span><span class="w"> </span><span class="n">SUCC</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">879</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Ray</span><span class="w"> </span><span class="n">runtime</span><span class="w"> </span><span class="n">started.</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">54</span><span class="p">,</span><span class="m">275</span><span class="w"> </span><span class="n">SUCC</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">880</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="o">--------------------</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">54</span><span class="p">,</span><span class="m">275</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">882</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">To</span><span class="w"> </span><span class="n">terminate</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Ray</span><span class="w"> </span><span class="n">runtime</span><span class="p">,</span><span class="w"> </span><span class="n">run</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">54</span><span class="p">,</span><span class="m">275</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">883</span><span class="w"> </span><span class="o">--</span><span class="w">   </span><span class="n">ray</span><span class="w"> </span><span class="n">stop</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">54</span><span class="p">,</span><span class="m">275</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">891</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="o">--</span><span class="n">block</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">54</span><span class="p">,</span><span class="m">275</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">892</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">forever</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="n">terminated</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">signal.</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">08</span><span class="o">:</span><span class="m">54</span><span class="p">,</span><span class="m">275</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">scripts.py</span><span class="o">:</span><span class="m">895</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Running</span><span class="w"> </span><span class="n">subprocesses</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">monitored</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">printed</span><span class="w"> </span><span class="n">if</span><span class="w"> </span><span class="n">any</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">them</span><span class="w"> </span><span class="n">terminate</span><span class="w"> </span><span class="n">unexpectedly.</span><span class="w"> </span><span class="n">Subprocesses</span><span class="w"> </span><span class="n">exit</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">SIGTERM</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">treated</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">graceful</span><span class="p">,</span><span class="w"> </span><span class="n">thus</span><span class="w"> </span><span class="n">NOT</span><span class="w"> </span><span class="n">reported.</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">09</span><span class="o">:</span><span class="m">24</span><span class="p">,</span><span class="m">758</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">worker.py</span><span class="o">:</span><span class="m">1364</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Connecting</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">existing</span><span class="w"> </span><span class="n">Ray</span><span class="w"> </span><span class="n">cluster</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">address</span><span class="o">:</span><span class="w"> </span><span class="m">10.42</span><span class="n">.</span><span class="m">47.86</span><span class="o">:</span><span class="m">6379</span><span class="kc">...</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">09</span><span class="o">:</span><span class="m">24</span><span class="p">,</span><span class="m">775</span><span class="w"> </span><span class="n">INFO</span><span class="w"> </span><span class="n">worker.py</span><span class="o">:</span><span class="m">1553</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Connected</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">Ray</span><span class="w"> </span><span class="n">cluster.</span>
+<span class="m">2023-04-25</span><span class="w"> </span><span class="m">12</span><span class="o">:</span><span class="m">09</span><span class="o">:</span><span class="m">25</span><span class="p">,</span><span class="m">073</span><span class="w"> </span><span class="n">WARNING</span><span class="w"> </span><span class="n">pool.py</span><span class="o">:</span><span class="m">604</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="s">&#39;context&#39;</span><span class="w"> </span><span class="n">argument</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">supported</span><span class="w"> </span><span class="n">using</span><span class="w"> </span><span class="n">ray.</span><span class="w"> </span><span class="n">Please</span><span class="w"> </span><span class="n">refer</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">documentation</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">how</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">control</span><span class="w"> </span><span class="n">ray</span><span class="w"> </span><span class="n">initialization.</span>
+<span class="n">Fitting</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">folds</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">each</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="n">candidates</span><span class="p">,</span><span class="w"> </span><span class="n">totalling</span><span class="w"> </span><span class="m">5000</span><span class="w"> </span><span class="n">fits</span>
+<span class="m">209.00055767036974</span>
+<span class="n">srun</span><span class="o">:</span><span class="w"> </span><span class="n">Job</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">aborted</span><span class="o">:</span><span class="w"> </span><span class="n">Waiting</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="n">seconds</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">finish.</span>
+<span class="n">srun</span><span class="o">:</span><span class="w"> </span><span class="n">Job</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">aborted</span><span class="o">:</span><span class="w"> </span><span class="n">Waiting</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="n">seconds</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">finish.</span>
+<span class="n">srun</span><span class="o">:</span><span class="w"> </span><span class="n">Job</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">aborted</span><span class="o">:</span><span class="w"> </span><span class="n">Waiting</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="n">seconds</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">finish.</span>
+<span class="n">slurmstepd</span><span class="o">-</span><span class="n">node2</span><span class="o">:</span><span class="w"> </span><span class="n">error</span><span class="o">:</span><span class="w"> </span><span class="o">***</span><span class="w"> </span><span class="n">STEP</span><span class="w"> </span><span class="m">2.3</span><span class="w"> </span><span class="n">ON</span><span class="w"> </span><span class="n">node2</span><span class="w"> </span><span class="n">CANCELLED</span><span class="w"> </span><span class="n">AT</span><span class="w"> </span><span class="m">2023-04-25</span><span class="n">T12</span><span class="o">:</span><span class="m">12</span><span class="o">:</span><span class="m">54</span><span class="w"> </span><span class="o">***</span>
+<span class="n">slurmstepd</span><span class="o">-</span><span class="n">node0</span><span class="o">:</span><span class="w"> </span><span class="n">error</span><span class="o">:</span><span class="w"> </span><span class="o">***</span><span class="w"> </span><span class="n">STEP</span><span class="w"> </span><span class="m">2.1</span><span class="w"> </span><span class="n">ON</span><span class="w"> </span><span class="n">node0</span><span class="w"> </span><span class="n">CANCELLED</span><span class="w"> </span><span class="n">AT</span><span class="w"> </span><span class="m">2023-04-25</span><span class="n">T12</span><span class="o">:</span><span class="m">12</span><span class="o">:</span><span class="m">54</span><span class="w"> </span><span class="o">***</span>
+<span class="n">slurmstepd</span><span class="o">-</span><span class="n">node1</span><span class="o">:</span><span class="w"> </span><span class="n">error</span><span class="o">:</span><span class="w"> </span><span class="o">***</span><span class="w"> </span><span class="n">STEP</span><span class="w"> </span><span class="m">2.2</span><span class="w"> </span><span class="n">ON</span><span class="w"> </span><span class="n">node1</span><span class="w"> </span><span class="n">CANCELLED</span><span class="w"> </span><span class="n">AT</span><span class="w"> </span><span class="m">2023-04-25</span><span class="n">T12</span><span class="o">:</span><span class="m">12</span><span class="o">:</span><span class="m">54</span><span class="w"> </span><span class="o">***</span>
+<span class="n">srun</span><span class="o">:</span><span class="w"> </span><span class="n">error</span><span class="o">:</span><span class="w"> </span><span class="n">node2</span><span class="o">:</span><span class="w"> </span><span class="n">task</span><span class="w"> </span><span class="m">0</span><span class="o">:</span><span class="w"> </span><span class="n">Exited</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">exit</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="m">1</span>
+<span class="n">srun</span><span class="o">:</span><span class="w"> </span><span class="n">error</span><span class="o">:</span><span class="w"> </span><span class="n">node1</span><span class="o">:</span><span class="w"> </span><span class="n">task</span><span class="w"> </span><span class="m">0</span><span class="o">:</span><span class="w"> </span><span class="n">Exited</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">exit</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="m">1</span>
+<span class="n">srun</span><span class="o">:</span><span class="w"> </span><span class="n">error</span><span class="o">:</span><span class="w"> </span><span class="n">node0</span><span class="o">:</span><span class="w"> </span><span class="n">task</span><span class="w"> </span><span class="m">0</span><span class="o">:</span><span class="w"> </span><span class="n">Exited</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">exit</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="m">1</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.indexes", "toc.follow", "search.suggest", "search.higlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.b4d07000.min.js"></script>
+      
+    
+  </body>
+</html>

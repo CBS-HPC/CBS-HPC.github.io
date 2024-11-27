@@ -115,6 +115,12 @@ class Sftp:
         
         self._tables_available = None
         self._tables_backup = None
+        self._table_dictionary = None
+        self._table_dates = None
+        self.output_format: list =  ['.csv'] 
+        self.file_size_mb:int = 500
+        self.delete_files: bool = False
+        self.concat_files: bool = True
 
         self._object_defaults()
 
@@ -202,36 +208,32 @@ class Sftp:
         """
        
         if path is None:
-            self._remote_files = []
-            self._remote_path  = None    
-            self._local_files  = []
-            self._local_path   = None
-            self._set_data_product = None
-            self._set_table = None
+            #self._remote_files = []
+            #self._remote_path  = None
+            #self._local_files  = []
+            #self._local_path   = None
+            #self._set_data_product = None
+            #self._set_table = None
+            self._object_defaults()
 
         elif path is not self.remote_path:
             self._local_files  = []
             self._local_path   = None
             self._remote_files, self._remote_path = self._check_path(path,"remote")
 
-            if self._remote_path is not None:
-
+            if self._remote_path:
                 df = self._tables_available.query(f"`Base Directory` == '{self._remote_path}'")
         
                 if df.empty:
                     df = self._tables_available.query(f"`Export` == '{self._remote_path}'")
                     self._set_table = None
-                else:                 
-                    if (self._set_table and self._set_table not in df['Table'].values) or not self._set_table:
-                        self._set_table = df['Table'].iloc[0]
-                
-                if not df.empty:
-                    if (self._set_data_product and self._set_data_product not in df['Data Product'].values) or not self._set_data_product:    
+                else:        
+                    if self._set_data_product not in df['Data Product'].values:    
                         self._set_data_product = df['Data Product'].iloc[0]
                         self._tables_available = df 
-                
-                if len(self._remote_files) > 1 and any(file.endswith('.csv') for file in self._remote_files):
-                    self._remote_files, self._remote_path = self._check_path(path,"remote")
+                    
+                    if self._set_table not in df['Table'].values:
+                        self._set_table = df['Table'].iloc[0]
  
     @property
     def remote_files(self):
@@ -262,15 +264,16 @@ class Sftp:
             self._tables_available = self._tables_backup.copy()
 
         if product is None:
-            self._set_data_product = None
-            self._set_table = None
-            self.remote_path = None
-            self._time_stamp = None
-            self._select_cols = None 
-            self.query = None
-            self.query_args = None
+            # self._set_data_product = None
+            # self._set_table = None
+            # self.remote_path = None
+            # self._time_stamp = None
+            # self._select_cols = None
+            # self.query = None
+            # self.query_args = None
+            self._object_defaults()
 
-        elif product is not self._set_data_product:
+        if product is not self._set_data_product:
             
             df = self._tables_available.query(f"`Data Product` == '{product}'")
 
@@ -290,13 +293,15 @@ class Sftp:
 
                 print(f"Multiple version of '{product}' are detected: {matches['Data Product'].tolist()} with export paths ('Export') {matches['Export'].tolist()} .Please Set the '.remote_path' property with the correct 'Export' Path")                
             else:
+                self._object_defaults()
                 self._tables_available = df
                 self._set_data_product = product
-                self._set_table = None
-                self._select_cols = None 
-                self.query = None
-                self.query_args = None
                 self._time_stamp = df['Timestamp'].iloc[0]
+                #self._set_table = None
+                #self._select_cols = None
+                #self.query = None
+                #self.query_args = None
+
 
     @property
     def set_table(self):
@@ -316,11 +321,12 @@ class Sftp:
         """
 
         if table is None:
-            self._set_table = None
-            self.remote_path = None
-            self._select_cols = None 
-            self.query = None
-            self.query_args = None
+            # self._set_table = None
+            # self.remote_path = None
+            # self._select_cols = None
+            # self.query = None
+            # self.query_args = None
+            self._object_defaults()
 
         elif table is not self._set_table:
             
@@ -347,12 +353,12 @@ class Sftp:
                     print(f"Multiple version of '{table}' are detected: {matches['Table'].tolist()} from {matches['Data Product'].tolist()} with export paths ('Base Directory') {matches['Base Directory'].tolist()} .Please Set the '.remote_path' property with the correct 'Base Directory' Path")
                 self._set_table = None    
             else:
+                self._object_defaults()
                 self._set_table = table
-                self.set_data_product = df['Data Product'].iloc[0]
+                self._set_data_product = df['Data Product'].iloc[0]
+                self._time_stamp = df['Timestamp'].iloc[0]
                 self.remote_path = df['Base Directory'].iloc[0]
-                self._select_cols = None 
-                self.query = None
-                self.query_args = None
+                
    
     @property
     def bvd_list(self):
@@ -387,13 +393,12 @@ class Sftp:
                 bvd_list, search_type, non_matching_items = check_bvd_format(bvd_list, df_bvd)
 
                 # If successful, return the result
-                if search_type is not None:
-                     #Checking if column name is a bvd or not
-                    column, _, _ = check_bvd_format([column], df_bvd)
-                    if column:
-                        bvd_list.extend(column)
-                        bvd_list = list(set(bvd_list))
-                    return bvd_list, search_type, non_matching_items
+                column, _, _ = check_bvd_format([column], df_bvd)
+                if column:
+                    bvd_list.extend(column)
+                    bvd_list = list(set(bvd_list))
+
+                return bvd_list, search_type, non_matching_items
 
             return  bvd_list, search_type, non_matching_items  
             
@@ -412,11 +417,32 @@ class Sftp:
             # Determine which check has more matches
             if df_match_count >= regex_match_count:
                 non_matching_items = [item for item in bvd_list if item not in df_code_values]
-                return df_matches, True if df_match_count == len(bvd_list) else None, non_matching_items
+                return df_matches, True, non_matching_items
             else:
                 non_matching_items = [item for item in bvd_list if not pattern.match(item)]
-                return regex_matches, False if regex_match_count == len(bvd_list) else None, non_matching_items
+                return regex_matches, False , non_matching_items
 
+        def user_prompt(question):
+            """
+            Prompt the user with a question and allow them to choose between keep, remove, or cancel.
+
+            Parameters:
+                question (str): The question to ask the user.
+
+            Returns:
+                str: The user's choice ('keep', 'remove', 'cancel').
+            """
+            valid_responses = ['keep', 'remove', 'cancel']
+            
+            while True:
+                print(f"\n{question}")
+                response = input("Enter 'keep', 'remove', or 'cancel': ").strip().lower()
+                
+                if response.lower() in valid_responses:
+                    return response.lower()
+                else:
+                    print("Invalid response. Please choose 'keep', 'remove', or 'cancel'.")
+        
         if bvd_list is not None:
             df =self.search_country_codes()
 
@@ -440,8 +466,16 @@ class Sftp:
             bvd_list = _check_list_format(bvd_list)
             bvd_list, search_type,non_matching_items = check_bvd_format(bvd_list,df)
 
-            if search_type is None:
-                raise ValueError(f"The following elements does not seem to match bvd format:{non_matching_items}")
+            if len(non_matching_items) > 0:
+                answer = user_prompt(f"The following elements does not seem to match bvd format:{non_matching_items}")
+                if answer == 'keep':
+                    bvd_list = bvd_list + non_matching_items
+                    print(f"The following bvd_id_numbers were kept:{non_matching_items}")
+                elif answer == 'cancel':
+                    print("Adding the bvd list has been canceled")
+                    return
+                else:
+                    print(f"The following bvd_id_numbers were removed:{non_matching_items}")
 
             if self._set_data_product is None or self._set_table is None:
                 self.select_data()
@@ -1681,6 +1715,8 @@ class Sftp:
         if to_delete is None:
             _, to_delete = self._table_overview()
 
+        to_delete = _check_list_format(to_delete)
+
         if len(to_delete) == 0:
             return 
         elif self.hostname == "s-f2112b8b980e44f9a.server.transfer.eu-west-1.amazonaws.com" and self.username in ["D2vdz8elTWKyuOcC2kMSnw","aN54UkFxQPCOIEtmr0FmAQ"] and int(cpu_count()) >= 32:
@@ -1887,9 +1923,9 @@ class Sftp:
                     path = None
 
             #check_prefix(files)
-            
+          
             if len(files) > 1 and any(file.endswith('.csv') for file in files):
-                if self._set_table is not None:
+                if self._set_table:
                     # Find the file that matches the match_string without the .csv suffix
                     files = [next((file for file in files if os.path.splitext(file)[0] == self._set_table), None)]
         else:
@@ -2174,10 +2210,10 @@ class Sftp:
 
     def _object_defaults(self):
 
-        self.output_format: list =  ['.csv'] 
-        self.file_size_mb:int = 500
-        self.delete_files: bool = False
-        self.concat_files: bool = True
+        #self.output_format: list =  ['.csv'] 
+        #self.file_size_mb:int = 500
+        #self.delete_files: bool = False
+        #self.concat_files: bool = True
         self._select_cols: list = None 
         self.query = None
         self.query_args: list = None
@@ -2191,8 +2227,8 @@ class Sftp:
         self._set_data_product:str = None
         self._time_stamp:str = None
         self._set_table:str = None
-        self._table_dictionary = None
-        self._table_dates = None
+        #self._table_dictionary = None
+        #self._table_dates = None
         self._download_finished = None
 
     # Under development
@@ -2302,7 +2338,7 @@ class Sftp:
         _save_to(df, 'dict_search', save_to)
 
         return df
-
+    
 class _SelectData:
     def __init__(self, df, title="Select Data"):
         self.df = df
@@ -2394,7 +2430,6 @@ class _SelectData:
             await asyncio.sleep(0.1)
 
         return self.selected_product, self.selected_table
-
 class _SelectList:
     def __init__(self, values, col_name: str, title="Select an Option"):
         self.selected_value = values[0]
@@ -2455,7 +2490,6 @@ class _SelectList:
             await asyncio.sleep(0.1)
 
         return self.selected_value
-
 class _SelectMultiple:
     def __init__(self, values, col_name: str, title="Select Multiple Options"):
         self.selected_list = []
@@ -2519,7 +2553,6 @@ class _SelectMultiple:
             await asyncio.sleep(0.1)
 
         return self.selected_list
-
 class _Multi_dropdown:
     def __init__(self, values, col_names, title):
         # Check if values is a list of lists or a single list
@@ -2609,7 +2642,6 @@ class _Multi_dropdown:
             await asyncio.sleep(0.1)
 
         return self.selected_values
-
 class _SelectOptions:
     def __init__(self,config = None):
         # Initialize default configuration
